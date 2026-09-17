@@ -412,7 +412,7 @@
         </div>
     </section>
 
-        <!-- 方案說明 (Pricing - 早鳥限量試用) -->
+    <!-- 方案說明 (Pricing - 早鳥限量試用，已修復標籤切邊問題) -->
     <section id="pricing" class="py-20 px-6 max-w-4xl mx-auto">
         <div class="text-center mb-12">
             <span class="inline-block bg-amber-100 text-amber-800 text-xs font-black px-3.5 py-1 rounded-full mb-2">LIMITED PILOT PROGRAM</span>
@@ -420,9 +420,10 @@
             <p class="text-amber-900/70 text-sm md:text-base">現階段不預設收費門檻，我們想與最重視公會夥伴的會長一起打造最強系統！</p>
         </div>
 
-        <div class="bg-white rounded-3xl border-2 border-amber-300 p-8 md:p-10 soft-card-shadow relative max-w-xl mx-auto overflow-hidden">
-            <!-- 右上角特色標籤 -->
-            <div class="absolute -top-3.5 right-6 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-black px-4 py-1.5 rounded-full shadow-md">
+        <!-- 移除 overflow-hidden，增加頂部 padding 確保標籤完整露出品相極佳 -->
+        <div class="bg-white rounded-3xl border-2 border-amber-300 p-8 md:p-10 soft-card-shadow relative max-w-xl mx-auto pt-10">
+            <!-- 右上角特色標籤：微調位置不切邊 -->
+            <div class="absolute -top-3 right-6 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-black px-4 py-1.5 rounded-full shadow-md z-10">
                 🔥 限量先搶先贏
             </div>
             
