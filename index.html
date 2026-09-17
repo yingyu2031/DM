@@ -32,7 +32,6 @@
 
     <!-- 主視覺區塊 (Hero) -->
     <section class="py-16 md:py-24 px-6 text-center max-w-4xl mx-auto relative overflow-hidden">
-        <!-- 裝飾背景泡泡 -->
         <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-96 h-96 bg-amber-100/60 rounded-full blur-3xl -z-10"></div>
         <div class="absolute top-40 -left-20 w-60 h-60 bg-pink-100/60 rounded-full blur-2xl -z-10"></div>
 
@@ -42,11 +41,11 @@
 
         <h1 class="text-3xl md:text-5xl font-black tracking-tight mb-6 leading-relaxed text-amber-950">
             告別手動統計名單的惡夢！<br>
-            <span class="text-amber-600 underline decoration-wavy decoration-amber-300 underline-offset-8">輕鬆打理公會大小事，把時間留給陪伴 🍯</span>
+            <span class="text-amber-600 underline decoration-wavy decoration-amber-300 underline-offset-8">輕鬆搞定會員行政，把時間留給陪伴 🍯</span>
         </h1>
 
         <p class="text-base md:text-lg text-amber-900/70 mb-10 max-w-2xl mx-auto leading-relaxed">
-            不用再開複雜的 Excel、不用再肉眼對名單！一鍵綁定角色身分、聯賽自動請假推播、幹部審核輕鬆搞定，公會會長與幹部的神隊友來囉！🌱
+            不用再開複雜的 Excel、不用再肉眼對名單！一鍵綁定會員身分、聯賽自動請假推播、幹部審核輕鬆搞定，公會會長與幹部的神隊友來囉！🌱
         </p>
 
         <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
@@ -65,87 +64,69 @@
             <div class="text-center mb-14">
                 <span class="text-amber-600 font-bold text-sm tracking-wider uppercase">✨ LINE 官方帳號互動畫面 ✨</span>
                 <h2 class="text-3xl font-black text-amber-950 mt-1 mb-3">就像跟朋友聊天一樣簡單直覺！</h2>
-                <p class="text-amber-800/70 text-sm md:text-base">公會成員打開 LINE 就能隨時操作，不用額外下載任何 App</p>
+                <p class="text-amber-800/70 text-sm md:text-base">公會會員打開 LINE 就能隨時操作，不用額外下載任何 App</p>
             </div>
 
-            <!-- 三大手機 UI 模擬卡片 -->
-            <div class="grid md:grid-cols-3 gap-8">
+            <!-- 三大手機 UI 模擬展示 -->
+            <div class="grid md:grid-cols-3 gap-8 items-start">
                 
-                <!-- 畫面 1: 身分綁定 -->
+                <!-- 畫面 1: 會員身分即時綁定（使用最新示意圖） -->
                 <div class="bg-white rounded-3xl p-6 border border-amber-100 soft-card-shadow flex flex-col items-center">
-                    <div class="w-full bg-amber-50 rounded-2xl p-4 border border-amber-100 mb-5 relative">
-                        <div class="flex items-center justify-between pb-3 border-b border-amber-150 mb-3">
-                            <span class="text-xs font-bold text-amber-700">💬 LINE 官方帳號</span>
-                            <span class="text-[10px] bg-amber-200 text-amber-800 px-2 py-0.5 rounded-full font-bold">身分綁定</span>
-                        </div>
-                        <div class="bg-white rounded-xl p-4 shadow-sm border border-amber-100 text-center">
-                            <div class="w-14 h-14 mx-auto rounded-full bg-amber-100 flex items-center justify-center text-2xl mb-2">
-                                🦊
-                            </div>
-                            <div class="text-xs text-amber-500 font-bold">歡迎加入公會！</div>
-                            <div class="font-black text-amber-900 text-sm mt-0.5">請確認您的角色資訊</div>
-                            <div class="bg-amber-50 rounded-lg p-2.5 mt-3 text-left text-xs space-y-1 text-amber-800">
-                                <div><span class="text-amber-500">角色名：</span>甜心小補師</div>
-                                <div><span class="text-amber-500">職業：</span>神聖大主教</div>
-                                <div><span class="text-amber-500">伺服器：</span>彩虹森林</div>
-                            </div>
-                            <button class="w-full mt-3 bg-amber-500 text-white text-xs font-bold py-2 rounded-lg shadow-sm">
-                                💖 確認綁定此角色
-                            </button>
-                        </div>
+                    <div class="w-full rounded-2xl overflow-hidden mb-5 bg-[#FBF8F3] border border-amber-150 p-2 flex justify-center">
+                        <img src="watermarked_img_9998764443906909832.jpg" alt="LINE官方帳號 會員資料確認與六格選單示意圖" class="w-full max-w-[280px] h-auto rounded-xl shadow-sm hover:scale-[1.02] transition-transform duration-200">
                     </div>
-                    <h3 class="text-lg font-black text-amber-900 mb-1">🎀 角色身分即時綁定</h3>
+                    <h3 class="text-lg font-black text-amber-900 mb-1">🎀 會員身分即時綁定</h3>
                     <p class="text-xs text-amber-800/70 text-center leading-relaxed">
-                        自動對應玩家 LINE 與遊戲帳號。就算改名或轉職，系統也能自動追蹤歷史里程，再也不用逐一查核！
+                        自動對應會員 LINE 與遊戲 ID。包含下方 6 格專屬選單，會員資料綁定、請假、公告、意見回饋一指搞定！
                     </p>
                 </div>
 
-                <!-- 畫面 2: 幹部審核 -->
+                <!-- 畫面 2: 幹部管理與審核 -->
                 <div class="bg-white rounded-3xl p-6 border border-emerald-100 soft-card-shadow flex flex-col items-center">
-                    <div class="w-full bg-emerald-50/70 rounded-2xl p-4 border border-emerald-100 mb-5 relative">
-                        <div class="flex items-center justify-between pb-3 border-b border-emerald-150 mb-3">
+                    <div class="w-full bg-emerald-50/70 rounded-2xl p-4 border border-emerald-100 mb-5 relative min-h-[380px] flex flex-col justify-center">
+                        <div class="flex items-center justify-between pb-3 border-b border-emerald-200/60 mb-4">
                             <span class="text-xs font-bold text-emerald-800">🛡️ 幹部管理中心</span>
                             <span class="text-[10px] bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded-full font-bold">待審核 (1)</span>
                         </div>
-                        <div class="bg-white rounded-xl p-4 shadow-sm border border-emerald-100 text-center">
-                            <div class="inline-flex items-center gap-1.5 bg-emerald-50 px-2.5 py-1 rounded-full text-xs text-emerald-700 font-bold mb-2">
-                                <span>🌱</span> 新成員入會申請
+                        <div class="bg-white rounded-2xl p-5 shadow-sm border border-emerald-100 text-center">
+                            <div class="inline-flex items-center gap-1.5 bg-emerald-50 px-2.5 py-1 rounded-full text-xs text-emerald-700 font-bold mb-3">
+                                <span>🌱</span> 新會員入會申請
                             </div>
-                            <div class="text-sm font-black text-emerald-950">「魔法草莓泡芙」</div>
-                            <div class="text-[11px] text-emerald-800/60 mb-3">LINE 暱稱: Wendy (Lv.120)</div>
+                            <div class="text-base font-black text-emerald-950">「魔法草莓泡芙」</div>
+                            <div class="text-xs text-emerald-800/60 mb-4 mt-1">LINE 暱稱: Wendy (Lv.120)</div>
                             <div class="grid grid-cols-2 gap-2 mt-2">
-                                <button class="bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold py-2 rounded-lg transition">
+                                <button class="bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold py-2.5 rounded-xl transition shadow-sm">
                                     ✅ 通過審核
                                 </button>
-                                <button class="bg-stone-100 hover:bg-stone-200 text-stone-600 text-xs font-bold py-2 rounded-lg transition">
+                                <button class="bg-stone-100 hover:bg-stone-200 text-stone-600 text-xs font-bold py-2.5 rounded-xl transition">
                                     ❌ 婉拒
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <h3 class="text-lg font-black text-amber-900 mb-1">🧸 幹部審核後台</h3>
+                    <h3 class="text-lg font-black text-amber-900 mb-1">🧸 幹部管理後台</h3>
                     <p class="text-xs text-amber-800/70 text-center leading-relaxed">
-                        新成員一鍵批准入會，杜絕陌生幽靈人口。支援幹部專屬權限，隨時查看入會申請與成員異動。
+                        新入會申請一鍵審核，杜絕幽靈人口。幹部擁有獨立管理後台，會員退會或權限異動輕鬆控管。
                     </p>
                 </div>
 
-                <!-- 畫面 3: 請假推播 -->
+                <!-- 畫面 3: 聯賽請假推播 -->
                 <div class="bg-white rounded-3xl p-6 border border-pink-100 soft-card-shadow flex flex-col items-center">
-                    <div class="w-full bg-pink-50/70 rounded-2xl p-4 border border-pink-100 mb-5 relative">
-                        <div class="flex items-center justify-between pb-3 border-b border-pink-150 mb-3">
-                            <span class="text-xs font-bold text-pink-700">📢 公會推播通知</span>
-                            <span class="text-[10px] bg-pink-200 text-pink-800 px-2 py-0.5 rounded-full font-bold">即時請假單</span>
+                    <div class="w-full bg-pink-50/70 rounded-2xl p-4 border border-pink-100 mb-5 relative min-h-[380px] flex flex-col justify-center">
+                        <div class="flex items-center justify-between pb-3 border-b border-pink-200/60 mb-4">
+                            <span class="text-xs font-bold text-pink-700">📢 公會即時通知</span>
+                            <span class="text-[10px] bg-pink-200 text-pink-800 px-2 py-0.5 rounded-full font-bold">聯賽假單</span>
                         </div>
-                        <div class="bg-white rounded-xl p-4 shadow-sm border border-pink-100 text-left">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-lg">⏰</span>
-                                <span class="text-xs font-black text-pink-950">週六聯賽請假通知</span>
+                        <div class="bg-white rounded-2xl p-5 shadow-sm border border-pink-100 text-left">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-xl">⏰</span>
+                                <span class="text-sm font-black text-pink-950">週六聯賽請假通知</span>
                             </div>
-                            <p class="text-[11px] text-pink-800/80 mb-2 leading-relaxed">
-                                成員 <b>@暴走小布丁</b> 已提交假單：<br>
-                                <span class="text-pink-600 font-medium">「加班無法上線，請安排替補～」</span>
+                            <p class="text-xs text-pink-800/80 mb-4 leading-relaxed">
+                                會員 <b>@暴走小布丁</b> 已提交假單：<br>
+                                <span class="text-pink-600 font-medium">「加班無法準時上線，請提早安排替補～」</span>
                             </p>
-                            <div class="bg-pink-50 p-2 rounded-lg text-[10px] text-pink-700 flex justify-between">
+                            <div class="bg-pink-50 p-2.5 rounded-xl text-xs text-pink-700 flex justify-between font-bold">
                                 <span>目前請假：3 人</span>
                                 <span>截止倒數：2 小時</span>
                             </div>
@@ -153,7 +134,7 @@
                     </div>
                     <h3 class="text-lg font-black text-amber-900 mb-1">⏰ 聯賽請假即時推播</h3>
                     <p class="text-xs text-amber-800/70 text-center leading-relaxed">
-                        活動前自動截止請假、秒速彙整出席與缺席名單。即時推播幹部群，讓出戰調度從容不慌張！
+                        活動前設定時間自動截止請假，秒速統整出缺席名單，並即時推播給幹部，排班調度從容不慌張！
                     </p>
                 </div>
 
@@ -161,15 +142,14 @@
         </div>
     </section>
 
-    <!-- 價格方案 (Pricing) - 移除399，精簡為全功能溫馨版 -->
+    <!-- 方案說明 (Pricing) -->
     <section id="pricing" class="py-20 px-6 max-w-4xl mx-auto">
         <div class="text-center mb-14">
             <span class="text-amber-600 font-bold text-sm">PRICING PLAN</span>
             <h2 class="text-3xl font-black text-amber-950 mt-1 mb-3">簡單無負擔的公會守護方案</h2>
-            <p class="text-amber-900/70 text-sm md:text-base">全功能一次享有，不用煩惱複雜的額外加價，隨時可終止服務</p>
+            <p class="text-amber-900/70 text-sm md:text-base">全功能一次享有，不用煩惱複雜的加價項目，隨時可取消</p>
         </div>
 
-        <!-- 推薦卡片 -->
         <div class="bg-white rounded-3xl border-2 border-amber-300 p-8 md:p-10 soft-card-shadow relative max-w-xl mx-auto">
             <div class="absolute -top-3.5 right-8 bg-amber-500 text-white text-xs font-black px-4 py-1.5 rounded-full shadow-md">
                 ⭐ 公會會長首選
@@ -182,30 +162,30 @@
                 NT$ 799 <span class="text-sm font-bold text-amber-800/60">/ 月（無合約綁定）</span>
             </div>
             <p class="text-amber-900/70 text-xs md:text-sm mb-8 leading-relaxed">
-                適合所有熱愛公會的夥伴！為您省下每週數小時的統計與對名單雜務，讓每次公會活動都溫馨井然有序。
+                適合所有認真經營公會的幹部夥伴！每週省下數小時的行政與手動對單，讓每次公會活動都井然有序。
             </p>
 
             <!-- 包含功能清單 -->
             <ul class="space-y-3.5 text-sm text-amber-950 mb-8 border-t border-amber-100 pt-6">
                 <li class="flex items-center gap-2.5">
                     <span class="text-amber-500 font-bold">🌸</span>
-                    <span><b>LINE 角色綁定表單</b>（直覺填寫、支援 UID 綁定）</span>
+                    <span><b>LINE 會員綁定確認表單</b>（直覺填寫、支援 UID 綁定）</span>
                 </li>
                 <li class="flex items-center gap-2.5">
                     <span class="text-amber-500 font-bold">🌸</span>
-                    <span><b>成員歷史里程碑追蹤</b>（改名、轉職歷程不漏看）</span>
+                    <span><b>會員歷史里程碑追蹤</b>（改名、異動紀錄清楚完整）</span>
                 </li>
                 <li class="flex items-center gap-2.5">
                     <span class="text-amber-500 font-bold">🌸</span>
-                    <span><b>活動／聯賽請假系統</b>（自訂截止倒數、自動封鎖假單）</span>
+                    <span><b>活動／聯賽請假系統</b>（自訂截止時間、逾期自動鎖定）</span>
                 </li>
                 <li class="flex items-center gap-2.5">
                     <span class="text-amber-500 font-bold">🌸</span>
-                    <span><b>幹部專屬管理面板</b>（入會審核、一鍵名單管理）</span>
+                    <span><b>幹部專屬管理面板</b>（會員入會審核、名單管理與異動）</span>
                 </li>
                 <li class="flex items-center gap-2.5">
                     <span class="text-amber-500 font-bold">🌸</span>
-                    <span><b>即時群組推播通知</b>（請假動態與活動提醒一手掌握）</span>
+                    <span><b>即時群組推播通知</b>（請假單送出秒通知、公告推播）</span>
                 </li>
             </ul>
 
@@ -222,7 +202,7 @@
             <div class="text-4xl mb-4">💌</div>
             <h2 class="text-3xl font-black text-amber-950 mb-3">讓公會管理變得輕鬆又溫馨！</h2>
             <p class="text-amber-900/70 text-sm mb-8 leading-relaxed">
-                想讓公會行政更順暢嗎？點擊下方加好友聯繫我們，我們將帶您親自體驗與測試管家機器人！
+                想讓公會行政更順暢、不再為了名單傷腦筋嗎？點擊下方加好友，我們將帶您親自體驗與測試管家系統！
             </p>
             <a href="https://line.me/ti/p/你的LINE連結" target="_blank" class="inline-flex items-center gap-2 bg-[#06C755] hover:bg-[#05b34c] text-white font-black text-base px-8 py-4 rounded-2xl shadow-lg shadow-emerald-200 transition-all hover:scale-105">
                 <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.08.495.236l2.474 3.35v-2.96c0-.346.28-.631.632-.631.347 0 .628.285.628.63v4.774zm-6.233-.63c0 .346-.282.63-.631.63-.346 0-.627-.284-.627-.63V8.108c0-.345.281-.63.627-.63.349 0 .631.285.631.63v4.141zm-2.434-2.88v2.88c0 .346-.282.63-.63.63-.347 0-.628-.284-.628-.63V8.108c0-.345.281-.63.628-.63.348 0 .63.285.63.63v.645h1.258c.347 0 .628.285.628.63 0 .349-.281.63-.628.63H6.843zM24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314z"/></svg>
