@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GuildMaster - 遊戲公會智慧管理系統 | 告別 Excel 地獄</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans TC', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 antialiased">
+
+    <!-- 導覽列 -->
+    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="font-black text-xl text-blue-400 tracking-wider">⚔️ GuildMaster</div>
+            <a href="#contact" class="bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold px-4 py-2 rounded-lg transition">立即諮詢開通</a>
+        </div>
+    </header>
+
+    <!-- Hero 區塊 (主視覺) -->
+    <section class="py-20 px-6 text-center max-w-4xl mx-auto">
+        <div class="inline-block bg-blue-900/50 text-blue-300 border border-blue-700/50 text-xs font-bold px-3 py-1 rounded-full mb-6">
+            專為 MMORPG / 手遊公會打造的 LINE 智慧管家
+        </div>
+        <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-6 leading-tight">
+            還在用 Excel 統計人數、手動對名單？<br><span class="text-blue-500">讓系統幫你搞定公會行政雜務</span>
+        </h1>
+        <p class="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
+            一鍵綁定角色、自動化聯賽請假、活動報名秒速統計。專為會長與幹部設計，省下 80% 的行政時間，把心力留給遊戲本身。
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="#features" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-4 rounded-xl shadow-lg transition">了解核心功能</a>
+            <a href="#pricing" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-8 py-4 rounded-xl border border-slate-700 transition">查看方案價格</a>
+        </div>
+    </section>
+
+    <!-- 痛點與解決方案 (Features) -->
+    <section id="features" class="py-20 bg-slate-950 px-6 border-y border-slate-800/80">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">為什麼各大公會都在找我們？</h2>
+                <p class="text-slate-400">精準解決會長每天最頭痛的三大管理噩夢</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- 功能 1 -->
+                <div class="bg-slate-900 p-8 rounded-2xl border border-slate-800">
+                    <div class="text-3xl mb-4">🆔</div>
+                    <h3 class="text-xl font-bold mb-2">角色綁定與歷史里程</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        成員透過 LINE 隨點隨填。自動對應 LINE UID 與遊戲 ID，就算玩家改名、轉職，系統也會自動記錄異動里程碑，再也不怕認不出誰是誰。
+                    </p>
+                </div>
+                <!-- 功能 2 -->
+                <div class="bg-slate-900 p-8 rounded-2xl border border-slate-800">
+                    <div class="text-3xl mb-4">⏳</div>
+                    <h3 class="text-xl font-bold mb-2">限時聯賽請假與推播</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        支援設定請假截止時間。活動開打前自動封鎖請假通道，並即時推播假單到幹部群組，提早安排替補，拒絕開天窗。
+                    </p>
+                </div>
+                <!-- 功能 3 -->
+                <div class="bg-slate-900 p-8 rounded-2xl border border-slate-800">
+                    <div class="text-3xl mb-4">🛡️</div>
+                    <h3 class="text-xl font-bold mb-2">審核機制與幹部後台</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        新成員需經幹部審核才可入會。支援一鍵剔除退會、權限自動鎖定，幹部擁有專屬的網頁管理面板，操作直覺又安全。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 價格方案 (Pricing) -->
+    <section id="pricing" class="py-20 px-6 max-w-5xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold mb-4">簡單透明的訂閱方案</h2>
+            <p class="text-slate-400">無合約綁定，隨時可取消，專業技術團隊為您在背景穩定運行</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 items-stretch">
+            <!-- 方案一 -->
+            <div class="bg-slate-900 p-8 rounded-3xl border border-slate-800 flex flex-col justify-between">
+                <div>
+                    <div class="text-slate-400 font-bold text-sm mb-2">標準休閒版</div>
+                    <div class="text-4xl font-black mb-4">NT$ 399 <span class="text-sm font-normal text-slate-400">/ 月</span></div>
+                    <p class="text-slate-400 text-sm mb-6">適合人數較少、追求基本公告與活動報名的休閒公會。</p>
+                    <ul class="space-y-3 text-sm text-slate-300 mb-8">
+                        <li class="flex items-center">✅ 會員資料綁定表單</li>
+                        <li class="flex items-center">✅ 基本活動報名與 +1 統計</li>
+                        <li class="flex items-center">✅ 公告推播功能</li>
+                        <li class="flex items-center text-slate-600">❌ 聯賽請假與限時截止 (進階功能)</li>
+                    </ul>
+                </div>
+                <a href="#contact" class="block text-center bg-slate-800 hover:bg-slate-750 font-bold py-3 rounded-xl transition border border-slate-700">選擇標準版</a>
+            </div>
+
+            <!-- 方案二 (推薦) -->
+            <div class="bg-gradient-to-b from-blue-950/40 to-slate-900 p-8 rounded-3xl border-2 border-blue-600 flex flex-col justify-between relative shadow-2xl">
+                <div class="absolute -top-3.5 right-6 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                    最受歡迎
+                </div>
+                <div>
+                    <div class="text-blue-400 font-bold text-sm mb-2">進階專業戰盟版</div>
+                    <div class="text-4xl font-black mb-4">NT$ 799 <span class="text-sm font-normal text-slate-400">/ 月</span></div>
+                    <p class="text-slate-400 text-sm mb-6">專為競爭型、對戰型大公會設計的完整自動化管理系統。</p>
+                    <ul class="space-y-3 text-sm text-slate-300 mb-8">
+                        <li class="flex items-center">✨ 包含標準版所有功能</li>
+                        <li class="flex items-center">🚀 雙表里程記錄（改名/轉職軌跡追蹤）</li>
+                        <li class="flex items-center">⏳ 聯賽請假與限時截止機制</li>
+                        <li class="flex items-center">🛡️ 幹部專屬管理後台（審核/剔除）</li>
+                    </ul>
+                </div>
+                <a href="#contact" class="block text-center bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition shadow-lg">立即預約開通</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 聯絡與CTA (Contact) -->
+    <section id="contact" class="py-20 bg-blue-950/20 px-6 border-t border-slate-800 text-center">
+        <div class="max-w-2xl mx-auto">
+            <h2 class="text-3xl font-bold mb-4">準備好幫公會升級了嗎？</h2>
+            <p class="text-slate-400 mb-8">加好友聯繫開發者，10 分鐘內為您的公會量身打造專屬系統。</p>
+            <a href="https://line.me/ti/p/你的LINE連結" target="_blank" class="inline-block bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-lg px-8 py-4 rounded-xl shadow-xl transition">
+                💬 點擊加 LINE 專人諮詢
+            </a>
+        </div>
+    </section>
+
+    <!-- 頁尾 -->
+    <footer class="py-8 border-t border-slate-900 text-center text-slate-600 text-sm">
+        &copy; 2026 GuildMaster. All rights reserved.
+    </footer>
+
+</body>
+</html>
