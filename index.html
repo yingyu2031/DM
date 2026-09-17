@@ -48,7 +48,7 @@
         </h1>
 
         <p class="text-base md:text-lg text-amber-900/70 mb-10 max-w-2xl mx-auto leading-relaxed">
-            不用再開複雜的 Excel、不用再肉眼對名單！一鍵綁定會員身分、聯賽自動請假推播、幹部審核輕鬆搞定，公會會長與幹部的神隊友來囉！🌱
+            不用再開複雜的 Excel、不用再肉眼對名單！一鍵綁定會員身分、活動競賽報名、聯賽請假推播與幹部管理，公會會長與幹部的最強神隊友！🌱
         </p>
 
         <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
@@ -61,184 +61,178 @@
         </div>
     </section>
 
-    <!-- 官方帳號畫面展示 (Showcase) -->
-    <section id="showcase" class="py-16 bg-[#FFF9F0] px-6 border-y border-amber-100/80">
-        <div class="max-w-6xl mx-auto">
+    <!-- 官方帳號畫面展示 (Showcase - 擴充為 4 大功能展示) -->
+    <section id="showcase" class="py-16 bg-[#FFF9F0] px-4 md:px-6 border-y border-amber-100/80">
+        <div class="max-w-7xl mx-auto">
             <div class="text-center mb-14">
                 <span class="text-amber-600 font-bold text-sm tracking-wider uppercase">✨ LINE 官方帳號互動畫面 ✨</span>
                 <h2 class="text-3xl font-black text-amber-950 mt-1 mb-3">就像跟朋友聊天一樣簡單直覺！</h2>
                 <p class="text-amber-800/70 text-sm md:text-base">公會會員打開 LINE 就能隨時操作，不用額外下載任何 App</p>
             </div>
 
-            <!-- 三大手機 UI 模擬展示 -->
-            <div class="grid md:grid-cols-3 gap-8 items-stretch">
+            <!-- 四大手機 UI 模擬展示 -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
                 
-                <!-- 畫面 1: 純 CSS 擬真手機介面 (含會員資料確認與下方 6 格選單，完全不破圖) -->
-                <div class="bg-white rounded-3xl p-6 border border-amber-100 soft-card-shadow flex flex-col justify-between items-center">
-                    
-                    <!-- 手機機身容器 -->
-                    <div class="w-full max-w-[310px] bg-[#FDF8F0] rounded-[38px] p-3 border-[5px] border-[#F1E4D0] phone-frame relative overflow-hidden mb-5">
-                        
-                        <!-- 手機頂部聽筒與狀態列 -->
-                        <div class="flex justify-between items-center px-3 pt-1 pb-2 text-[10px] font-bold text-amber-900/60">
+                <!-- 畫面 1: 會員資料確認與 6 格選單 -->
+                <div class="bg-white rounded-3xl p-5 border border-amber-100 soft-card-shadow flex flex-col justify-between items-center">
+                    <div class="w-full max-w-[280px] bg-[#FDF8F0] rounded-[34px] p-3 border-4 border-[#F1E4D0] phone-frame relative overflow-hidden mb-4">
+                        <!-- 手機狀態列 -->
+                        <div class="flex justify-between items-center px-2 pt-1 pb-2 text-[9px] font-bold text-amber-900/60">
                             <span>22:41</span>
-                            <!-- 瀏海動態島小藥丸 -->
-                            <div class="w-16 h-3 bg-[#E5D7C2] rounded-full mx-auto"></div>
-                            <div class="flex items-center gap-1">
-                                <span>📶</span>
-                                <span>🔋</span>
-                            </div>
+                            <div class="w-12 h-2.5 bg-[#E5D7C2] rounded-full mx-auto"></div>
+                            <span>📶 🔋</span>
                         </div>
 
-                        <!-- LINE 聊天室 Header -->
-                        <div class="flex items-center justify-between px-2 py-2 border-b border-amber-200/50 text-xs font-bold text-amber-950 mb-2.5">
-                            <div class="flex items-center gap-1.5">
-                                <span class="text-base text-amber-700">‹</span>
-                                <span class="w-4 h-4 rounded-full bg-amber-200 text-[10px] flex items-center justify-center text-amber-800">＋</span>
+                        <!-- LINE Header -->
+                        <div class="flex items-center justify-between px-1 py-1.5 border-b border-amber-200/50 text-[11px] font-bold text-amber-950 mb-2">
+                            <div class="flex items-center gap-1">
+                                <span class="text-amber-700">‹</span>
+                                <span class="w-3.5 h-3.5 rounded-full bg-amber-200 text-[9px] flex items-center justify-center text-amber-800">＋</span>
                                 <span>GuildMaster</span>
                             </div>
-                            <div class="flex items-center gap-2 text-amber-800/70 text-xs">
-                                <span>🔍</span>
-                                <span>📋</span>
-                                <span>☰</span>
-                            </div>
+                            <div class="text-amber-800/70 text-[10px]">🔍 📋 ☰</div>
                         </div>
 
-                        <!-- 聊天時間膠囊標籤 -->
-                        <div class="text-center mb-2.5">
-                            <span class="bg-amber-200/60 text-amber-800 text-[9px] font-bold px-2.5 py-0.5 rounded-full">Today</span>
-                        </div>
-
-                        <!-- 聊天室內容卡片：會員資料確認 -->
-                        <div class="bg-white rounded-2xl p-3 border border-amber-200/70 shadow-sm text-center mb-3">
-                            <!-- 頂部卡片背景飾條 + 狐狸頭像 -->
-                            <div class="relative pt-1 pb-1">
-                                <div class="w-14 h-14 mx-auto rounded-full bg-[#FFEAD1] border-2 border-white shadow-sm flex items-center justify-center text-2xl">
-                                    🦊
-                                </div>
+                        <!-- 聊天室內容卡片 -->
+                        <div class="bg-white rounded-2xl p-2.5 border border-amber-200/70 shadow-sm text-center mb-2.5">
+                            <div class="w-11 h-11 mx-auto rounded-full bg-[#FFEAD1] border-2 border-white shadow-sm flex items-center justify-center text-xl mb-1">
+                                🦊
                             </div>
-                            
-                            <div class="text-xs font-black text-amber-950 mt-1 mb-2">會員資料確認</div>
-                            
-                            <!-- 會員資料清單 -->
-                            <div class="bg-[#FFF9EE] rounded-xl p-2.5 text-left text-[11px] space-y-1 text-amber-950 border border-amber-100 mb-2.5">
+                            <div class="text-[11px] font-black text-amber-950 mb-1.5">會員資料確認</div>
+                            <div class="bg-[#FFF9EE] rounded-xl p-2 text-left text-[10px] space-y-0.5 text-amber-950 border border-amber-100 mb-2">
                                 <div><span class="text-amber-700 font-bold">暱稱：</span>甜心小補師</div>
                                 <div><span class="text-amber-700 font-bold">職業：</span>神聖大主教</div>
                                 <div><span class="text-amber-700 font-bold">LINE：</span>彩虹森林</div>
                             </div>
-
-                            <!-- 確認綁定按鈕 -->
-                            <div class="w-full bg-[#C88A58] hover:bg-[#b87c4c] text-white text-[11px] font-black py-2 rounded-full shadow-sm flex items-center justify-center gap-1.5 cursor-pointer transition">
-                                <span class="text-xs">🤎</span>
+                            <div class="w-full bg-[#C88A58] text-white text-[10px] font-black py-1.5 rounded-full shadow-sm flex items-center justify-center gap-1">
+                                <span>🤎</span>
                                 <span>確認綁定此帳號</span>
                             </div>
                         </div>
 
-                        <!-- 下方 6 格圖文選單 (Rich Menu 2x3) -->
-                        <div class="bg-[#F8CA9E]/50 p-1.5 rounded-2xl border border-[#EDB682]/60">
-                            <div class="grid grid-cols-3 gap-1.5 text-center">
-                                <!-- 1. 會員綁定 -->
-                                <div class="bg-[#CEF1ED] p-1.5 rounded-xl border border-teal-200 shadow-sm flex flex-col items-center justify-center">
-                                    <span class="text-base">⚙️</span>
-                                    <span class="text-[10px] font-black text-teal-950 mt-0.5">會員綁定</span>
-                                </div>
-                                <!-- 2. 聯賽請假 -->
-                                <div class="bg-[#FFDFDF] p-1.5 rounded-xl border border-rose-200 shadow-sm flex flex-col items-center justify-center">
-                                    <span class="text-base">📅</span>
-                                    <span class="text-[10px] font-black text-rose-950 mt-0.5">聯賽請假</span>
-                                </div>
-                                <!-- 3. 幹部管理 -->
-                                <div class="bg-[#D2F3DA] p-1.5 rounded-xl border border-emerald-200 shadow-sm flex flex-col items-center justify-center">
-                                    <span class="text-base">📋</span>
-                                    <span class="text-[10px] font-black text-emerald-950 mt-0.5">幹部管理</span>
-                                </div>
-                                <!-- 4. 活動報名 -->
-                                <div class="bg-[#D6E8FF] p-1.5 rounded-xl border border-blue-200 shadow-sm flex flex-col items-center justify-center">
-                                    <span class="text-base">📢</span>
-                                    <span class="text-[10px] font-black text-blue-950 mt-0.5">活動報名</span>
-                                </div>
-                                <!-- 5. 公會公告 -->
-                                <div class="bg-[#EFE2FE] p-1.5 rounded-xl border border-purple-200 shadow-sm flex flex-col items-center justify-center">
-                                    <span class="text-base">📖</span>
-                                    <span class="text-[10px] font-black text-purple-950 mt-0.5">公會公告</span>
-                                </div>
-                                <!-- 6. 意見回饋 -->
-                                <div class="bg-[#FFF0C7] p-1.5 rounded-xl border border-amber-300 shadow-sm flex flex-col items-center justify-center">
-                                    <span class="text-base">🎧</span>
-                                    <span class="text-[10px] font-black text-amber-950 mt-0.5">意見回饋</span>
-                                </div>
+                        <!-- 下方 6 格選單 -->
+                        <div class="bg-[#F8CA9E]/50 p-1 rounded-xl border border-[#EDB682]/60">
+                            <div class="grid grid-cols-3 gap-1 text-center text-[9px] font-black">
+                                <div class="bg-[#CEF1ED] py-1 rounded-lg border border-teal-200 text-teal-950">⚙️ 會員綁定</div>
+                                <div class="bg-[#FFDFDF] py-1 rounded-lg border border-rose-200 text-rose-950">📅 聯賽請假</div>
+                                <div class="bg-[#D2F3DA] py-1 rounded-lg border border-emerald-200 text-emerald-950">📋 幹部管理</div>
+                                <div class="bg-[#D6E8FF] py-1 rounded-lg border border-blue-200 text-blue-950">📢 活動報名</div>
+                                <div class="bg-[#EFE2FE] py-1 rounded-lg border border-purple-200 text-purple-950">📖 公會公告</div>
+                                <div class="bg-[#FFF0C7] py-1 rounded-lg border border-amber-300 text-amber-950">🎧 意見回饋</div>
                             </div>
                         </div>
-
                     </div>
 
-                    <div class="text-center mt-2">
-                        <h3 class="text-lg font-black text-amber-900 mb-1">🎀 會員身分即時綁定</h3>
+                    <div class="text-center">
+                        <h3 class="text-base font-black text-amber-900 mb-1">🎀 會員身分即時綁定</h3>
                         <p class="text-xs text-amber-800/70 leading-relaxed">
-                            自動對應會員 LINE 與遊戲 ID。包含下方 6 格專屬選單，會員資料綁定、請假、公告、意見回饋一指搞定！
+                            自動對應會員 LINE 與遊戲 ID。點擊下方專屬選單，會員資料綁定一指搞定！
                         </p>
                     </div>
                 </div>
 
-                <!-- 畫面 2: 幹部管理與審核 -->
-                <div class="bg-white rounded-3xl p-6 border border-emerald-100 soft-card-shadow flex flex-col justify-between items-center">
-                    <div class="w-full max-w-[310px] bg-emerald-50/70 rounded-[38px] p-4 border-[5px] border-emerald-100 phone-frame mb-5 flex flex-col justify-center min-h-[440px]">
-                        <div class="flex items-center justify-between pb-3 border-b border-emerald-200/60 mb-5">
-                            <span class="text-xs font-bold text-emerald-800">🛡️ 幹部管理中心</span>
-                            <span class="text-[10px] bg-emerald-200 text-emerald-900 px-2.5 py-0.5 rounded-full font-bold">待審核 (1)</span>
+                <!-- 畫面 2: 活動與健檢報名 (新增功能示意圖) -->
+                <div class="bg-white rounded-3xl p-5 border border-sky-100 soft-card-shadow flex flex-col justify-between items-center">
+                    <div class="w-full max-w-[280px] bg-sky-50/70 rounded-[34px] p-4 border-4 border-sky-150 phone-frame mb-4 flex flex-col justify-center min-h-[420px]">
+                        <div class="flex items-center justify-between pb-2.5 border-b border-sky-200/60 mb-4">
+                            <span class="text-xs font-bold text-sky-800">🎪 活動報名中心</span>
+                            <span class="text-[10px] bg-sky-200 text-sky-900 px-2 py-0.5 rounded-full font-bold">進行中</span>
                         </div>
-                        <div class="bg-white rounded-2xl p-5 shadow-sm border border-emerald-150 text-center">
-                            <div class="inline-flex items-center gap-1.5 bg-emerald-50 px-3 py-1 rounded-full text-xs text-emerald-700 font-bold mb-3">
+                        <div class="bg-white rounded-2xl p-4 shadow-sm border border-sky-150 text-left">
+                            <div class="flex items-center gap-1.5 mb-2">
+                                <span class="text-xl">🥮</span>
+                                <span class="text-xs font-black text-sky-950">中秋爭霸賽＆健檢掛號</span>
+                            </div>
+                            <p class="text-[11px] text-sky-900/80 mb-3 leading-relaxed">
+                                開放帳號戰力健檢諮詢與中秋公會對抗賽組隊！點擊即可秒速掛號完成。
+                            </p>
+                            <div class="bg-sky-50 p-2.5 rounded-xl text-xs text-sky-800 space-y-1 mb-3 font-medium">
+                                <div class="flex justify-between">
+                                    <span>健檢掛號：</span><span class="font-bold text-sky-600">已預約 18 人</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>爭霸賽隊伍：</span><span class="font-bold text-sky-600">已組滿 6 隊</span>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button class="bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold py-2 rounded-xl transition shadow-sm text-center">
+                                    ✨ 立即掛號報名
+                                </button>
+                                <button class="bg-sky-100 hover:bg-sky-200 text-sky-700 text-xs font-bold py-2 rounded-xl transition text-center">
+                                    查看名單
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <h3 class="text-base font-black text-amber-900 mb-1">🎉 活動競賽與健檢掛號</h3>
+                        <p class="text-xs text-amber-800/70 leading-relaxed">
+                            支援自訂大型節慶活動、出團 +1、戰力健檢掛號，名額即時統計不漏接！
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 畫面 3: 聯賽請假推播 (已拿掉截止倒數 2 小時) -->
+                <div class="bg-white rounded-3xl p-5 border border-pink-100 soft-card-shadow flex flex-col justify-between items-center">
+                    <div class="w-full max-w-[280px] bg-pink-50/70 rounded-[34px] p-4 border-4 border-pink-150 phone-frame mb-4 flex flex-col justify-center min-h-[420px]">
+                        <div class="flex items-center justify-between pb-2.5 border-b border-pink-200/60 mb-4">
+                            <span class="text-xs font-bold text-pink-700">📢 公會即時通知</span>
+                            <span class="text-[10px] bg-pink-200 text-pink-800 px-2 py-0.5 rounded-full font-bold">聯賽假單</span>
+                        </div>
+                        <div class="bg-white rounded-2xl p-4 shadow-sm border border-pink-150 text-left">
+                            <div class="flex items-center gap-1.5 mb-2.5">
+                                <span class="text-xl">⏰</span>
+                                <span class="text-xs font-black text-pink-950">週六聯賽請假通知</span>
+                            </div>
+                            <p class="text-[11px] text-pink-800/80 mb-3.5 leading-relaxed">
+                                會員 <b>@暴走小布丁</b> 已提交假單：<br>
+                                <span class="text-pink-600 font-medium">「加班無法準時上線，請提早安排替補～」</span>
+                            </p>
+                            <!-- 簡潔統計欄（已拿掉截止倒數 2 小時） -->
+                            <div class="bg-pink-50 p-2.5 rounded-xl text-xs text-pink-700 flex items-center justify-between font-bold">
+                                <span>📋 假單紀錄</span>
+                                <span class="bg-pink-200/70 px-2.5 py-0.5 rounded-md">目前請假：3 人</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <h3 class="text-base font-black text-amber-900 mb-1">⏰ 聯賽請假即時推播</h3>
+                        <p class="text-xs text-amber-800/70 leading-relaxed">
+                            會員送出請假秒速彙整，即時推播到幹部群組，替補調度從容不慌張！
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 畫面 4: 幹部管理與審核 -->
+                <div class="bg-white rounded-3xl p-5 border border-emerald-100 soft-card-shadow flex flex-col justify-between items-center">
+                    <div class="w-full max-w-[280px] bg-emerald-50/70 rounded-[34px] p-4 border-4 border-emerald-150 phone-frame mb-4 flex flex-col justify-center min-h-[420px]">
+                        <div class="flex items-center justify-between pb-2.5 border-b border-emerald-200/60 mb-4">
+                            <span class="text-xs font-bold text-emerald-800">🛡️ 幹部管理中心</span>
+                            <span class="text-[10px] bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded-full font-bold">待審核 (1)</span>
+                        </div>
+                        <div class="bg-white rounded-2xl p-4 shadow-sm border border-emerald-150 text-center">
+                            <div class="inline-flex items-center gap-1 bg-emerald-50 px-2.5 py-1 rounded-full text-[11px] text-emerald-700 font-bold mb-2">
                                 <span>🌱</span> 新會員入會申請
                             </div>
-                            <div class="text-lg font-black text-emerald-950">「魔法草莓泡芙」</div>
-                            <div class="text-xs text-emerald-800/60 mb-5 mt-1">LINE 暱稱: Wendy (Lv.120)</div>
-                            <div class="grid grid-cols-2 gap-2 mt-2">
-                                <button class="bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold py-2.5 rounded-xl transition shadow-sm">
+                            <div class="text-base font-black text-emerald-950">「魔法草莓泡芙」</div>
+                            <div class="text-[11px] text-emerald-800/60 mb-4 mt-1">LINE 暱稱: Wendy (Lv.120)</div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button class="bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold py-2 rounded-xl transition shadow-sm">
                                     ✅ 通過審核
                                 </button>
-                                <button class="bg-stone-100 hover:bg-stone-200 text-stone-600 text-xs font-bold py-2.5 rounded-xl transition">
+                                <button class="bg-stone-100 hover:bg-stone-200 text-stone-600 text-xs font-bold py-2 rounded-xl transition">
                                     ❌ 婉拒
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <div class="text-center mt-2">
-                        <h3 class="text-lg font-black text-amber-900 mb-1">🧸 幹部管理後台</h3>
+                    <div class="text-center">
+                        <h3 class="text-base font-black text-amber-900 mb-1">🧸 幹部管理後台</h3>
                         <p class="text-xs text-amber-800/70 leading-relaxed">
-                            新入會申請一鍵審核，杜絕幽靈人口。幹部擁有獨立管理後台，會員退會或權限異動輕鬆控管。
-                        </p>
-                    </div>
-                </div>
-
-                <!-- 畫面 3: 聯賽請假推播 -->
-                <div class="bg-white rounded-3xl p-6 border border-pink-100 soft-card-shadow flex flex-col justify-between items-center">
-                    <div class="w-full max-w-[310px] bg-pink-50/70 rounded-[38px] p-4 border-[5px] border-pink-100 phone-frame mb-5 flex flex-col justify-center min-h-[440px]">
-                        <div class="flex items-center justify-between pb-3 border-b border-pink-200/60 mb-5">
-                            <span class="text-xs font-bold text-pink-700">📢 公會即時通知</span>
-                            <span class="text-[10px] bg-pink-200 text-pink-800 px-2.5 py-0.5 rounded-full font-bold">聯賽假單</span>
-                        </div>
-                        <div class="bg-white rounded-2xl p-5 shadow-sm border border-pink-150 text-left">
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="text-2xl">⏰</span>
-                                <span class="text-sm font-black text-pink-950">週六聯賽請假通知</span>
-                            </div>
-                            <p class="text-xs text-pink-800/80 mb-4 leading-relaxed">
-                                會員 <b>@暴走小布丁</b> 已提交假單：<br>
-                                <span class="text-pink-600 font-medium">「加班無法準時上線，請提早安排替補～」</span>
-                            </p>
-                            <div class="bg-pink-50 p-2.5 rounded-xl text-xs text-pink-700 flex justify-between font-bold">
-                                <span>目前請假：3 人</span>
-                                <span>截止倒數：2 小時</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="text-center mt-2">
-                        <h3 class="text-lg font-black text-amber-900 mb-1">⏰ 聯賽請假即時推播</h3>
-                        <p class="text-xs text-amber-800/70 leading-relaxed">
-                            活動前設定時間自動截止請假，秒速統整出缺席名單，並即時推播給幹部，排班調度從容不慌張！
+                            新入會申請一鍵審核，杜絕幽靈人口。支援名單權限異動，公會行政省心又安心！
                         </p>
                     </div>
                 </div>
@@ -282,15 +276,15 @@
                 </li>
                 <li class="flex items-center gap-2.5">
                     <span class="text-amber-500 font-bold">🌸</span>
-                    <span><b>活動／聯賽請假系統</b>（自訂截止時間、逾期自動鎖定）</span>
+                    <span><b>節慶競賽與健檢掛號系統</b>（出團報名、名額自動累計）</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                    <span class="text-amber-500 font-bold">🌸</span>
+                    <span><b>活動／聯賽請假系統</b>（即時統計請假人數、自動通報幹部）</span>
                 </li>
                 <li class="flex items-center gap-2.5">
                     <span class="text-amber-500 font-bold">🌸</span>
                     <span><b>幹部專屬管理面板</b>（會員入會審核、名單管理與異動）</span>
-                </li>
-                <li class="flex items-center gap-2.5">
-                    <span class="text-amber-500 font-bold">🌸</span>
-                    <span><b>即時群組推播通知</b>（請假單送出秒通知、公告推播）</span>
                 </li>
             </ul>
 
