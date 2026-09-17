@@ -128,47 +128,74 @@
                     </div>
                 </div>
 
-                <!-- 卡片 2: 活動報名與健檢掛號 -->
-                <div class="bg-white rounded-3xl p-5 border border-sky-100 soft-card-shadow flex flex-col justify-between items-center">
-                    <div class="w-full max-w-[280px] bg-sky-50/70 rounded-[34px] p-4 border-4 border-sky-150 phone-frame mb-4 flex flex-col justify-center min-h-[420px]">
-                        <div class="flex items-center justify-between pb-2.5 border-b border-sky-200/60 mb-4">
-                            <span class="text-xs font-bold text-sky-800">🎪 活動報名中心</span>
-                            <span class="text-[10px] bg-sky-200 text-sky-900 px-2 py-0.5 rounded-full font-bold">進行中</span>
-                        </div>
-                        <div class="bg-white rounded-2xl p-4 shadow-sm border border-sky-150 text-left">
-                            <div class="flex items-center gap-1.5 mb-2">
-                                <span class="text-xl">🥮</span>
-                                <span class="text-xs font-black text-sky-950">中秋爭霸賽＆健檢掛號</span>
-                            </div>
-                            <p class="text-[11px] text-sky-900/80 mb-3 leading-relaxed">
-                                開放公會戰力健檢與節慶組隊報名！點擊下方按鈕即可秒速掛號完成。
-                            </p>
-                            <div class="bg-sky-50 p-2.5 rounded-xl text-xs text-sky-800 space-y-1 mb-3 font-medium">
-                                <div class="flex justify-between">
-                                    <span>健檢掛號：</span><span class="font-bold text-sky-600">已預約 18 人</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span>爭霸賽名額：</span><span class="font-bold text-sky-600">已組滿 6 隊</span>
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-2 gap-2">
-                                <button class="bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold py-2 rounded-xl transition shadow-sm text-center">
-                                    ✨ 立即掛號
-                                </button>
-                                <button class="bg-sky-100 hover:bg-sky-200 text-sky-700 text-xs font-bold py-2 rounded-xl transition text-center">
-                                    查看名單
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+<!-- 卡片 2: 獨立活動報名與健檢掛號（已分開呈現） -->
+<div class="bg-white rounded-3xl p-5 border border-sky-100 soft-card-shadow flex flex-col justify-between items-center">
+    <div class="w-full max-w-[280px] bg-sky-50/70 rounded-[34px] p-3.5 border-4 border-sky-150 phone-frame mb-4 flex flex-col justify-center min-h-[440px]">
+        
+        <!-- 頂部標題列 -->
+        <div class="flex items-center justify-between pb-2 border-b border-sky-200/60 mb-2.5">
+            <span class="text-xs font-bold text-sky-800">🎪 活動報名中心</span>
+            <span class="text-[10px] bg-sky-200 text-sky-900 px-2 py-0.5 rounded-full font-bold">2 項進行中</span>
+        </div>
 
-                    <div class="text-center">
-                        <h3 class="text-base font-black text-amber-900 mb-1">🎉 活動競賽與健檢掛號</h3>
-                        <p class="text-xs text-amber-800/70 leading-relaxed">
-                            支援自訂大型節慶活動、出團 +1、戰力健檢掛號，名額即時統計不漏接！
-                        </p>
+        <div class="space-y-2.5 text-left">
+            <!-- 活動一：中秋爭霸賽 (獨立報名) -->
+            <div class="bg-white rounded-2xl p-2.5 shadow-sm border border-sky-150">
+                <div class="flex items-center justify-between mb-1">
+                    <div class="flex items-center gap-1 font-black text-sky-950 text-xs">
+                        <span>🥮</span>
+                        <span>中秋公會對抗賽</span>
                     </div>
+                    <span class="text-[9px] bg-amber-100 text-amber-800 font-bold px-1.5 py-0.5 rounded">熱門</span>
                 </div>
+                <div class="flex justify-between items-center text-[10px] text-stone-600 bg-sky-50/80 px-2 py-1 rounded-lg mb-2 font-medium">
+                    <span>參賽隊伍狀況：</span>
+                    <span class="font-bold text-sky-700">已組滿 6 隊 (滿額候補)</span>
+                </div>
+                <div class="grid grid-cols-2 gap-1.5">
+                    <button class="bg-sky-500 hover:bg-sky-600 text-white text-[10px] font-bold py-1.5 rounded-lg shadow-sm text-center">
+                        ⚔️ 組隊報名
+                    </button>
+                    <button class="bg-stone-100 hover:bg-stone-200 text-stone-600 text-[10px] font-bold py-1.5 rounded-lg text-center">
+                        賽程名單
+                    </button>
+                </div>
+            </div>
+
+            <!-- 活動二：帳號健檢掛號 (獨立報名) -->
+            <div class="bg-white rounded-2xl p-2.5 shadow-sm border border-sky-150">
+                <div class="flex items-center justify-between mb-1">
+                    <div class="flex items-center gap-1 font-black text-sky-950 text-xs">
+                        <span>🩺</span>
+                        <span>幹部戰力健檢掛號</span>
+                    </div>
+                    <span class="text-[9px] bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.5 rounded">名額有限</span>
+                </div>
+                <div class="flex justify-between items-center text-[10px] text-stone-600 bg-sky-50/80 px-2 py-1 rounded-lg mb-2 font-medium">
+                    <span>目前預約人數：</span>
+                    <span class="font-bold text-emerald-700">已掛號 18 / 25 人</span>
+                </div>
+                <div class="grid grid-cols-2 gap-1.5">
+                    <button class="bg-emerald-500 hover:bg-emerald-600 text-white text-[10px] font-bold py-1.5 rounded-lg shadow-sm text-center">
+                        📝 預約健檢
+                    </button>
+                    <button class="bg-stone-100 hover:bg-stone-200 text-stone-600 text-[10px] font-bold py-1.5 rounded-lg text-center">
+                        看掛號序
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="text-center">
+        <h3 class="text-base font-black text-amber-900 mb-1">🎉 多活動獨立報名與掛號</h3>
+        <p class="text-xs text-amber-800/70 leading-relaxed">
+            支援多項公會活動並行！中秋競賽組隊、帳號健檢掛號獨立點選，名額各自統計超清楚。
+        </p>
+    </div>
+</div>
+
 
                 <!-- 卡片 3: 聯賽請假推播 -->
                 <div class="bg-white rounded-3xl p-5 border border-pink-100 soft-card-shadow flex flex-col justify-between items-center">
