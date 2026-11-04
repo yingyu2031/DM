@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>人事行政管理師 — 專案交付驗收檢核表與事前準備清單</title>
+<style>
+  :root {
+    --navy: #1B3A5C;
+    --blue: #2E75B6;
+    --dark-blue: #1F4E79;
+    --light-blue: #D6E4F0;
+    --green: #E2EFDA;
+    --green-dark: #2E7D32;
+    --border: #CBD5E1;
+    --text: #2C3E50;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { 
+    font-family: "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", sans-serif; 
+    color: var(--text); 
+    background: #FAFBFC; 
+    padding: 0; 
+    line-height: 1.6; 
+    font-size: 15px; 
+  }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+
+  /* 頂部 Header */
+  .page-header {
+    background: linear-gradient(135deg, var(--navy), var(--dark-blue));
+    color: #fff;
+    padding: 24px 30px;
+    border-radius: 10px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .page-header h1 { font-size: 24px; margin-bottom: 6px; }
+  .page-header p { font-size: 14px; opacity: 0.9; }
+
+  /* 卡片與區塊 */
+  .card { 
+    background: #fff; 
+    border-radius: 8px; 
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06); 
+    margin-bottom: 24px; 
+    overflow: hidden; 
+    border: 1px solid #E2E8F0; 
+  }
+  .card-header { 
+    padding: 14px 20px; 
+    font-size: 16px; 
+    font-weight: bold; 
+    color: #fff; 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+  }
+  .card-header.navy { background: linear-gradient(135deg, var(--navy), var(--blue)); }
+  .card-header.red { background: linear-gradient(135deg, #B71C1C, #C62828); }
+  .card-body { padding: 20px; }
+
+  /* 客戶抬頭與工具列 */
+  .meta-box {
+    background: #F8FAFC;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .meta-box label { font-weight: bold; color: var(--navy); white-space: nowrap; }
+  .meta-input {
+    flex: 1;
+    min-width: 250px;
+    padding: 8px 12px;
+    border: 1px solid #CBD5E1;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #fff;
+    outline: none;
+    font-family: inherit;
+  }
+  .meta-input:focus { border-color: var(--blue); }
+
+  /* 本機存檔控制列 */
+  .storage-toolbar {
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    border-radius: 6px;
+    padding: 10px 16px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .storage-status { font-size: 13px; color: #1E40AF; display: flex; align-items: center; gap: 6px; font-weight: 500; }
+  .storage-dot { width: 8px; height: 8px; border-radius: 50%; background: #10B981; display: inline-block; }
+  .btn-group { display: flex; gap: 8px; }
+  .btn-tool {
+    padding: 5px 12px;
+    font-size: 12px;
+    border-radius: 4px;
+    border: 1px solid #93C5FD;
+    background: #fff;
+    color: #1E3A8A;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  .btn-tool:hover { background: #DBEAFE; }
+  .btn-tool.danger { color: #991B1B; border-color: #FCA5A5; }
+  .btn-tool.danger:hover { background: #FEE2E2; }
+
+  /* 角色分組樣式 (HR / IT) */
+  .role-section {
+    margin-bottom: 20px;
+  }
+  .role-section:last-child {
+    margin-bottom: 0;
+  }
+  .role-title {
+    font-size: 15px;
+    font-weight: bold;
+    padding: 8px 14px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .role-title.hr {
+    background: #EFF6FF;
+    color: #1E40AF;
+    border-left: 4px solid #2E75B6;
+  }
+  .role-title.it {
+    background: #F0FDF4;
+    color: #166534;
+    border-left: 4px solid #16A34A;
+  }
+
+  /* 客戶事前準備清單樣式 */
+  .prep-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .prep-item {
+    border: 1px solid #E2E8F0;
+    border-radius: 6px;
+    padding: 10px 14px;
+    background: #FDFEFE;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .prep-main-row { display: flex; align-items: flex-start; gap: 10px; font-weight: bold; color: var(--navy); font-size: 14.5px; }
+  .prep-checkbox { width: 17px; height: 17px; accent-color: var(--navy); margin-top: 2px; cursor: pointer; }
+  .prep-desc {
+    margin-left: 27px;
+    font-size: 12.5px;
+    color: #64748B;
+    line-height: 1.45;
+  }
+  .prep-sublist {
+    margin-left: 27px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 6px;
+    padding: 6px 0 2px 0;
+    border-top: 1px dashed #E2E8F0;
+  }
+  .prep-subitem { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #334155; }
+  .prep-subitem input[type="checkbox"] { width: 15px; height: 15px; accent-color: var(--blue); cursor: pointer; }
+
+  /* 驗收項目表格樣式 */
+  .jd-badge { display: inline-block; font-size: 12px; font-weight: bold; padding: 3px 8px; border-radius: 4px; margin-right: 6px; }
+  .jd-badge.jd1 { background: #E3F2FD; color: #1565C0; }
+  .jd-badge.jd2 { background: #FFF3E0; color: #E65100; }
+  .jd-badge.jd3 { background: #FCE4EC; color: #C62828; }
+  .jd-badge.jd4 { background: #E8F5E9; color: #2E7D32; }
+
+  .pain-card { border: 1px solid #E2E8F0; border-radius: 6px; margin-bottom: 20px; overflow: hidden; }
+  .pain-header { padding: 10px 14px; font-size: 13.5px; font-weight: bold; line-height: 1.5; }
+  .pain-header.jd1 { background: #EFF6FF; color: #1E40AF; border-bottom: 1px solid #BFDBFE; }
+  .pain-header.jd2 { background: #FFF7ED; color: #9A3412; border-bottom: 1px solid #FED7AA; }
+  .pain-header.jd3 { background: #FDF2F8; color: #9D174D; border-bottom: 1px solid #FBCFE8; }
+  .pain-header.jd4 { background: #F0FDF4; color: #166534; border-bottom: 1px solid #BBF7D0; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th { background: #2E75B6; color: #fff; font-size: 13.5px; padding: 10px 12px; text-align: left; border: 1px solid #CBD5E1; font-weight: bold; }
+  td { font-size: 13.5px; padding: 8px 10px; border: 1px solid #CBD5E1; vertical-align: middle; line-height: 1.5; }
+
+  .date-text-input {
+    width: 95px;
+    padding: 5px;
+    border: 1px solid #CBD5E1;
+    border-radius: 4px;
+    font-size: 12.5px;
+    text-align: center;
+    font-family: inherit;
+    outline: none;
+    background: #fff;
+  }
+  .date-text-input:focus { border-color: var(--blue); }
+  .pass-label { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; font-weight: bold; color: #2E7D32; font-size: 12.5px; }
+  .pass-label input[type="checkbox"] { width: 15px; height: 15px; accent-color: #2E7D32; cursor: pointer; }
+
+  /* 簽名欄樣式 */
+  .sign-section {
+    background: #FDFEFE;
+    border: 1px dashed #94A3B8;
+    border-radius: 6px;
+    padding: 16px;
+    margin-top: 20px;
+  }
+  .sign-title { font-size: 14.5px; font-weight: bold; color: var(--navy); margin-bottom: 12px; }
+  .sign-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .sign-card { border: 1px solid #CBD5E1; border-radius: 6px; padding: 12px; background: #fff; }
+  .sign-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-weight: bold; font-size: 13.5px; }
+  .btn-clear { padding: 2px 8px; font-size: 11px; border: 1px solid #CBD5E1; background: #F8FAFC; border-radius: 4px; cursor: pointer; }
+  .btn-clear:hover { background: #E2E8F0; }
+  .signature-pad-wrapper {
+    position: relative;
+    border: 1px solid #CBD5E1;
+    border-radius: 4px;
+    background: #FAFAFA;
+    height: 100px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  .signature-canvas { width: 100%; height: 100%; cursor: crosshair; display: block; }
+  .signature-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #94A3B8;
+    font-size: 12.5px;
+    pointer-events: none;
+  }
+  .sign-meta-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; font-size: 13px; }
+  .sign-meta-row:last-child { margin-bottom: 0; }
+  .sign-meta-label { width: 42px; color: #475569; font-weight: bold; }
+  .sign-meta-input { flex: 1; padding: 4px 8px; border: 1px solid #CBD5E1; border-radius: 4px; font-size: 12.5px; font-family: inherit; }
+
+  /* 底部匯出列 */
+  .export-bar { display: flex; justify-content: flex-end; align-items: center; gap: 14px; margin-top: 20px; }
+  .btn-pdf {
+    background: #C62828;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(198,40,40,0.3);
+  }
+  .btn-pdf:hover { background: #B71C1C; }
+
+  /* 列印排版最佳化 (A4 直向滿版) */
+  @page { size: A4 portrait; margin: 8mm 8mm 10mm 8mm; }
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    body { background: #fff !important; font-size: 9pt !important; }
+    .container { max-width: 100% !important; padding: 0 !important; }
+    .no-print, .storage-toolbar, .btn-clear, .export-bar { display: none !important; }
+    .page-header { padding: 14px 18px !important; margin-bottom: 12px !important; }
+    .page-header h1 { font-size: 16pt !important; }
+    .card { border: none !important; box-shadow: none !important; margin-bottom: 12px !important; }
+    .card-body { padding: 0 !important; }
+    .meta-box { padding: 6px 10px !important; margin-bottom: 10px !important; border: 1px solid #CBD5E1 !important; }
+    .meta-input { border: 1px solid #94A3B8 !important; padding: 4px 6px !important; font-size: 9.5pt !important; }
+    
+    .role-title { padding: 4px 8px !important; font-size: 9.5pt !important; margin-bottom: 6px !important; }
+    .prep-item { padding: 6px 8px !important; gap: 2px !important; }
+    .prep-desc { margin-left: 24px !important; font-size: 8pt !important; }
+    .prep-main-row { font-size: 8.5pt !important; }
+    .prep-subitem { font-size: 8pt !important; }
+
+    table { width: 100% !important; table-layout: fixed !important; border-collapse: collapse !important; }
+    th, td { border: 1px solid #CBD5E1 !important; word-break: break-word !important; padding: 4px 6px !important; font-size: 8.5pt !important; line-height: 1.35 !important; }
+    th { background: #2E75B6 !important; color: #fff !important; }
+    tr { page-break-inside: avoid !important; }
+
+    th.col-num, td.col-num { width: 5% !important; text-align: center !important; }
+    th.col-item, td.col-item { width: 25% !important; font-weight: bold !important; }
+    th.col-method, td.col-method { width: 33% !important; }
+    th.col-expect, td.col-expect { width: 22% !important; }
+    th.col-date, td.col-date { width: 8.5% !important; text-align: center !important; }
+    th.col-result, td.col-result { width: 6.5% !important; text-align: center !important; }
+
+    .date-text-input { border: none !important; background: transparent !important; width: 100% !important; font-size: 8pt !important; }
+    .pass-label { font-size: 8.5pt !important; }
+    .pass-label input[type="checkbox"] { width: 12px !important; height: 12px !important; }
+
+    .sign-section { page-break-inside: avoid !important; margin-top: 10px !important; padding: 8px 12px !important; border: 1px dashed #94A3B8 !important; }
+    .sign-grid { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
+    .signature-pad-wrapper { height: 65px !important; margin-bottom: 4px !important; }
+    .signature-canvas { height: 65px !important; }
+    .sign-meta-row { font-size: 8pt !important; margin-bottom: 3px !important; }
+    .sign-meta-input { padding: 2px 4px !important; font-size: 8pt !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 頂部大標題 -->
+  <div class="page-header">
+    <h1>人事行政管理師 — 交付驗收與事前準備檢核表</h1>
+    <p>專案落地輔導交付文件 &nbsp;|&nbsp; 涵蓋客戶環境整備、四大核心職責 (JD-1 ~ JD-4) 落地驗收及雙方簽署</p>
+  </div>
+
+  <!-- 驗收公司別 / 客戶名稱填寫 -->
+  <div class="meta-box">
+    <label for="companyName">🏢 驗收公司別／客戶名稱：</label>
+    <input type="text" id="companyName" class="meta-input auto-save" placeholder="請輸入驗收公司或客戶名稱（例如：鼎新電腦股份有限公司）">
+  </div>
+
+  <!-- 儲存狀態與離線控制列 (免 DB / LocalStorage 自動儲存) -->
+  <div class="storage-toolbar no-print">
+    <div class="storage-status">
+      <span class="storage-dot"></span>
+      <span id="save-status-text">已啟用瀏覽器本機自動存檔 (Local Storage)</span>
+    </div>
+    <div class="btn-group">
+      <button type="button" class="btn-tool" onclick="exportDataJson()">💾 匯出進度檔 (JSON)</button>
+      <button type="button" class="btn-tool" onclick="triggerImportJson()">📂 匯入進度檔</button>
+      <input type="file" id="json-importer" accept=".json" style="display:none;" onchange="importDataJson(event)">
+      <button type="button" class="btn-tool danger" onclick="clearSavedData()">清空內容</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════ [客戶事前準備清單 (HR / IT 角色分組)] ═══════════════════════ -->
+  <div class="card">
+    <div class="card-header navy">
+      <span>📋 客戶事前準備確認清單（分工角色與環境整備）</span>
+      <span style="font-size:13px;opacity:0.85;font-weight:normal;">請依權責分工確認完成後勾選</span>
+    </div>
+    <div class="card-body">
+
+      <!-- 區塊 A：HR 準備事項 -->
+      <div class="role-section">
+        <div class="role-title hr">
+          <span>👥 HR 權責準備事項</span>
+          <span style="font-size:12px;font-weight:normal;opacity:0.85;">（人事規章、作業場景與行政使用權限）</span>
+        </div>
+        <div class="prep-grid">
+
+          <!-- 項目 1 -->
+          <div class="prep-item">
+            <div class="prep-main-row">
+              <input type="checkbox" class="prep-checkbox auto-save" id="prep-hr-1">
+              <span>1. 公司非結構化文件</span>
+            </div>
+            <div class="prep-desc">目的：建立 Edge 知識庫作為 Edge 自動應答常見問答、諮詢審核之企業專屬法規與流程依據；並引導高價值技能 (Skills)，以企業規章（如績效考核辦法）為起點引導發想實務痛點——例如結合歷史紀錄與規章，自動於考核前夕主動排程推播考核通知、生成個別評核範本，打造專屬 Agent。</div>
+            <div class="prep-sublist">
+              <label class="prep-subitem">
+                <input type="checkbox" class="auto-save" id="prep-hr-1-1">
+                <span>1-1 公司年度工作重點</span>
+              </label>
+              <label class="prep-subitem">
+                <input type="checkbox" class="auto-save" id="prep-hr-1-2">
+                <span>1-2 主管月報備忘錄 (ex: 文字逐字稿)</span>
+              </label>
+              <label class="prep-subitem">
+                <input type="checkbox" class="auto-save" id="prep-hr-1-3">
+                <span>1-3 標準回覆話術 (HR 常見 Q&A)</span>
+              </label>
+              <label class="prep-subitem">
+                <input type="checkbox" class="auto-save" id="prep-hr-1-4">
+                <span>1-4 公司管理規章 / 員工手冊</span>
+              </label>
+              <label class="prep-subitem">
+                <input type="checkbox" class="auto-save" id="prep-hr-1-5">
+                <span>1-5 薪酬敘薪辦法 / 績效考核規章</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- 項目 2 -->
+          <div class="prep-item">
+            <label class="prep-main-row" style="cursor:pointer;">
+              <input type="checkbox" class="prep-checkbox auto-save" id="prep-hr-2">
+              <span>2. 盤點四高工作場景，填寫調查問卷</span>
+            </label>
+            <div class="prep-desc">目的：梳理企業內部高頻、高重複、高耗時、高風險之人事痛點，鎖定優先落地之作業場景。</div>
+          </div>
+
+          <!-- 項目 3 -->
+          <div class="prep-item">
+            <label class="prep-main-row" style="cursor:pointer;">
+              <input type="checkbox" class="prep-checkbox auto-save" id="prep-hr-3">
+              <span>3. 鼎新雲平台帳號邀請與企業歸戶</span>
+            </label>
+            <div class="prep-desc">目的：完成 HR 核心人員之雲端平台授權綁定與歸戶，確保能順暢登入 Agent Space指派任務與查收待辦。</div>
+          </div>
+
+          <!-- 項目 4 -->
+          <div class="prep-item">
+            <label class="prep-main-row" style="cursor:pointer;">
+              <input type="checkbox" class="prep-checkbox auto-save" id="prep-hr-4">
+              <span>4. 觀看教學影片預習 Agent Space ── 完成線上選課與預習</span>
+            </label>
+            <div class="prep-desc">目的：引導熟悉 Agent Space 互動介面與操作模式，加速後續輔導與實務上線之熟練度。</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 區塊 B：IT 準備事項 -->
+      <div class="role-section" style="margin-top:16px;">
+        <div class="role-title it">
+          <span>💻 IT / 資訊部 權責準備事項</span>
+          <span style="font-size:12px;font-weight:normal;opacity:0.85;">（系統連線設定、郵件主機與第三方驗證憑證）</span>
+        </div>
+        <div class="prep-grid">
+
+          <!-- 項目 1 (IT) -->
+          <div class="prep-item">
+            <label class="prep-main-row" style="cursor:pointer;">
+              <input type="checkbox" class="prep-checkbox auto-save" id="prep-it-1">
+              <span>1. 提供郵件 2.0 連線設定（主機 / Port / 專用帳密）</span>
+            </label>
+            <div class="prep-desc">目的：建立系統底層安全發信連線通道，使 Agent Space 具備自動寄送通知信、確認信與催辦提醒之通訊能力。</div>
+          </div>
+
+          <!-- 項目 2 (IT) -->
+          <div class="prep-item">
+            <label class="prep-main-row" style="cursor:pointer;">
+              <input type="checkbox" class="prep-checkbox auto-save" id="prep-it-3">
+              <span>2. Google OAuth 憑證設定與 API 授權</span>
+            </label>
+            <div class="prep-desc">目的：完成企業 Google 雲端服務（日曆、表單或試算表）之安全對接與授權串聯，確保跨系統資料無縫同步。</div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════ [JD 職責對應驗收內容] ═══════════════════════ -->
+  <div class="card">
+    <div class="card-header red">
+      <span>✅ JD 職責對應驗收內容（四階段共 26 項驗收檢核總表）</span>
+      <span style="font-size:13px;opacity:0.85;font-weight:normal;">支援日期文字複製貼上與線上簽署</span>
+    </div>
+    <div class="card-body">
+
+      <!-- JD-1 -->
+      <h3 style="margin-bottom:10px;"><span class="jd-badge jd1">JD-1</span> 新人報到作業與入職體驗管理</h3>
+      <div class="pain-card">
+        <div class="pain-header jd1">職責情境：從錄取通知開始，到新人正式完成報到，協助處理錄取意願確認、報到安排、員工資料建立，以及後續定薪與勞健保加保等作業，確保新人能順利完成入職流程。</div>
+        <table>
+          <thead>
+            <tr>
+              <th class="col-num">#</th>
+              <th class="col-item">測試項目</th>
+              <th class="col-method">測試方式</th>
+              <th class="col-expect">預期結果</th>
+              <th class="col-date">驗收日期</th>
+              <th class="col-result">驗收結果</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-num">1</td>
+              <td class="col-item">錄取名單篩選與自動寄送錄取通知</td>
+              <td class="col-method">HRM 求職人員管理，需有查詢範圍內的待報到人員<br><br>設定 x 天參數觸發定時任務，檢查系統是否找出待報到員工匯出追蹤檔，並針對尚未通知者自動寄送錄取通知書（含意向確認）。</td>
+              <td class="col-expect">正確篩選出 x 天內待報到員工並匯出追蹤檔，同時自動向未通知的錄取求職者發送錄取通知書郵件。</td>
+              <td class="col-date"><input type="text" class="date-text-input auto-save" id="dt-1" placeholder="YYYY/MM/DD"></td>
+              <td class="col-result"><label class="pass-label"><input type="checkbox" class="auto-save" id="chk-1"> 通過</label></td>
+            </tr>
+            <tr>
+              <td class="col-num">2</td>
+              <td class="col-item">錄取回覆郵件監控與 delta 檔生成</td>
+              <td class="col-method">模擬求職者回覆錄取通知郵件，檢查監控機制是否成功擷取回覆意向（接受/婉拒）並寫入 delta 檔。</td>
+              <td class="col-expect">郵件監控精確判斷求職者回覆內容，成功將意向與回覆資料擷取並寫入 delta 檔。</td>
+              <td class="col-date"><input type="text" class="date-text-input auto-save" id="dt-2" placeholder="YYYY/MM/DD"></td>
+              <td class="col-result"><label class="pass-label"><input type="checkbox" class="auto-save" id="chk-2"> 通過</label></td>
+            </tr>
+            <tr>
+              <td class="col-num">3</td>
+              <td class="col-item">回覆截止日到期匯總與待辦分發</td>
+              <td class="col-method">於回覆截止日到期後觸發定時任務，檢查 delta 檔合併狀況、主管匯總郵件寄送及人資待辦發送。</td>
+              <td class="col-expect">delta 檔成功合併至追蹤檔，發送錄取回覆結果匯總 mail 給主管，並依「接受/婉拒/待回覆」分類發送待辦給人資。</td>
+              <td class="col-date"><input type="text" class="date-text-input auto-save" id="dt-3" placeholder="YYYY/MM/DD"></td>
+              <td class="col-result"><label class="pass-label"><input type="checkbox" class="auto-save" id="chk-3"> 通過</label></td>
+            </tr>
+            <tr>
+              <td class="col-num">4</td>
+              <td class="col-item">求職者婉拒報到流程處理</td>
+              <td class="col-method">人資於婉拒待辦中點擊[執行報到回絕]按鈕，檢查 HRM 系統與追蹤檔更新狀況。</td>
+              <td class="col-expect">HRM 求職者狀態成功變更為「婉拒錄取」，且追蹤檔狀態同步更新完成。</td>
+              <td class="col-date"><input type="text" class="date-text-input auto-save" id="dt-4" placeholder="YYYY/MM/DD"></td>
+              <td class="col-result"><label class="pass-label"><input type="checkbox" class="auto-save" id="chk-4"> 通過</label></td>
+            </tr>
+            <tr>
+              <td class="col-num">5</td>
+              <td class="col-item">報到當天確認報到表單開啟</td>
+              <td class="col-method">於新人報到當天，檢查人資是否能正常開啟確認報到表單進行人工介入操作。</td>
+              <td class="col-expect">人資能順利開啟確認報到表單，並正確顯示當天預計報到之人員清單。</td>
+              <td class="col-date"><input type="text" class="date-text-input auto-save" id="dt-5" placeholder="YYYY/MM/DD"></td>
+              <td class="col-result"><label class="pass-label"><input type="checkbox" class="auto-save" id="chk-5"> 通過</label></td>
+            </tr>
+            <tr>
+              <td class="col-num">6</td>
+              <td class="col-item">實際報到人員處理與薪資加保待辦發送</td>
+              <td class="col-method">於表單勾選實際報到人員並執行[報到處理]，檢查員工資料建立、追蹤檔更新及薪資待辦發送。</td>
+              <td class="col-expect">1. 成功建立員工資料並產出「已報到清單」，追蹤檔同步更新。<br>2. 自動發送待辦給薪資處理人資，提醒執行後續定薪與加保作業。</td>
+              <td class="col-date"><input type="text" class="date-text-input auto-save" id="dt-6" placeholder="YYYY/MM/DD"></td>
+              <td class="col-result"><label class="pass-label"><input type="checkbox" class="auto-save" id="chk-6"> 通過</label></td>
+            </tr>
+            <tr>
+              <td class="col-num">7</td>
+              <td class="col-item">未報到人員處理與狀態變更</td>
+              <td class="col-method">於表單勾選未報到人員並執行[報到回絕]，檢查 HRM 求職者狀態與追蹤檔更新狀況。</td>
+              <td class="col-expect">HRM 求職者狀態成功變更為「婉拒錄取」，且追蹤檔狀態同步更新完成。</td>
+              <td class="col-date"><input type="text" class="date-text-input auto-save" id="dt-7" placeholder="YYYY/MM/DD"></td>
+              <td class="col-result"><label class="pass-label"><input type="checkbox" class="auto-save" id="chk-7"> 通過</label></td>
+            </tr>
+            <tr>
+              <td class="col-num">8</td>
+              <td class="col-item">薪資定薪加保</td>
+              <td class="col-method">點擊「定薪」幫員工進行定薪</td>
+              <td class="col-expect">HRM 員工的定薪調薪申請、穩定薪資增加一筆員工的薪資資料</td>
+              <td class="col-date"><input type="text" class="date-text-input auto-save" id="dt-8" placeholder="YYYY/MM/DD"></td>
+              <td class="col-result"><label class="pass-label"><input type="checkbox" class="auto-save" id="chk-8"> 通過</label></td>
+            </tr>
+            <tr>
+              <td class="col-num">9</td>
+              <td class="col-item">勞健保加保</td>
+              <td class="col-method">點擊「勞健保加保」幫員工進行加保</td>
+              <td class="col-expect">HRM 員工的勞保異動記錄、健保異動記錄增加一筆員工的勞健保加保資料</td>
+              <td class="col-date"><input type="text" class="date-text-input auto-save" id="dt-9" placeholder="YYYY/MM/DD"></td>
+              <td class="col-result"><label class="pass-label"><input type="checkbox" class="auto-save" id="chk-9"> 通過</label></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- JD-2 -->
+      <h3 style="margin:20px 0 10px;"><span class="jd-badge jd2">JD-2</span> 人事法遵執行與勞動風險控管</h3>
+      <div class="pain-card">
+        <div class="pain-header jd2">職責情境：針對員工留職停薪及外籍移工居留證到期等需要定期追蹤的情況，主動掌握即將到期的人員，依期限發送提醒，協助 HR 及相關人員及時處理。</div>
+        <table>
+          <thead>
+            <tr>
+              <th class="col-num">#</th>
+              <th class="col-item">測試項目</th>
+              <th class="col-method">測試方式</th>
+              <th class="col-expect">預期結果</th>
+              <th class="col-date">驗收日期</th>
+              <th class="col-result">驗收結果</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-num">10</td>
+              <td class="col-item">留停到期名單篩選</td>
+              <td class="col-method">建立即將員工留停到期資料。<br>設定”預設查詢天數”參數，觸發「HR 留停到期追蹤」定期任務。</td>
+              <td class="col-expect">系統能正確篩選出 “預設查詢天數”天內到期的留停員工，並自動匯出「追蹤檔」。</td>
+              <td class="col-date"><input type="text" class="date-text-input auto-save" id="dt-10" placeholder="YYYY/MM/DD"></td>
+              <td class="col-result"><label class="pass-label"><input type="checkbox" class="auto-save" id="chk-10"> 通過</label></td>
+            </tr>
+            <tr>
+              <td class="col-num">11</td>
+              <td class="col-item">自動寄發到期通知</td>
+              <td class="col-method">執行「HR 留停到期通知」定期任務，讀取追蹤檔發送通知。</td>
+              <td class="col-expect">系統自動撰寫通知書，寄給對應的「主管/當事人/人資」，內容包含詢問【回聘/離職/延期】意願。</td>
+              <td class="col-date"><input type="text" class="date-text-input auto-save" id="dt-11" placeholder="YYYY/MM/DD"></td>
+              <td class="col-result"><label class="pass-label"><input type="checkbox" class="auto-save" id="chk-11"> 通過</label></td>
+            </tr>
+            <tr>
+              <td class="col-num">12</td>
+              <td class="col-item">到期巡檢</td>
+              <td class="col-method">建立 30/60/90 天居留證到期的外籍移工</td>
+              <td class="col-expect">HRM 自動發送</td>
+              <td class="col-date"><input type="text" class="date-text-input auto-save" id="dt-12" placeholder="YYYY/MM/DD"></td>
+              <td class="col-result"><label class="pass-label"><input type="checkbox" class="auto-save" id="chk-12"> 通過</label></td>
+            </tr>
+            <tr>
+              <td class="col-num">13</td>
+              <td class="col-item">到期提醒</td>
+              <td class="col-method">等待通知</td>
+              <td class="col-expect">AgentSpace 收到待辦，並且 Excel 顯示正確到期移工的資料</td>
+              <td class="col-date"><input type="text" class="date-text-input auto-save" id="dt-13" placeholder="YYYY/MM/DD"></td>
+              <td class="col-result"><label class="pass-label"><input type="checkbox" class="auto-save" id="chk-13"> 通過</label></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- JD-3 -->
+      <h3 style="margin:20px 0 10px;"><span class="jd-badge jd3">JD-3</span> 員工異動管理與離職結算作業</h3>
+      <div class="pain-card">
+        <div class="pain-header jd3">職責情境：當員工留職停薪即將到期時，持續追蹤員工及主管的回覆，依確認結果協助處理回聘、離職或延期，並同步更新相關人事資料與後續待辦。</div>
+        <table>
+          <thead>
+            <tr>
+              <th class="col-num">#</th>
+              <th class="col-item">測試項目</th>
+              <th class="col-method">測試方式</th>
+              <th class="col-expect">預期結果</th>
+              <th class="col-date">驗收日期</th>
+              <th class="col-result">驗收結果</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-num">14</td>
+              <td class="col-item">當事人回覆監控與更新</td>
+              <td class="col-method">模擬當事人回覆 Mail，執行「HR 留停回覆監控」(郵件監控) 與「HR 留停異動合併」(定期任務) 任務。</td>
+              <td class="col-expect">1. 正確擷取回覆關鍵字並生成當事人 delta 檔。<br>2. 依設定時間將 delta 檔內容合併更新至追蹤檔。</td>
+              <td class="col-date"><input type="text" class="date-text-input auto-save" id="dt-14" placeholder="YYYY/MM/DD"></td>
+              <td class="col-result"><label class="pass-label"><input type="checkbox" class="auto-save" id="chk-14"> 通過</label></td>
+            </tr>
+            <tr>
+              <td class="col-num">15</td>
+              <td class="col-item">發送主管確認與人資待辦</td>
+              <td class="col-method">執行「HR 留停主管確認通知」定期任務。</td>
+              <td class="col-expect">依據當事人意願分類列成表格 Mail 寄給主管確認，並同步發送待辦事項給人資。</td>
+              <td class="col-date"><input type="text" class="date-text-input auto-save" id="dt-15" placeholder="YYYY/MM/DD"></td>
+              <td class="col-result"><label class="pass-label"><input type="checkbox" class="auto-save" id="chk-15"> 通過</label></td>
+            </tr>
+            <tr>
+              <td class="col-num">16</td>
+              <td class="col-item">主管確認監控與更新</td>
+              <td class="col-method">模擬主管回覆 Mail（確認/拒絕），執行監控與異動合併任務。</td>
+              <td class="col-expect">1. 正確擷取主管填寫內容並產生主管 delta 檔。<br>2. 定時更新追蹤檔，並依據結果產生對應的人資待辦任務。</td>
+              <td class="col-date"><input type="text" class="date-text-input auto-save" id="dt-16" placeholder="YYYY/MM/DD"></td>
+              <td class="col-result"><label class="pass-label"><input type="checkbox" class="auto-save" id="chk-16"> 通過</label></td>
+            </tr>
+            <tr>
+              <td class="col-num">17</td>
+              <td class="col-item">員工回聘作業處理</td>
+              <td class="col-method">人資對「復職」類型的待辦進行人工確認，並觸發「HR 留停回聘通知」(定期任務)。</td>
+              <td class="col-expect">1. 狀態由【留停到期】變更為【回聘待報到】。<br>2. 發送通知 Mail 給「主管/當事人/負責報到人資」</td>
+              <td class="col-date"><input type="text" class="date-text-input auto-save" id="dt-17" placeholder="YYYY/MM/DD"></td>
+              <td class="col-result"><label class="pass-label"><input type="checkbox" class="auto-save" id="chk-17"> 通過</label></td>
+            </tr>
+            <tr>
+              <td class="col-num">18</td>
+              <td class="col-item">員工離職作業處理</td>
+              <td class="col-method">人資對「離職」類型的待辦進行人工確認。</td>
+              <td class="col-expect">變更員工離職單，狀態由【留停停薪】正確變更為【離職】。</td>
+              <td class="col-date"><input type="text" class="date-text-input auto-save" id="dt-18" placeholder="YYYY/MM/DD"></td>
+              <td class="col-result"><label class="pass-label"><input type="checkbox" class="auto-save" id="chk-18"> 通過</label></td>
+            </tr>
+            <tr>
+              <td class="col-num">19</td>
+              <td class="col-item">留停延期作業處理</td>
+              <td class="col-method">人資對「延期」類型的待辦進行人工確認。</td>
+              <td class="col-expect">變更員工離職單/留停單，【留停期限】正確更新為新的延期日期。</td>
+              <td class="col-date"><input type="text" class="date-text-input auto-save" id="dt-19" placeholder="YYYY/MM/DD"></td>
+              <td class="col-result"><label class="pass-label"><input type="checkbox" class="auto-save" id="chk-19"> 通過</label></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- JD-4 -->
+      <h3 style="margin:20px 0 10px;"><span class="jd-badge jd4">JD-4</span> 基礎人事行政服務與員工關係維護</h3>
+      <div class="pain-card">
+        <div class="pain-header jd4">職責情境：協助處理員工在職／離職證明申請，從員工提出申請、HR 確認到完成通知進行追蹤；同時針對新進員工到職後的關懷節點進行提醒，協助 HR 掌握新人狀況。</div>
+        <table>
+          <thead>
+            <tr>
+              <th class="col-num">#</th>
+              <th class="col-item">測試項目</th>
+              <th class="col-method">測試方式</th>
+              <th class="col-expect">預期結果</th>
+              <th class="col-date">驗收日期</th>
+              <th class="col-result">驗收結果</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-num">20</td>
+              <td class="col-item">員工提出申請</td>
+              <td class="col-method">寄送一份在職證明申請的信件至郵件監控的信箱</td>
+              <td class="col-expect">AI 專家透過郵件監控成功接收申請</td>
+              <td class="col-date"><input type="text" class="date-text-input auto-save" id="dt-20" placeholder="YYYY/MM/DD"></td>
+              <td class="col-result"><label class="pass-label"><input type="checkbox" class="auto-save" id="chk-20"> 通過</label></td>
+            </tr>
+            <tr>
+              <td class="col-num">21</td>
+              <td class="col-item">AI 判斷申請類型</td>
+              <td class="col-method">申請在職/離職證明</td>
+              <td class="col-expect">AI 正確辨識證明種類</td>
+              <td class="col-date"><input type="text" class="date-text-input auto-save" id="dt-21" placeholder="YYYY/MM/DD"></td>
+              <td class="col-result"><label class="pass-label"><input type="checkbox" class="auto-save" id="chk-21"> 通過</label></td>
+            </tr>
+            <tr>
+              <td class="col-num">22</td>
+              <td class="col-item">AI 通知 HR</td>
+              <td class="col-method">點擊定時任務＂自動發送在職離職證明確認信＂</td>
+              <td class="col-expect">人資收到證明文件核准信件</td>
+              <td class="col-date"><input type="text" class="date-text-input auto-save" id="dt-22" placeholder="YYYY/MM/DD"></td>
+              <td class="col-result"><label class="pass-label"><input type="checkbox" class="auto-save" id="chk-22"> 通過</label></td>
+            </tr>
+            <tr>
+              <td class="col-num">23</td>
+              <td class="col-item">AI 追蹤辦理狀態</td>
+              <td class="col-method">人資未完成核准信件</td>
+              <td class="col-expect">AI 自動催辦</td>
+              <td class="col-date"><input type="text" class="date-text-input auto-save" id="dt-23" placeholder="YYYY/MM/DD"></td>
+              <td class="col-result"><label class="pass-label"><input type="checkbox" class="auto-save" id="chk-23"> 通過</label></td>
+            </tr>
+            <tr>
+              <td class="col-num">24</td>
+              <td class="col-item">完成通知</td>
+              <td class="col-method">完成證明</td>
+              <td class="col-expect">員工收到完成通知</td>
+              <td class="col-date"><input type="text" class="date-text-input auto-save" id="dt-24" placeholder="YYYY/MM/DD"></td>
+              <td class="col-result"><label class="pass-label"><input type="checkbox" class="auto-save" id="chk-24"> 通過</label></td>
+            </tr>
+            <tr>
+              <td class="col-num">25</td>
+              <td class="col-item">7 天階段提醒</td>
+              <td class="col-method">試用期滿 7 天</td>
+              <td class="col-expect">HRM 自動發送</td>
+              <td class="col-date"><input type="text" class="date-text-input auto-save" id="dt-25" placeholder="YYYY/MM/DD"></td>
+              <td class="col-result"><label class="pass-label"><input type="checkbox" class="auto-save" id="chk-25"> 通過</label></td>
+            </tr>
+            <tr>
+              <td class="col-num">26</td>
+              <td class="col-item">關懷提醒</td>
+              <td class="col-method">等待通知</td>
+              <td class="col-expect">AgentSpace 收到待辦，並且 Excel 顯示正確新進員工到職滿 7 天的資料</td>
+              <td class="col-date"><input type="text" class="date-text-input auto-save" id="dt-26" placeholder="YYYY/MM/DD"></td>
+              <td class="col-result"><label class="pass-label"><input type="checkbox" class="auto-save" id="chk-26"> 通過</label></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 專案交付與驗收簽署欄（精簡緊湊左右雙欄，確保跟著表格排在同一頁） -->
+      <div class="sign-section">
+        <div class="sign-title">🖊️ 專案交付與驗收簽署欄（支援滑鼠／觸控手寫簽名）</div>
+        <div class="sign-grid">
+
+          <!-- 客戶驗收負責人 -->
+          <div class="sign-card">
+            <div class="sign-card-header">
+              <span>客戶驗收負責人（HR 主管／代表）：</span>
+              <button type="button" class="btn-clear" onclick="clearSignature('canvas-client', 'ph-client')">清除重簽</button>
+            </div>
+            <div class="signature-pad-wrapper">
+              <canvas id="canvas-client" class="signature-canvas"></canvas>
+              <div id="ph-client" class="signature-placeholder">請在此處手寫簽名</div>
+            </div>
+            <div class="sign-meta-row">
+              <span class="sign-meta-label">職稱：</span>
+              <input type="text" id="title-client" class="sign-meta-input auto-save" placeholder="例：人力資源處經理">
+            </div>
+            <div class="sign-meta-row">
+              <span class="sign-meta-label">日期：</span>
+              <input type="date" id="date-client" class="sign-meta-input auto-save">
+            </div>
+          </div>
+
+          <!-- 數位員工導入顧問 -->
+          <div class="sign-card">
+            <div class="sign-card-header">
+              <span>數位員工導入顧問／專案經理：</span>
+              <button type="button" class="btn-clear" onclick="clearSignature('canvas-consultant', 'ph-consultant')">清除重簽</button>
+            </div>
+            <div class="signature-pad-wrapper">
+              <canvas id="canvas-consultant" class="signature-canvas"></canvas>
+              <div id="ph-consultant" class="signature-placeholder">請在此處手寫簽名</div>
+            </div>
+            <div class="sign-meta-row">
+              <span class="sign-meta-label">職稱：</span>
+              <input type="text" id="title-consultant" class="sign-meta-input auto-save" value="HR 顧問">
+            </div>
+            <div class="sign-meta-row">
+              <span class="sign-meta-label">日期：</span>
+              <input type="date" id="date-consultant" class="sign-meta-input auto-save">
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 一鍵生成 PDF / 列印 -->
+      <div class="export-bar no-print">
+        <span style="font-size:13.5px;color:#555;">點擊此處將產出正式交付驗收單 PDF：</span>
+        <button type="button" class="btn-pdf" onclick="window.print()">
+          🖨️ 生成交付驗收單 PDF / 列印
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const STORAGE_KEY = 'HRA_INDEPENDENT_ACCEPTANCE_V5_GROUPED';
+
+  // 1. 手寫簽名板初始化 (Canvas)
+  function initSignaturePad(canvasId, placeholderId) {
+    const canvas = document.getElementById(canvasId);
+    const ph = document.getElementById(placeholderId);
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let isDrawing = false;
+
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      const scale = window.devicePixelRatio || 2;
+      
+      const tempCanvas = document.createElement('canvas');
+      tempCanvas.width = canvas.width;
+      tempCanvas.height = canvas.height;
+      const tempCtx = tempCanvas.getContext('2d');
+      tempCtx.drawImage(canvas, 0, 0);
+
+      canvas.width = rect.width * scale;
+      canvas.height = rect.height * scale;
+      ctx.scale(scale, scale);
+      ctx.lineWidth = 2.5;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.strokeStyle = '#1A365D';
+
+      if (tempCanvas.width > 0 && tempCanvas.height > 0) {
+        ctx.drawImage(tempCanvas, 0, 0, rect.width, rect.height);
+      }
+    }
+    
+    setTimeout(resizeCanvas, 100);
+    window.addEventListener('resize', resizeCanvas);
+
+    function getPos(e) {
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return {
+        x: clientX - rect.left,
+        y: clientY - rect.top
+      };
+    }
+
+    function startDraw(e) {
+      e.preventDefault();
+      isDrawing = true;
+      if (ph) ph.style.display = 'none';
+      const pos = getPos(e);
+      ctx.beginPath();
+      ctx.moveTo(pos.x, pos.y);
+    }
+
+    function draw(e) {
+      if (!isDrawing) return;
+      e.preventDefault();
+      const pos = getPos(e);
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
+    }
+
+    function stopDraw() { 
+      if (isDrawing) {
+        isDrawing = false;
+        saveAllData();
+      }
+    }
+
+    canvas.addEventListener('mousedown', startDraw);
+    canvas.addEventListener('mousemove', draw);
+    window.addEventListener('mouseup', stopDraw);
+
+    canvas.addEventListener('touchstart', startDraw, { passive: false });
+    canvas.addEventListener('touchmove', draw, { passive: false });
+    window.addEventListener('touchend', stopDraw);
+  }
+
+  function clearSignature(canvasId, placeholderId) {
+    const canvas = document.getElementById(canvasId);
+    const ph = document.getElementById(placeholderId);
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (ph) ph.style.display = 'block';
+    saveAllData();
+  }
+
+  // 2. 本地儲存核心 (Local Storage 自動即時保存)
+  function saveAllData() {
+    const data = {
+      inputs: {},
+      checkboxes: {},
+      signatures: {}
+    };
+
+    document.querySelectorAll('.auto-save[type="text"], .auto-save[type="date"]').forEach(el => {
+      if (el.id) data.inputs[el.id] = el.value;
+    });
+
+    document.querySelectorAll('.auto-save[type="checkbox"]').forEach(el => {
+      if (el.id) data.checkboxes[el.id] = el.checked;
+    });
+
+    const c1 = document.getElementById('canvas-client');
+    const c2 = document.getElementById('canvas-consultant');
+    if (c1) data.signatures['canvas-client'] = c1.toDataURL();
+    if (c2) data.signatures['canvas-consultant'] = c2.toDataURL();
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    showSaveNotification();
+  }
+
+  function restoreData(data) {
+    if (!data) return;
+
+    if (data.inputs) {
+      Object.keys(data.inputs).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = data.inputs[id];
+      });
+    }
+
+    if (data.checkboxes) {
+      Object.keys(data.checkboxes).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.checked = data.checkboxes[id];
+      });
+    }
+
+    if (data.signatures) {
+      ['canvas-client', 'canvas-consultant'].forEach(cid => {
+        const url = data.signatures[cid];
+        const canvas = document.getElementById(cid);
+        const ph = document.getElementById(cid === 'canvas-client' ? 'ph-client' : 'ph-consultant');
+        if (url && canvas && url.length > 50) {
+          const img = new Image();
+          img.onload = function() {
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0, canvas.width / (window.devicePixelRatio || 2), canvas.height / (window.devicePixelRatio || 2));
+            if (ph) ph.style.display = 'none';
+          };
+          img.src = url;
+        }
+      });
+    }
+  }
+
+  function loadSavedData() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        restoreData(JSON.parse(raw));
+      } else {
+        const todayStr = new Date().toISOString().split('T')[0];
+        const d1 = document.getElementById('date-client');
+        const d2 = document.getElementById('date-consultant');
+        if (d1 && !d1.value) d1.value = todayStr;
+        if (d2 && !d2.value) d2.value = todayStr;
+      }
+    } catch(e) {
+      console.warn('載入本地進度失敗:', e);
+    }
+  }
+
+  function showSaveNotification() {
+    const text = document.getElementById('save-status-text');
+    if (!text) return;
+    const now = new Date();
+    const timeStr = now.toTimeString().split(' ')[0];
+    text.textContent = `已自動儲存至本機 (${timeStr})`;
+  }
+
+  function exportDataJson() {
+    saveAllData();
+    const raw = localStorage.getItem(STORAGE_KEY) || '{}';
+    const comp = document.getElementById('companyName').value.trim() || '客戶驗收進度';
+    const blob = new Blob([raw], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `${comp}_交付驗收與事前準備_${new Date().toISOString().slice(0,10)}.json`;
+    a.click();
+  }
+
+  function triggerImportJson() {
+    document.getElementById('json-importer').click();
+  }
+
+  function importDataJson(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      try {
+        const parsed = JSON.parse(evt.target.result);
+        restoreData(parsed);
+        saveAllData();
+        alert('驗收與準備清單進度已成功匯入！');
+      } catch(err) {
+        alert('進度檔格式不正確，無法載入。');
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  }
+
+  function clearSavedData() {
+    if (confirm('確定要清空已填寫的所有資料、勾選狀態與簽名嗎？')) {
+      localStorage.removeItem(STORAGE_KEY);
+      location.reload();
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    initSignaturePad('canvas-client', 'ph-client');
+    initSignaturePad('canvas-consultant', 'ph-consultant');
+    loadSavedData();
+
+    document.querySelectorAll('.auto-save').forEach(el => {
+      el.addEventListener('change', saveAllData);
+      if (el.tagName === 'INPUT' && el.type === 'text') {
+        el.addEventListener('input', saveAllData);
+      }
+    });
+  });
+</script>
+</body>
+</html>
