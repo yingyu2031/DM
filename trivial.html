@@ -91,7 +91,7 @@
                 2026 京阪神五天四夜<br class="sm:hidden">旅遊隨身手冊
             </h1>
             <p class="text-xs sm:text-sm text-stone-300 mt-1.5">
-                每日行程導航・心齋橋互動地圖・飯店周邊超商藥妝嬰幼・旅遊日語
+                每日行程・USJ 互動路線圖・心齋橋地圖・飯店周邊超商藥妝嬰幼・旅遊日語
             </p>
         </div>
     </header>
@@ -137,7 +137,7 @@
                     Day 3 (11/19)
                 </button>
                 <button onclick="filterDay('4')" id="day-btn-4" class="bg-white text-stone-700 px-3.5 py-2 rounded-full text-xs font-bold border border-stone-300 whitespace-nowrap transition-all hover:bg-cream">
-                    Day 4 (11/20)
+                    Day 4 (11/20 USJ)
                 </button>
                 <button onclick="filterDay('5')" id="day-btn-5" class="bg-white text-stone-700 px-3.5 py-2 rounded-full text-xs font-bold border border-stone-300 whitespace-nowrap transition-all hover:bg-cream">
                     Day 5 (11/21)
@@ -250,7 +250,7 @@
                     🛍️ 逛街購物 (9)
                 </button>
                 <button onclick="filterSpots('food')" id="spot-cat-food" class="bg-white text-stone-700 border border-stone-300 px-3.5 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all hover:bg-cream">
-                    🍜 美食餐廳 (10)
+                    🍜 美食甜點 (10)
                 </button>
                 <button onclick="filterSpots('exp')" id="spot-cat-exp" class="bg-white text-stone-700 border border-stone-300 px-3.5 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all hover:bg-cream">
                     🎨 展覽體驗 (2)
@@ -274,7 +274,7 @@
             <div id="hotels-container" class="space-y-6"></div>
         </section>
 
-        <!-- ==================== 分頁 4：旅遊日語 (含羅馬拼音 & 親子/奧特曼/買衣/購票) ==================== -->
+        <!-- ==================== 分頁 4：旅遊日語 ==================== -->
         <section id="section-japanese" class="hidden space-y-4">
             <div class="bg-white rounded-2xl p-4 card-shadow border border-stone-100">
                 <h2 class="text-base font-black text-indigo-900 flex items-center">
@@ -297,7 +297,7 @@
                         🦸‍♂️ 奧特曼玩具
                     </button>
                     <button onclick="filterJapanese('baby')" id="jp-cat-baby" class="bg-washi text-stone-700 border border-stone-200 px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap hover:bg-cream">
-                        👶 親子餐廳/飯店
+                        👶 親子需求
                     </button>
                     <button onclick="filterJapanese('dining')" id="jp-cat-dining" class="bg-washi text-stone-700 border border-stone-200 px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap hover:bg-cream">
                         🍜 餐廳點餐
@@ -306,7 +306,7 @@
                         🛍️ 購物退稅
                     </button>
                     <button onclick="filterJapanese('polite')" id="jp-cat-polite" class="bg-washi text-stone-700 border border-stone-200 px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap hover:bg-cream">
-                        🙏 基本禮貌/交通
+                        🙏 基本禮貌
                     </button>
                 </div>
             </div>
@@ -323,23 +323,23 @@
                 </h2>
 
                 <div class="space-y-2.5 text-xs sm:text-sm">
-                    <div class="p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-950">
-                        <div class="font-bold flex items-center"><span class="mr-1.5">🎢</span>11/20 (五) 日本環球影城 19:00 提早閉園</div>
-                        <p class="mt-1 text-xs text-rose-800 leading-relaxed">2026年11月20日官方營業時間預計為 <strong>09:00 – 19:00</strong>，建議 08:00 前抵達門口排隊。4 歲（110 cm）小朋友可先至設施入口量身高領取認證手環，大人想玩刺激設施可善用 <strong>Child Switch（輪流搭乘）</strong>。</p>
+                    <div class="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-950">
+                        <div class="font-bold flex items-center"><span class="mr-1.5">🛂</span>2026 年 11 月起日本機場出境退稅新制注意</div>
+                        <p class="mt-1 text-xs text-amber-900 leading-relaxed">自 2026 年 11 月 1 日起日本實施新制：市區商店結帳先付含稅金額，<strong>離境前於關西機場海關查驗確認後退稅</strong>（消耗品與一般品合併計算未稅滿 5,000 日圓即可）。購物時<strong>務必隨身攜帶護照正本</strong>，免稅商品在出境前請勿拆封並隨身攜帶備查。</p>
                     </div>
 
-                    <div class="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-950">
-                        <div class="font-bold flex items-center"><span class="mr-1.5">🛂</span>2026 年 11 月起日本機場退稅新制注意</div>
-                        <p class="mt-1 text-xs text-amber-900 leading-relaxed">自 2026 年 11 月 1 日起日本實施新制：結帳先付含稅金額，<strong>離境前於機場海關查驗確認後退稅</strong>（消耗品與一般品合併計算未稅滿 5,000 日圓即可）。購物時<strong>務必隨身攜帶護照正本</strong>並妥善保存退稅單據。</p>
+                    <div class="p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-950">
+                        <div class="font-bold flex items-center"><span class="mr-1.5">🎢</span>11/20 (五) 日本環球影城 19:00 提早閉園</div>
+                        <p class="mt-1 text-xs text-rose-800 leading-relaxed">2026年11月20日官方營業時間預計為 <strong>09:00 – 19:00</strong>，建議開園即直衝超級任天堂世界（記得先用官方 App 抽區域入場整理券），並善用 <strong>Child Switch（乘車遊交換）</strong> 輪流體驗設施。</p>
                     </div>
 
                     <div class="p-3.5 rounded-2xl bg-sky-50 border border-sky-200 text-sky-950">
                         <div class="font-bold flex items-center"><span class="mr-1.5">⏰</span>個別景點提早打烊與秋季穿著提醒</div>
                         <ul class="mt-1 text-xs text-sky-900 space-y-1 list-disc list-inside leading-relaxed">
                             <li><strong>Atelier nuu 大阪店：</strong>17:30 提早打烊，想買豐岡包建議下午優先前往。</li>
-                            <li><strong>神戶動物王國 (Day 5)：</strong>17:00 閉園（16:30 最後入場），請留意集合時間。</li>
-                            <li><strong>驚安殿堂惠比壽塔摩天輪：</strong>週二、週五公休，Day 3 為<strong>週四 (11/19) 正常營業</strong>（14:00–20:00，最終乘車 19:30）。</li>
-                            <li><strong>11月中旬京阪神氣溫：</strong>約 8°C–17°C，早晚涼冷、室內與電車暖氣強，大人與 4 歲小孩建議採<strong>洋蔥式穿搭</strong>（發熱衣＋長袖＋好穿脫薄羽絨外套）。</li>
+                            <li><strong>神戶動物王國 (Day 5)：</strong>17:00 閉園（16:30 最後入園），請留意集合時間。</li>
+                            <li><strong>驚安殿堂惠比壽塔摩天輪：</strong>週二、週五公休，Day 3 為<strong>週四 (11/19) 正常營業</strong>（14:00–20:00）。</li>
+                            <li><strong>11月中旬京阪神早晚溫差大：</strong>氣溫約 8°C–17°C，早晚涼冷、室內與電車暖氣強，大人與 4 歲小孩建議採<strong>洋蔥式穿搭</strong>（發熱衣＋長袖＋好穿脫薄羽絨外套）。</li>
                         </ul>
                     </div>
                 </div>
@@ -401,16 +401,208 @@
     </div>
 
     <script>
-        // ==================== 1. 每日行程資料 ====================
+        // ==================== 1. Day 4 USJ 園區互動地圖圓點 (#1 ~ #9) ====================
+        const usjPins = [
+            {
+                id: 1,
+                blockIdx: 0,
+                zone: "超級任天堂世界",
+                name: "超級任天堂世界入口 / 瑪利歐賽車 ～庫巴的挑戰書～",
+                badge: "107cm+ 陪同｜可用 Child Switch",
+                badgeClass: "bg-orange-100 text-orange-800",
+                pinColor: "bg-orange-600 text-white border-white",
+                time: "09:00 - 11:30",
+                note: "開園直衝右後方！先用官方 App 抽區域入場整理券，優先排瑪利歐賽車（若差一點未達 107cm 可申請乘車遊交換 Child Switch）。",
+                x: 73,
+                y: 26
+            },
+            {
+                id: 2,
+                blockIdx: 0,
+                zone: "超級任天堂世界",
+                name: "耀西冒險 (Yoshi's Adventure)",
+                badge: "92cm+ 陪同可搭 ✓",
+                badgeClass: "bg-emerald-100 text-emerald-800",
+                pinColor: "bg-emerald-600 text-white border-white",
+                time: "09:00 - 11:30",
+                note: "92 公分以上大人陪同即可搭乘，悠閒俯瞰整個蘑菇王國與庫巴城。",
+                x: 84,
+                y: 33
+            },
+            {
+                id: 3,
+                blockIdx: 1,
+                zone: "哈利波特魔法世界",
+                name: "鷹馬的飛行 (Flight of the Hippogriff)",
+                badge: "92cm+ 陪同可搭 ✓",
+                badgeClass: "bg-emerald-100 text-emerald-800",
+                pinColor: "bg-purple-700 text-white border-white",
+                time: "11:30 - 13:30",
+                note: "從任天堂世界出口步行不到 3 分鐘即達，92 公分以上陪同就能搭的入門款小型雲霄飛車。",
+                x: 24,
+                y: 18
+            },
+            {
+                id: 4,
+                blockIdx: 1,
+                zone: "哈利波特魔法世界",
+                name: "三根掃帚餐廳（活米村午餐＆青蛙合唱團）",
+                badge: "親子午餐・城堡拍照",
+                badgeClass: "bg-purple-100 text-purple-800",
+                pinColor: "bg-purple-700 text-white border-white",
+                time: "11:30 - 13:30",
+                note: "在活米村享用三根掃帚午餐，順便欣賞霍格華茲城堡與青蛙合唱團表演。",
+                x: 15,
+                y: 28
+            },
+            {
+                id: 5,
+                blockIdx: 2,
+                zone: "侏羅紀公園",
+                name: "恐龍驚奇邂逅 (My Friend Dinosaur)",
+                badge: "街頭近距離互動",
+                badgeClass: "bg-emerald-100 text-emerald-800",
+                pinColor: "bg-emerald-700 text-white border-white",
+                time: "13:30 - 15:45",
+                note: "超擬真大型草食與肉食恐龍直接走到街頭近距離互動，對喜歡恐龍的小朋友非常震撼（入園先用 App 查當天場次）。",
+                x: 74,
+                y: 53
+            },
+            {
+                id: 6,
+                blockIdx: 2,
+                zone: "水世界 WaterWorld",
+                name: "《水世界》水上特技秀",
+                badge: "無身高限制｜坐中間區域",
+                badgeClass: "bg-sky-100 text-sky-800",
+                pinColor: "bg-sky-600 text-white border-white",
+                time: "13:30 - 15:45",
+                note: "就在侏羅紀公園正隔壁，無身高限制、坐著吹風看真人特技與爆破，記得避開前排全濕區，坐中間區域即可。",
+                x: 86,
+                y: 12
+            },
+            {
+                id: 7,
+                blockIdx: 2,
+                zone: "侏羅紀公園",
+                name: "新發現餐廳 Discovery Restaurant",
+                badge: "下午茶・恐龍造型點心",
+                badgeClass: "bg-emerald-100 text-emerald-800",
+                pinColor: "bg-emerald-700 text-white border-white",
+                time: "13:30 - 15:45",
+                note: "下午茶休息補給體力，可點恐龍主題餐點或於路邊攤買恐龍造型點心。",
+                x: 84,
+                y: 62
+            },
+            {
+                id: 8,
+                blockIdx: 3,
+                zone: "小小兵樂園",
+                name: "小小兵瘋狂乘車遊 (102cm+) ＆ 冰凍雷射光 (92cm+)",
+                badge: "102cm+ / 92cm+ 陪同可搭",
+                badgeClass: "bg-amber-100 text-amber-800",
+                pinColor: "bg-amber-500 text-white border-white",
+                time: "15:45 - 17:30",
+                note: "傍晚時段排隊人潮比中午少，兩項親子設施皆輕鬆達標！",
+                x: 20,
+                y: 68
+            },
+            {
+                id: 9,
+                blockIdx: 4,
+                zone: "親善村＆好萊塢大道",
+                name: "親善村《大白鯊 JAWS》＆ 好萊塢大道採買",
+                badge: "無身高限制｜19:00 閉園離場",
+                badgeClass: "bg-indigo-100 text-indigo-900",
+                pinColor: "bg-indigo-900 text-white border-white",
+                time: "17:30 - 19:00",
+                note: "天色漸暗搭大白鯊更有臨場感（無身高限制，讓小朋友坐靠船身內側），接著沿好萊塢大道逛紀念品店，19:00 前輕鬆離場。",
+                x: 47,
+                y: 78
+            }
+        ];
+
+        const usjTimeBlocks = [
+            {
+                idx: 0,
+                time: "09:00 - 11:30",
+                title: "開園直衝「超級任天堂世界」",
+                badge: "開園首衝・抽整理券",
+                colorClass: "bg-orange-600 text-white",
+                borderClass: "border-orange-200 bg-orange-50/40",
+                pinIds: [1, 2],
+                bullets: [
+                    "<strong>入園第一步：</strong>進大門後直接往右後方衝進超級任天堂世界（若當天開園人潮已多，務必先用官方 App 抽「區域入場整理券」）。",
+                    "<strong>瑪利歐賽車 ～庫巴的挑戰書～：</strong>優先排這項最熱門設施（標準需滿 107 公分並有大人陪同；若現場量測差一點點未達標，直接向入口人員申請「乘車遊交換 Child Switch」，只需排一次隊就能讓兩位大人輪流進去玩）。",
+                    "<strong>耀西冒險：</strong>接著搭耀西（92 公分以上陪同即可），悠閒俯瞰整個蘑菇王國。"
+                ]
+            },
+            {
+                idx: 1,
+                time: "11:30 - 13:30",
+                title: "順路進入「哈利波特的魔法世界」",
+                badge: "步行3分即達・城堡午餐",
+                colorClass: "bg-purple-700 text-white",
+                borderClass: "border-purple-200 bg-purple-50/40",
+                pinIds: [3, 4],
+                bullets: [
+                    "<strong>鷹馬的飛行：</strong>從任天堂世界出口步行不到 3 分鐘即達，92 公分以上有大人陪同就能搭，是非常適合小朋友的入門款小型雲霄飛車。",
+                    "<strong>午餐與拍照：</strong>可在活米村享用三根掃帚午餐，順便欣賞霍格華茲城堡與青蛙合唱團表演。"
+                ]
+            },
+            {
+                idx: 2,
+                time: "13:30 - 15:45",
+                title: "主力「侏羅紀公園」（＋順路看《水世界》）",
+                badge: "恐龍迷重頭戲・中場休息",
+                colorClass: "bg-emerald-700 text-white",
+                borderClass: "border-emerald-200 bg-emerald-50/40",
+                intro: "從哈利波特出口出來就是親善村與侏羅紀公園的入口，直接順路接上：",
+                pinIds: [5, 6, 7],
+                bullets: [
+                    "<strong>恐龍驚奇邂逅（My Friend Dinosaur）：</strong>超擬真的大型草食與肉食恐龍會直接走到街頭與遊客近距離互動，對喜歡恐龍的小朋友來說非常震撼（建議入園後先在官方 App 確認當天場次時間）。",
+                    "<strong>《水世界》水上特技秀（推薦加碼）：</strong>就在侏羅紀公園正隔壁，無身高限制、坐著吹風看真人特技與爆破，正好能讓大人小孩在下午徹底休息（記得避開前排全濕區，坐中間區域即可）。",
+                    "<strong>下午茶休息：</strong>可在「新發現餐廳（Discovery Restaurant）」或路邊攤買恐龍造型點心補給體力。"
+                ]
+            },
+            {
+                idx: 3,
+                time: "15:45 - 17:30",
+                title: "往南移動至「小小兵樂園」",
+                badge: "傍晚人潮較少",
+                colorClass: "bg-amber-500 text-white",
+                borderClass: "border-amber-200 bg-amber-50/40",
+                pinIds: [8],
+                bullets: [
+                    "<strong>小小兵瘋狂乘車遊：</strong>105 公分（有大人陪同需滿 102 公分）剛好達標！傍晚時段排隊人潮會比中午少一些。",
+                    "<strong>冰凍雷射光乘車遊：</strong>旁邊的旋轉小車（92 公分以上陪同可玩）排隊很快，可順道體驗。"
+                ]
+            },
+            {
+                idx: 4,
+                time: "17:30 - 19:00",
+                title: "彈性加碼「親善村（大白鯊）」＋ 離園",
+                badge: "19:00 準時閉園離場",
+                colorClass: "bg-indigo-900 text-white",
+                borderClass: "border-indigo-200 bg-indigo-50/40",
+                pinIds: [9],
+                bullets: [
+                    "<strong>大白鯊（JAWS）：</strong>從小小兵樂園往大門口方向走，正好會經過親善村！天色漸暗時搭大白鯊乘船遊氣氛更有臨場感，而且無身高限制（只要能自己坐穩即可，建議讓小朋友坐靠船身內側比較不會被水花噴到或嚇到）。",
+                    "<strong>閉園前採買：</strong>玩完大白鯊後，沿著好萊塢大道邊逛紀念品店邊往大門口移動，準時在 19:00 閉園前輕鬆離場。"
+                ]
+            }
+        ];
+
+        // ==================== 2. 每日行程資料 ====================
         const itineraryData = [
             {
                 day: 1,
                 date: "11/17 (二)",
-                title: "出發日｜台灣桃園國際機場 ✈️ 大阪關西海上空港",
-                subtitle: "抵達關西，入住機場周邊泉佐野飯店休息",
+                title: "出發日｜桃園國際機場 ✈️ 關西國際機場 (KIX)",
+                subtitle: "抵達關西，入住機場周邊泉佐野飯店",
                 spots: [
                     {
-                        name: "台灣桃園國際機場 ✈️ 大阪關西海上空港 (關西國際機場)",
+                        name: "桃園國際機場 ✈️ 關西國際機場 (KIX)",
                         hours: "國際線 24 小時營運",
                         note: "辦理入境手續、領取行李，專車前往泉佐野市飯店辦理入住。",
                         mapQuery: "關西國際機場"
@@ -431,19 +623,19 @@
                 subtitle: "世界遺產巡禮與京都古街風情漫步",
                 spots: [
                     {
-                        name: "世界遺產〈奈良東大寺〉＆ 奈良梅花鹿公園 (奈良公園)",
-                        hours: "東大寺大佛殿 07:30–17:30／奈良公園 24 小時開放",
+                        name: "奈良東大寺 ＆ 奈良公園（梅花鹿公園）",
+                        hours: "東大寺 07:30–17:30／奈良公園 24 小時開放",
                         note: "帶 4 歲小朋友餵食鹿仙貝時請大人陪同留意安全，參觀世界最大木造建築大佛殿。",
                         mapQuery: "奈良東大寺"
                     },
                     {
-                        name: "世界遺產〈清水寺〉＆ 二・三年坂京風小舖老街",
-                        hours: "清水寺 06:00–18:00（秋季夜間特別參拜開放至 21:30）／老街店家約 10:00–18:00",
+                        name: "清水寺 ＆ 二年坂・三年坂",
+                        hours: "清水寺 06:00–18:00／老街店家約 10:00–18:00",
                         note: "秋季賞楓名所！沿途可逛京都抹茶甜點、八橋泡芙與伴手禮老街。",
                         mapQuery: "清水寺"
                     },
                     {
-                        name: "祇園 ～ 八坂神社 ～ 藝妓茶屋街〈花見小路〉",
+                        name: "祇園 ～ 八坂神社 ～ 花見小路",
                         hours: "八坂神社 24 小時參拜／花見小路全天開放",
                         note: "感受京都花街歷史氛圍，拍照請遵守當地禮儀勿打擾藝妓與私人宅邸。",
                         mapQuery: "八坂神社"
@@ -454,30 +646,24 @@
                     lunch: "日式風味御膳料理（餐標 2,500 日幣）",
                     dinner: "相撲火鍋吃到飽（餐標 3,000 日幣）"
                 },
-                hotel: "CHISUN PREMIUM KYOTO KUJO（EX: HOTEL MONDAY PREMIUM）",
+                hotel: "CHISUN PREMIUM KYOTO KUJO（京都九條知鄉精選飯店）",
                 hotelMapQuery: "CHISUN PREMIUM KYOTO KUJO 京都市南区東九条上御霊町15-1"
             },
             {
                 day: 3,
                 date: "11/19 (四)",
-                title: "港灣與潮流｜天保山海遊館・免稅店・難波心齋橋道頓堀",
+                title: "港灣與潮流｜大阪海遊館・難波・心齋橋・道頓堀",
                 subtitle: "世界最大級水族館與大阪購物美食大道自由逛",
                 hasShinsaibashiBtn: true,
                 spots: [
                     {
-                        name: "★世界最大級水族館〈天保山海遊館〉",
+                        name: "大阪海遊館（天保山）",
                         hours: "10:00–20:00（最後入館 19:00）",
                         note: "必看巨大太平洋水槽中的鯨鯊、企鵝與海豹，小朋友超喜歡！",
                         mapQuery: "大阪海遊館"
                     },
                     {
-                        name: "免稅店",
-                        hours: "依旅行社安排時段",
-                        note: "結帳時請出示護照正本。",
-                        mapQuery: "免稅店 大阪"
-                    },
-                    {
-                        name: "難波 ～ 心齋橋・戎橋商店街 ～ 道頓堀",
+                        name: "難波 ～ 心齋橋筋商店街 ～ 戎橋筋商店街 ～ 道頓堀",
                         hours: "商圈店家約 11:00–21:00／道頓堀餐飲營業至深夜",
                         note: "午晚餐方便遊玩敬請自理！可點擊下方按鈕查看已整理好的 21 間私房地圖與美食清單。",
                         mapQuery: "心齋橋"
@@ -488,26 +674,26 @@
                     lunch: "方便遊玩－敬請自理",
                     dinner: "方便遊玩－敬請自理"
                 },
-                hotel: "LIBER HOTEL OSAKA（EX: LIBER HOTEL AT UNIVERSAL STUDIOS JAPAN）",
+                hotel: "LIBER HOTEL OSAKA（大阪利蓓薾飯店）",
                 hotelMapQuery: "LIBER HOTEL OSAKA 大阪市此花区桜島1丁目1-35"
             },
             {
                 day: 4,
                 date: "11/20 (五)",
-                title: "夢幻樂園｜日本環球影城 UNIVERSAL STUDIOS JAPAN",
-                subtitle: "全日暢玩超人氣園區與刺激遊樂設施",
+                title: "全日暢遊｜日本環球影城 Universal Studios Japan",
+                subtitle: "4歲親子順遊路線圖・超級任天堂 × 哈利波特 × 侏羅紀水世界 × 小小兵",
                 isUsjDay: true,
                 spots: [
                     {
-                        name: "全日暢遊～日本環球影城 UNIVERSAL STUDIOS JAPAN",
-                        hours: "⚠️ 特別提醒：2026/11/20 官方營業時間預計 09:00–19:00（提早閉園）",
-                        note: "請善用早鳥入園與 Child Switch（輪流搭乘），離園前請預留時間至門口辦理退稅。",
+                        name: "日本環球影城 Universal Studios Japan（全日暢遊）",
+                        hours: "⚠️ 官方營業時間 09:00–19:00（19:00 提早閉園）",
+                        note: "從 LIBER HOTEL OSAKA 搭 JR 僅 1 站（2 分鐘）直達環球城站，請參考下方互動園區地圖與五大時段路線。",
                         mapQuery: "日本環球影城"
                     }
                 ],
                 meals: {
                     breakfast: "飯店內早餐",
-                    lunch: "方便遊玩－敬請自理",
+                    lunch: "方便遊玩－敬請自理（推薦三根掃帚或侏羅紀新發現餐廳）",
                     dinner: "方便遊玩－敬請自理"
                 },
                 hotel: "LIBER HOTEL OSAKA（連住第二晚，回飯店可泡天然溫泉）",
@@ -516,23 +702,23 @@
             {
                 day: 5,
                 date: "11/21 (六)",
-                title: "萌寵與血拼｜神戶動物王國・臨空 OUTLET・返抵台灣",
+                title: "萌寵與血拼｜神戶動物王國・臨空城 OUTLET・返抵台灣",
                 subtitle: "近距離互動水豚君與最後機場前補貨衝刺",
                 spots: [
                     {
-                        name: "★可愛動物近距離親密接觸～療癒水豚君・可愛袋鼠〈神戶動物王國〉",
-                        hours: "10:00–17:00（最後入園 16:30）",
+                        name: "神戶動物王國",
+                        hours: "10:00–17:00（16:30 最終入園）",
                         note: "全天候半室內動物園，可零距離接觸水豚君、袋鼠與貓頭鷹飛行秀。",
                         mapQuery: "神戶動物王國"
                     },
                     {
-                        name: "購物天堂〈臨空 OUTLET / Rinku Premium Outlets〉",
+                        name: "臨空城 Rinku Premium Outlets",
                         hours: "10:00–20:00",
-                        note: "距離關西機場僅 10 分鐘車程，日系與歐美品牌齊全，記得先至服務台領取外國人優惠券。",
+                        note: "距離關西機場僅 10 分鐘車程，記得先至服務台領取外國人優惠券。",
                         mapQuery: "Rinku Premium Outlets"
                     },
                     {
-                        name: "關西海上空港～機場免稅店 ✈️ 台灣桃園國際機場",
+                        name: "關西國際機場 (KIX) ✈️ 台灣桃園國際機場",
                         hours: "依航班時間辦理登機與機場海關退稅",
                         note: "若有辦理退稅商品請提前至機場海關櫃台確認退稅，滿載戰利品平安返家！",
                         mapQuery: "關西國際機場"
@@ -547,14 +733,14 @@
             }
         ];
 
-        // ==================== 2. 心齋橋・道頓堀 21 個私房景點美食資料 ====================
+        // ==================== 3. 心齋橋・道頓堀 21 個私房景點美食資料 ====================
         const shinsaibashiSpots = [
             {
                 id: 1,
                 cat: "exp",
                 catLabel: "🎨 展覽體驗",
                 name: "MIRACLE WORLD OSAKA",
-                hours: "平日 09:00–23:00／週末假日至 24:00",
+                hours: "平日 09:00–23:00／週末至 24:00",
                 address: "大阪府大阪市中央区日本橋（地鐵日本橋站步行 5 分）",
                 note: "隱藏在地下室的 360 度光影藝術展，多個奇幻主題房間，逛街走累了很適合來拍照休息。",
                 mapQuery: "MIRACLE WORLD OSAKA",
@@ -578,7 +764,7 @@
                 cat: "shop",
                 catLabel: "🛍️ 逛街購物",
                 name: "美國村 Amerikamura",
-                hours: "約 11:00–20:00",
+                hours: "11:00–20:00",
                 address: "大阪府大阪市中央区西心斎橋2丁目",
                 note: "古著店、街頭塗鴉藝術與巷弄質感咖啡廳集中地。",
                 mapQuery: "美國村 大阪",
@@ -590,7 +776,7 @@
                 cat: "shop",
                 catLabel: "🛍️ 逛街購物",
                 name: "橘子街 Orange Street / 立花通",
-                hours: "約 11:00–20:00",
+                hours: "11:00–20:00",
                 address: "大阪府大阪市西区南堀江1丁目",
                 note: "美國村西側，集結設計選物、潮流服飾與居家設計家具店。",
                 mapQuery: "Orange Street 大阪",
@@ -601,10 +787,10 @@
                 id: 5,
                 cat: "shop",
                 catLabel: "🛍️ 逛街購物",
-                name: "橡子共和國 心齋橋 PARCO 店 Donguri Kyowakoku",
+                name: "橡子共和國 心齋橋 PARCO 店",
                 hours: "10:00–20:00",
-                address: "大阪府大阪市中央区心斎橋筋1-8-3 心齋橋 PARCO 6F",
-                note: "吉卜力周邊專賣店，龍貓、波妞與限定伴手禮超可愛（同棟 PARCO 也有多間角色周邊店）。",
+                address: "大阪府大阪市中央区心斎橋筋1-8-3 心齋橋PARCO 6F",
+                note: "吉卜力周邊專賣店，龍貓、波妞與限定伴手禮超可愛（心齋橋PARCO 6F）。",
                 mapQuery: "Donguri Kyowakoku 心齋橋 PARCO",
                 x: 52,
                 y: 31
@@ -613,8 +799,8 @@
                 id: 6,
                 cat: "shop",
                 catLabel: "🛍️ 逛街購物",
-                name: "Atelier nuu（豐岡鞄）",
-                hours: "11:00–17:30（⚠️ 較早打烊請留意）",
+                name: "Atelier nuu 大阪店",
+                hours: "11:00–17:30（⚠️ 提醒早點打烊）",
                 address: "大阪府大阪市西区南堀江1-14-14",
                 note: "兵庫豐岡市發源的質感包包品牌，設計簡約耐用，位於堀江橘子街一帶。",
                 mapQuery: "Atelier nuu 大阪",
@@ -626,9 +812,9 @@
                 cat: "shop",
                 catLabel: "🛍️ 逛街購物",
                 name: "Sanrio Store 大阪心齋橋店",
-                hours: "11:00–21:00",
+                hours: "11:00–20:00",
                 address: "大阪府大阪市中央区心斎橋筋2丁目",
-                note: "2 層樓三麗鷗專賣店，有心齋橋限定品與自選小公仔裝罐體驗。",
+                note: "2 層樓三麗鷗專賣店，有心齋橋限定商品與可自行挑選裝罐的小公仔。",
                 mapQuery: "Sanrio 心齋橋",
                 x: 59,
                 y: 52
@@ -639,7 +825,7 @@
                 catLabel: "🛍️ 逛街購物",
                 name: "Onitsuka Tiger 鬼塚虎 心齋橋店",
                 hours: "11:00–20:00",
-                address: "大阪府大阪市中央区心斎橋筋1-4-22",
+                address: "大阪市中央区心斎橋筋1-4-22",
                 note: "人氣超高！提供退稅＋95 折優惠，鞋款豐富（亦有童鞋款），建議早點去排隊。",
                 mapQuery: "Onitsuka Tiger 大阪市中央区心斎橋筋1-4-22",
                 x: 59,
@@ -651,7 +837,7 @@
                 catLabel: "🛍️ 逛街購物",
                 name: "ASICS 心齋橋店",
                 hours: "11:00–20:00",
-                address: "大阪府大阪市中央区心斎橋筋1-8-1",
+                address: "大阪市中央区心斎橋筋1-8-1",
                 note: "常年設有折扣鞋款，大人與兒童運動鞋性價比很高。",
                 mapQuery: "ASICS 大阪市中央区心斎橋筋1-8-1",
                 x: 59,
@@ -663,9 +849,9 @@
                 catLabel: "🛍️ 逛街購物",
                 name: "吉壽屋 お菓子のデパート よしや 心齋橋營業所",
                 hours: "10:00–21:30",
-                address: "大阪府大阪市中央区南船場3-10-21",
+                address: "大阪市中央区南船場3-10-26",
                 note: "超平價日本零食批發店！買伴手禮、巧克力與小朋友零食超划算。",
-                mapQuery: "お菓子のデパート よしや 心斎橋営業所",
+                mapQuery: "お菓子のデパート よしや 心齋橋営業所",
                 x: 61,
                 y: 19
             },
@@ -673,9 +859,9 @@
                 id: 11,
                 cat: "exp",
                 catLabel: "🎨 展覽體驗",
-                name: "驚安殿堂惠比壽塔摩天輪",
-                hours: "14:00–20:00（最終乘車 19:30／週二・五公休，11/19 週四有營業）",
-                address: "大阪府大阪市中央区宗右衛門町7-13 驚安殿堂道頓堀店 3F",
+                name: "驚安殿堂 惠比壽塔摩天輪",
+                hours: "14:00–20:00（週二五公休・11/19週四有營業）",
+                address: "大阪府大阪市中央区宗右衛門町7-13 道頓堀店3F",
                 note: "全球首座 180 度水平旋轉橢圓形摩天輪，一般票 600 日幣（一個車廂最多可容納 4 人）。",
                 mapQuery: "恵比寿タワー 道頓堀",
                 x: 65,
@@ -684,9 +870,9 @@
             {
                 id: 12,
                 cat: "food",
-                catLabel: "🍜 美食餐廳",
-                name: "龜王拉麵 九州らーめん亀王 道頓堀店",
-                hours: "11:00–24:00",
+                catLabel: "🍜 美食甜點",
+                name: "龜王拉麵 道頓堀店",
+                hours: "11:00–23:00",
                 address: "大阪府大阪市中央区道頓堀2-2-17",
                 note: "價格親民、湯頭濃郁順口的平價人氣九州拉麵。",
                 mapQuery: "龜王拉麵 道頓堀",
@@ -696,11 +882,11 @@
             {
                 id: 13,
                 cat: "food",
-                catLabel: "🍜 美食餐廳",
-                name: "Shabucho しゃぶ長",
-                hours: "11:30–15:00／17:00–22:00",
+                catLabel: "🍜 美食甜點",
+                name: "Shabucho しゃぶ長 心齋橋",
+                hours: "11:30–15:00 / 17:00–22:00",
                 address: "大阪府大阪市中央区東心斎橋1-18-11",
-                note: "一人一鍋日式涮涮鍋，晚間套餐附三道精緻冷食前菜，建議提前線上預訂。",
+                note: "一人一鍋日式涮涮鍋，晚間套餐附三道精緻冷食前菜，建議線上預訂。",
                 mapQuery: "しゃぶ長 心齋橋",
                 x: 72,
                 y: 38
@@ -708,9 +894,9 @@
             {
                 id: 14,
                 cat: "food",
-                catLabel: "🍜 美食餐廳",
+                catLabel: "🍜 美食甜點",
                 name: "麵匠之心 つるとんたん 宗右衛門町店",
-                hours: "11:00–翌 05:00",
+                hours: "11:00–翌 06:00",
                 address: "大阪府大阪市中央区宗右衛門町3-17",
                 note: "比臉還大的大碗公烏龍麵名店！環境很有日式風格、份量超大，親子共食也很適合。",
                 mapQuery: "つるとんたん 宗右衛門町店",
@@ -720,9 +906,9 @@
             {
                 id: 15,
                 cat: "food",
-                catLabel: "🍜 美食餐廳",
+                catLabel: "🍜 美食甜點",
                 name: "板前燒肉一斗 心齋橋店",
-                hours: "17:00–23:30",
+                hours: "17:00–23:00",
                 address: "大阪府大阪市中央区東心斎橋1-16-26",
                 note: "人氣和牛燒肉名店，建議開門前先去排隊或提前預約。",
                 mapQuery: "板前燒肉一斗 心齋橋",
@@ -732,8 +918,20 @@
             {
                 id: 16,
                 cat: "food",
-                catLabel: "🍜 美食餐廳",
-                name: "道頓堀蟹道樂 本店 Kani Doraku",
+                catLabel: "🍜 美食甜點",
+                name: "牛丸 心齋橋",
+                hours: "17:00–00:00",
+                address: "大阪市中央区東心斎橋2-8-26 FUKU BLD 2F B号",
+                note: "豪邁整支帝王蟹腳＆燒肉吃到飽，飲品喝到飽可加價 +1,000 日圓。",
+                mapQuery: "牛丸 心齋橋",
+                x: 78,
+                y: 60
+            },
+            {
+                id: 17,
+                cat: "food",
+                catLabel: "🍜 美食甜點",
+                name: "道頓堀蟹道樂 本店",
                 hours: "11:00–22:00",
                 address: "大阪府大阪市中央区道頓堀1-6-18",
                 note: "2F 可內用全蟹饗宴，1F 門口窗口可直接外帶現烤蟹腳與蟹膏。",
@@ -742,9 +940,9 @@
                 y: 79
             },
             {
-                id: 17,
+                id: 18,
                 cat: "food",
-                catLabel: "🍜 美食餐廳",
+                catLabel: "🍜 美食甜點",
                 name: "10円パン 大阪道頓堀店",
                 hours: "10:00–22:00",
                 address: "大阪府大阪市中央区道頓堀1-10-6",
@@ -754,9 +952,9 @@
                 y: 83
             },
             {
-                id: 18,
+                id: 19,
                 cat: "food",
-                catLabel: "🍜 美食餐廳",
+                catLabel: "🍜 美食甜點",
                 name: "STRAWBERRY MANIA 道頓堀店",
                 hours: "11:00–21:00",
                 address: "大阪府大阪市中央区道頓堀1-3-17",
@@ -766,44 +964,32 @@
                 y: 81
             },
             {
-                id: 19,
+                id: 20,
                 cat: "food",
-                catLabel: "🍜 美食餐廳",
+                catLabel: "🍜 美食甜點",
                 name: "Le Croissant 心齋橋店",
                 hours: "11:00–21:00",
                 address: "大阪府大阪市中央区心斎橋筋2-7-25",
-                note: "人氣現烤香酥迷你可頌專賣店，外皮酥脆帶有微甜糖霜。",
+                note: "現烤明太子與原味可頌專賣店，外皮酥脆帶有微甜糖霜。",
                 mapQuery: "Le Croissant 心齋橋",
                 x: 59,
                 y: 62
             },
             {
-                id: 20,
+                id: 21,
                 cat: "food",
-                catLabel: "🍜 美食餐廳",
+                catLabel: "🍜 美食甜點",
                 name: "1511 shinsaibashi sand",
                 hours: "11:30–翌 05:00（週日公休）",
-                address: "Osaka, Chuo Ward, Higashishinsaibashi, 2 Chome-8-8 日宝笠屋町センター 1F",
+                address: "大阪市中央区東心斎橋2-8-8 日宝笠屋町センター 1F",
                 note: "營業至清晨 5 點的盒裝厚切三明治專門店，份量剛好超適合買回飯店當宵夜。",
                 mapQuery: "1511 shinsaibashi sand",
                 x: 73,
                 y: 55
-            },
-            {
-                id: 21,
-                cat: "food",
-                catLabel: "🍜 美食餐廳",
-                name: "牛丸 心齋橋",
-                hours: "17:00–24:00（用餐 100 分鐘）",
-                address: "〒542-0083 Osaka, Chuo Ward, Higashishinsaibashi, 2 Chome-8-26 FUKU BLD.心斎橋 2F B号",
-                note: "豪邁整支帝王蟹腳＆燒肉吃到飽，飲品喝到飽可加價 +1,000 日圓。",
-                mapQuery: "牛丸 心齋橋",
-                x: 78,
-                y: 60
             }
         ];
 
-        // ==================== 3. 住宿飯店與周邊生活機能資料 ====================
+        // ==================== 4. 住宿飯店與周邊生活機能資料 ====================
         const hotelsData = [
             {
                 id: "hotel-0",
@@ -811,7 +997,7 @@
                 area: "泉佐野市・大阪府（近關西機場）",
                 name: "IZUMISANO CENTER HOTEL",
                 jpName: "泉佐野センターホテル",
-                address: "598-0012 大阪府泉佐野市高松東 1-10-37",
+                address: "〒598-0012 大阪府泉佐野市高松東1-10-37",
                 tel: "+81-72-458-1116",
                 note: "距離關西機場僅約 10~15 分鐘車程，步行至南海電鐵泉佐野站約 3 分鐘，周邊生活機能齊全。",
                 mapQuery: "IZUMISANO CENTER HOTEL 大阪府泉佐野市高松東1-10-37",
@@ -820,7 +1006,7 @@
                         type: "cvs",
                         typeLabel: "🏪 超商",
                         name: "Lawson 泉佐野駅東店",
-                        distance: "步行約 2 分鐘",
+                        distance: "步行 2 分",
                         desc: "24 小時營業，就在飯店與泉佐野車站之間，買宵夜、鮮奶、飯糰最順路。",
                         mapQuery: "ローソン 泉佐野駅東店"
                     },
@@ -828,7 +1014,7 @@
                         type: "cvs",
                         typeLabel: "🏪 超商",
                         name: "7-Eleven 泉佐野高松東店",
-                        distance: "步行約 3 分鐘（附 ATM）",
+                        distance: "步行 3 分 / 附 ATM",
                         desc: "24 小時營業，店內設有 Seven Bank ATM 可直接提領日幣現金。",
                         mapQuery: "セブン-イレブン 泉佐野高松東店"
                     },
@@ -836,23 +1022,23 @@
                         type: "drug",
                         typeLabel: "💊 藥妝",
                         name: "杉藥局 スギ薬局 泉佐野店",
-                        distance: "步行約 4 分鐘",
+                        distance: "步行 4 分",
                         desc: "第一晚抵達若需補買常備藥、退熱貼、口罩與日用品非常方便。",
                         mapQuery: "スギ薬局 泉佐野店"
                     },
                     {
                         type: "drug",
                         typeLabel: "💊 藥妝",
-                        name: "鶴羽藥妝 ツルハドラッグ 泉佐野駅前店",
-                        distance: "步行約 5 分鐘",
+                        name: "鶴羽藥妝 ツルハドラッグ 泉佐野店",
+                        distance: "步行 5 分",
                         desc: "品項齊全並提供免稅服務，藥妝、嬰幼兒護理用品皆可採購。",
-                        mapQuery: "ツルハドラッグ 泉佐野駅前店"
+                        mapQuery: "ツルハドラッグ 泉佐野店"
                     },
                     {
                         type: "mall",
-                        typeLabel: "🏬 百貨商場",
-                        name: "泉佐野車站周邊商場超市（食品館アプロ 泉佐野店）",
-                        distance: "步行約 3–5 分鐘",
+                        typeLabel: "🏬 百貨超市",
+                        name: "泉佐野車站周邊超市",
+                        distance: "步行 3 分",
                         desc: "車站周邊商店街與生鮮超市，可買日本當季水果、零食與飲料。",
                         mapQuery: "食品館アプロ 泉佐野店"
                     },
@@ -860,7 +1046,7 @@
                         type: "baby",
                         typeLabel: "👶 嬰幼用品",
                         name: "西松屋 泉佐野店",
-                        distance: "車程約 6 分鐘",
+                        distance: "車程 6 分",
                         desc: "日本連鎖平價婦嬰專賣店，嬰幼兒服飾、110/120cm 童裝、奶粉尿布齊全。",
                         mapQuery: "西松屋 泉佐野店"
                     }
@@ -880,57 +1066,57 @@
                     {
                         type: "cvs",
                         typeLabel: "🏪 超商",
-                        name: "FamilyMart 東九條店",
-                        distance: "步行約 2 分鐘",
+                        name: "FamilyMart 京都九条店",
+                        distance: "步行 2 分",
                         desc: "距離飯店最近的超商，24 小時營業，買早餐飲品或宵夜炸雞超便利。",
-                        mapQuery: "ファミリーマート 東九条店"
+                        mapQuery: "ファミリーマート 京都九条店"
                     },
                     {
                         type: "cvs",
                         typeLabel: "🏪 超商",
-                        name: "7-Eleven 京都東九條店",
-                        distance: "步行約 3 分鐘",
+                        name: "7-Eleven 京都東九条店",
+                        distance: "步行 3 分",
                         desc: "設有 Seven Bank ATM 與完整熱食、甜點櫃。",
                         mapQuery: "セブン-イレブン 京都東九条店"
                     },
                     {
                         type: "cvs",
                         typeLabel: "🏪 超商",
-                        name: "Lawson 京都九條站前店",
-                        distance: "步行約 4 分鐘",
+                        name: "Lawson 九条駅前店",
+                        distance: "步行 4 分",
                         desc: "24 小時營業，位於地鐵九條站出口旁。",
-                        mapQuery: "ローソン 京都九条駅前店"
+                        mapQuery: "ローソン 九条駅前店"
                     },
                     {
                         type: "drug",
                         typeLabel: "💊 藥妝",
                         name: "松本清 京都八條口店",
-                        distance: "步行約 9 分鐘",
+                        distance: "步行 9 分",
                         desc: "位於京都站八條口商圈，藥妝款式齊全並支援免稅結帳。",
                         mapQuery: "マツモトキヨシ 京都八条口店"
                     },
                     {
                         type: "drug",
                         typeLabel: "💊 藥妝",
-                        name: "杉藥局 京都站八條口店",
-                        distance: "步行約 10 分鐘",
+                        name: "杉藥局 京都駅八条口店",
+                        distance: "步行 10 分",
                         desc: "常備藥品、保健食品與日用品豐富，營業至晚間時段。",
                         mapQuery: "スギ薬局 京都駅八条口店"
                     },
                     {
                         type: "mall",
-                        typeLabel: "🏬 百貨商場",
-                        name: "京都 Avanti (KYOTO AVANTI)",
-                        distance: "步行約 9 分鐘（京都站八條口對面）",
-                        desc: "內有 4F 阿卡將本舖 Akachan Honpo 嬰幼旗艦店、唐吉訶德、GU 與多家餐廳。",
+                        typeLabel: "🏬 百貨超市",
+                        name: "京都 Avanti",
+                        distance: "步行 9 分",
+                        desc: "4F 有阿卡將本舖 Akachan Honpo 與唐吉訶德，親子採買超方便。",
                         mapQuery: "京都アバンティ"
                     },
                     {
                         type: "baby",
                         typeLabel: "👶 嬰幼用品",
-                        name: "AEON MALL KYOTO（3F 寶寶反斗城 / 玩具反斗城）",
-                        distance: "步行約 12 分鐘",
-                        desc: "大型購物中心，3F 設有 Toys\"R\"Us / Babies\"R\"Us（可找奧特曼玩具與兒童用品）、Uniqlo 與美食街。",
+                        name: "AEON MALL KYOTO（3F 寶寶反斗城 Babies\"R\"Us）",
+                        distance: "步行 12 分",
+                        desc: "大型購物中心，3F 設有寶寶反斗城／玩具反斗城（可找奧特曼玩具與兒童用品）。",
                         mapQuery: "イオンモールKYOTO"
                     }
                 ]
@@ -950,117 +1136,123 @@
                     {
                         type: "cvs",
                         typeLabel: "🏪 超商",
-                        name: "Lawson 櫻島站前店 / 飯店 1F 便利商店",
-                        distance: "步行約 1 分鐘（飯店旁）",
+                        name: "Lawson 櫻島站前店",
+                        distance: "步行 1 分 / 飯店旁",
                         desc: "就在飯店門口與櫻島站旁，出發去 USJ 前買早餐飯糰、飲料與宵夜零距離。",
                         mapQuery: "ローソン 桜島駅前店"
                     },
                     {
                         type: "cvs",
                         typeLabel: "🏪 超商",
-                        name: "7-Eleven Universal Citywalk 店",
-                        distance: "JR 搭 1 站至環球城站步行 2 分鐘",
+                        name: "7-Eleven 環球影城站前店",
+                        distance: "JR 搭 1 站 2 分",
                         desc: "位於環球影城車站出口旁商業街，商品齊全。",
                         mapQuery: "セブン-イレブン ユニバーサル・シティウォーク大阪店"
                     },
                     {
                         type: "drug",
                         typeLabel: "💊 藥妝",
-                        name: "松本清 & 鶴羽藥妝 Universal Citywalk 店",
-                        distance: "JR 搭 1 站至環球城站",
+                        name: "松本清 Universal Citywalk 店",
+                        distance: "JR 搭 1 站",
                         desc: "就在環球影城門口外商業街，玩完樂園順路補買藥妝、貼布超方便。",
                         mapQuery: "マツモトキヨシ ユニバーサル・シティウォーク大阪店"
                     },
                     {
+                        type: "drug",
+                        typeLabel: "💊 藥妝",
+                        name: "鶴羽藥妝 環球影城店",
+                        distance: "JR 搭 1 站",
+                        desc: "位於 Universal Citywalk 商業街內，提供退稅與各式藥妝日用品。",
+                        mapQuery: "ツルハドラッグ ユニバーサル・シティウォーク大阪店"
+                    },
+                    {
                         type: "mall",
-                        typeLabel: "🏬 百貨商場",
-                        name: "Universal Citywalk OSAKA 商場",
-                        distance: "JR 搭 1 站（環球影城門口外）",
+                        typeLabel: "🏬 百貨超市",
+                        name: "Universal Citywalk OSAKA",
+                        distance: "JR 搭 1 站",
                         desc: "集結章魚燒博物館、各式主題餐廳、JUMP SHOP 與伴手禮店。",
                         mapQuery: "ユニバーサル・シティウォーク大阪"
                     },
                     {
                         type: "mall",
-                        typeLabel: "🏬 百貨商場",
-                        name: "天保山購物中心 Tempozan Market Place",
-                        distance: "飯店旁櫻島棧橋搭渡輪約 10 分直達",
-                        desc: "就在海遊館旁邊，內有浪花美食橫丁、樂高探索中心與親子餐廳。",
+                        typeLabel: "🏬 百貨超市",
+                        name: "天保山購物中心",
+                        distance: "搭天保山渡輪約 10 分直達海遊館旁",
+                        desc: "飯店旁櫻島棧橋搭渡輪直達海遊館旁，內有浪花美食橫丁與樂高探索中心。",
                         mapQuery: "天保山マーケットプレース"
                     },
                     {
                         type: "baby",
                         typeLabel: "👶 嬰幼用品",
-                        name: "西松屋 此花傳法店 ＆ USJ 園區內嬰兒中心 Baby Center",
-                        distance: "西松屋車程 8 分／USJ 園內設嬰兒中心",
-                        desc: "USJ 園區內（好萊塢區入口旁與奇幻樂園內）提供免費熱水泡奶、尿布台與哺乳室；西松屋可採買童裝與嬰幼用品。",
+                        name: "西松屋 此花傳法店 ＆ USJ 園區內 Baby Center 嬰兒中心",
+                        distance: "西松屋車程 8 分 / USJ 園內設嬰兒中心",
+                        desc: "USJ 園區內提供免費熱水泡奶、尿布台與哺乳室；西松屋可採買童裝與嬰幼用品。",
                         mapQuery: "西松屋 此花伝法店"
                     }
                 ]
             }
         ];
 
-        // ==================== 4. 實用旅遊日語資料 ====================
+        // ==================== 5. 實用旅遊日語資料 ====================
         const japanesePhrases = [
             // 遊樂場購票 (4歲/110cm)
             {
                 cat: "park",
                 catLabel: "🎟️ 遊樂場購票 (4歲/110cm)",
-                zh: "麻煩給我 2 張大人票和 1 張 4 歲兒童票。",
+                zh: "買 2 張大人與 1 張 4 歲兒童票。",
                 jp: "大人2枚と、4歳の子供1枚お願いします。",
                 romaji: "Otona ni-mai to, yon-sai no kodomo ichi-mai onegai shimasu.",
-                tip: "💡 若只有 1 位大人請改說「Otona ichi-mai（大人1枚）」。日本多數遊樂園與交通設施 4 歲已達兒童票門檻。"
+                tip: "💡 若只有 1 位大人請改說「Otona ichi-mai（大人1枚）」。"
             },
             {
                 cat: "park",
                 catLabel: "🎟️ 遊樂場購票 (4歲/110cm)",
-                zh: "4 歲的小孩也需要買票嗎？",
+                zh: "4 歲小孩需要買票嗎？",
                 jp: "4歳の子供もチケットが必要ですか？",
                 romaji: "Yon-sai no kodomo mo chiketto ga hitsuyō desu ka?"
             },
             {
                 cat: "park",
                 catLabel: "🎟️ 遊樂場購票 (4歲/110cm)",
-                zh: "身高 110 公分，可以搭乘這個設施嗎？",
+                zh: "身高 110 公分，可以搭乘這個嗎？",
                 jp: "身長110センチですが、これに乗れますか？",
-                romaji: "Shinchō hyaku-jū senchi desu ga, kore ni noremasu ka?",
-                tip: "💡 110 cm 是日本環球影城多項熱門設施的關鍵分界線！"
+                romaji: "Shinchō hyaku-jū senchi desu ga, kore ni noremasu ka?"
             },
             {
                 cat: "park",
                 catLabel: "🎟️ 遊樂場購票 (4歲/110cm)",
-                zh: "可以幫忙量一下身高嗎？（領取 110cm 認證手環）",
+                zh: "可以幫忙量身高領手環嗎？",
                 jp: "身長を測ってもらえますか？",
                 romaji: "Shinchō o hakatte moraemasu ka?",
-                tip: "💡 現場量完身高通過後，工作人員會幫孩子戴上一條認證手環，之後搭同等級設施就不用重複量囉。"
+                tip: "💡 量完通過後工作人員會幫孩子戴上認證手環，之後搭同等級設施就不用重複量囉。"
             },
             {
                 cat: "park",
                 catLabel: "🎟️ 遊樂場購票 (4歲/110cm)",
-                zh: "我們想使用「輪流搭乘（Child Switch）」服務。",
+                zh: "想使用輪流搭乘 Child Switch。",
                 jp: "チャイルドスイッチを利用したいです。",
                 romaji: "Chairudo suicchi o riyō shitai desu.",
-                tip: "💡 在 USJ 遇到大人想玩、但小孩不能搭的設施時，向入口人員出示此句即可輪流排隊一次玩兩趟。"
+                tip: "💡 在 USJ 遇到大人想玩、但小孩未達身高或不想搭的設施時，只需排一次隊就能輪流搭乘。"
             },
             // 買衣服 (尺寸/顏色)
             {
                 cat: "clothes",
                 catLabel: "👕 買衣服 (尺寸/顏色)",
-                zh: "這件有其他的尺寸嗎？",
+                zh: "有其他尺寸嗎？",
                 jp: "これの違うサイズはありますか？",
                 romaji: "Kore no chigau saizu wa arimasu ka?"
             },
             {
                 cat: "clothes",
                 catLabel: "👕 買衣服 (尺寸/顏色)",
-                zh: "請問有兒童 110 公分（120 公分）的嗎？",
+                zh: "有兒童 110 或 120 公分的嗎？",
                 jp: "キッズの110センチ（120センチ）はありますか？",
-                romaji: "Kizzu no hyaku-jū senchi (hyaku-nijū senchi) wa arimasu ka?",
-                tip: "💡 日本童裝直接以身高標示，110 cm 孩子通常可挑選 110 或大一號 120。"
+                romaji: "Kizzu no hyaku-jū senchi (hyaku-nijū senchi) wa arimasu ka?"
             },
             {
                 cat: "clothes",
                 catLabel: "👕 買衣服 (尺寸/顏色)",
-                zh: "有別的顏色嗎？",
+                zh: "有其他顏色嗎？",
                 jp: "他の色はありますか？",
                 romaji: "Hoka no iro wa arimasu ka?",
                 tip: "🎨 常用顏色：黑 Kuro / 白 Shiro / 藍 Ao / 紅 Aka / 黃 Kiiro / 米色 Bēju"
@@ -1068,14 +1260,14 @@
             {
                 cat: "clothes",
                 catLabel: "👕 買衣服 (尺寸/顏色)",
-                zh: "請問可以試穿嗎？",
+                zh: "可以試穿嗎？",
                 jp: "試着してもいいですか？",
                 romaji: "Shichaku shite mo ii desu ka?"
             },
             {
                 cat: "clothes",
                 catLabel: "👕 買衣服 (尺寸/顏色)",
-                zh: "請問有全新的庫存嗎？",
+                zh: "有全新的庫存嗎？",
                 jp: "新しい在庫はありますか？",
                 romaji: "Atarashii zaiko wa arimasu ka?"
             },
@@ -1083,7 +1275,7 @@
             {
                 cat: "ultraman",
                 catLabel: "🦸‍♂️ 奧特曼玩具",
-                zh: "請問奧特曼（超人力霸王）的玩具在哪一區？",
+                zh: "奧特曼的玩具在哪裡？",
                 jp: "ウルトラマンのおもちゃはどこですか？",
                 romaji: "Urutoraman no omocha wa doko desu ka?",
                 tip: "💡 日本稱奧特曼為「ウルトラマン (Urutoraman)」，怪獸為「怪獣 (Kaijū)」。"
@@ -1091,80 +1283,80 @@
             {
                 cat: "ultraman",
                 catLabel: "🦸‍♂️ 奧特曼玩具",
-                zh: "請問有奧特曼的扭蛋機嗎？",
+                zh: "有奧特曼的扭蛋嗎？",
                 jp: "ウルトラマンのガチャガチャはありますか？",
                 romaji: "Urutoraman no gachagacha wa arimasu ka?"
             },
             {
                 cat: "ultraman",
                 catLabel: "🦸‍♂️ 奧特曼玩具",
-                zh: "請問有奧特曼的衣服或周邊商品嗎？",
+                zh: "有奧特曼的衣服或周邊嗎？",
                 jp: "ウルトラマンの服やグッズはありますか？",
                 romaji: "Urutoraman no fuku ya guzzu wa arimasu ka?"
             },
             {
                 cat: "ultraman",
                 catLabel: "🦸‍♂️ 奧特曼玩具",
-                zh: "請問有賣這個角色的商品嗎？（搭配手機圖片指給店員看）",
+                zh: "有賣這個角色的商品嗎？（指著圖片問）",
                 jp: "このキャラクターの商品はありますか？",
                 romaji: "Kono kyarakutā no shōhin wa arimasu ka?"
             },
-            // 親子餐廳/飯店
+            // 親子需求 (飯店與餐廳)
             {
                 cat: "baby",
-                catLabel: "👶 親子餐廳/飯店",
-                zh: "可以給我兒童餐具（叉子・湯匙）嗎？",
-                jp: "子供用の食器（フォーク・スプーン）をいただけますか？",
-                romaji: "Kodomo-yō no shokki (fōku supūn) o itadakemasu ka?"
+                catLabel: "👶 親子需求",
+                zh: "麻煩兒童餐具。",
+                jp: "子供用の食器をお願いします。",
+                romaji: "Kodomo-yō no shokki o onegai shimasu."
             },
             {
                 cat: "baby",
-                catLabel: "👶 親子餐廳/飯店",
-                zh: "請問有兒童座椅嗎？",
+                catLabel: "👶 親子需求",
+                zh: "有兒童座椅嗎？",
                 jp: "子供用の椅子はありますか？",
                 romaji: "Kodomo-yō no isu wa arimasu ka?"
             },
             {
                 cat: "baby",
-                catLabel: "👶 親子餐廳/飯店",
-                zh: "請問有兒童餐嗎？",
+                catLabel: "👶 親子需求",
+                zh: "有兒童餐嗎？",
                 jp: "キッズメニューはありますか？",
                 romaji: "Kizzu menyū wa arimasu ka?"
             },
             {
                 cat: "baby",
-                catLabel: "👶 親子餐廳/飯店",
+                catLabel: "👶 親子需求",
                 zh: "嬰兒車可以直接推進去嗎？",
                 jp: "ベビーカーのまま入ってもいいですか？",
                 romaji: "Bebīkā no mama haitte mo ii desu ka?"
             },
             {
                 cat: "baby",
-                catLabel: "👶 親子餐廳/飯店",
+                catLabel: "👶 親子需求",
                 zh: "可以給我泡奶用的熱水嗎？",
-                jp: "ミルク用のお湯をいただけますか？",
-                romaji: "Miruku-yō no oyu o itadakemasu ka?"
+                jp: "ミルク用のお湯をもらえますか？",
+                romaji: "Miruku-yō no oyu o moraemasu ka?"
             },
             {
                 cat: "baby",
-                catLabel: "👶 親子餐廳/飯店",
-                zh: "請問有兒童備品（牙刷・拖鞋・睡衣）嗎？",
-                jp: "子供用のアメニティ（歯ブラシ・スリッパ・パジャマ）はありますか？",
-                romaji: "Kodomo-yō no ameniti (haburashi surippa pajama) wa arimasu ka?"
+                catLabel: "👶 親子需求",
+                zh: "飯店有兒童牙刷拖鞋嗎？",
+                jp: "子供用のアメニティ（歯ブラシ・スリッパ）はありますか？",
+                romaji: "Kodomo-yō no ameniti (haburashi / surippa) wa arimasu ka?"
             },
             {
                 cat: "baby",
-                catLabel: "👶 親子餐廳/飯店",
-                zh: "可以幫我們裝床圍嗎？",
-                jp: "ベッドガードをつけてもらえますか？",
-                romaji: "Beddo gādo o tsukete moraemasu ka?"
+                catLabel: "👶 親子需求",
+                zh: "飯店可以加裝床圍嗎？",
+                jp: "ベッドガードをお願いできますか？",
+                romaji: "Beddo gādo o onegai dekimasu ka?"
             },
             {
                 cat: "baby",
-                catLabel: "👶 親子餐廳/飯店",
-                zh: "請問哺乳室（換尿布台）在哪裡？",
-                jp: "授乳室（おむつ交換台）はどこですか？",
-                romaji: "Junyū-shitsu (omutsu kōkan-dai) wa doko desu ka?"
+                catLabel: "👶 親子需求",
+                zh: "哺乳室或換尿布台在哪裡？",
+                jp: "授乳室やおむつ交換台はどこですか？",
+                romaji: "Junyūshitsu ya omutsu kōkandai wa doko desu ka?"
             },
             // 餐廳點餐
             {
@@ -1210,31 +1402,31 @@
                 jp: "クレジットカード（または ICカード）は使えますか？",
                 romaji: "Kurejitto kādo (matawa IC kādo) wa tsukaemasu ka?"
             },
-            // 基本禮貌/交通
+            // 基本禮貌
             {
                 cat: "polite",
-                catLabel: "🙏 基本禮貌/交通",
+                catLabel: "🙏 基本禮貌",
                 zh: "不好意思／請問一下｜非常謝謝您",
                 jp: "すみません ／ ありがとうございます",
                 romaji: "Sumimasen / Arigatō gozaimasu"
             },
             {
                 cat: "polite",
-                catLabel: "🙏 基本禮貌/交通",
+                catLabel: "🙏 基本禮貌",
                 zh: "請問洗手間（或最近的地鐵站）在哪裡？",
                 jp: "トイレ（一番近い駅）はどこですか？",
                 romaji: "Toire (ichiban chikai eki) wa doko desu ka?"
             },
             {
                 cat: "polite",
-                catLabel: "🙏 基本禮貌/交通",
+                catLabel: "🙏 基本禮貌",
                 zh: "請載我到這個地址（搭配飯店地址畫面）",
                 jp: "この住所までお願いします。",
                 romaji: "Kono jūsho made onegai shimasu."
             }
         ];
 
-        // ==================== 5. 親子隨身打包檢查表資料 ====================
+        // ==================== 6. 親子隨身打包檢查表資料 ====================
         const defaultChecklist = [
             { id: "chk-1", text: "護照正本（大人與小孩皆需確認效期 6 個月以上，退稅必備）", checked: false },
             { id: "chk-2", text: "Visit Japan Web 入境 QR Code 截圖（入境審查＋海關申報）", checked: false },
@@ -1267,7 +1459,212 @@
             });
         }
 
-        // ==================== 渲染每日行程 ====================
+        // ==================== 渲染每日行程 & Day 4 USJ 互動地圖 ====================
+        let selectedUsjPinId = null;
+
+        function buildDay4UsjSectionHtml() {
+            const pinsHtml = usjPins.map(pin => {
+                const isSelected = selectedUsjPinId === pin.id;
+                const pulseCls = isSelected ? 'pin-selected ring-4 ring-amber-300' : 'z-10';
+                return `
+                <button onclick="selectUsjPin(${pin.id}, true)"
+                    style="left: ${pin.x}%; top: ${pin.y}%;"
+                    title="#${pin.id} ${pin.name}"
+                    class="absolute -translate-x-1/2 -translate-y-1/2 w-6 h-6 sm:w-7 sm:h-7 rounded-full border-2 text-[10px] sm:text-xs font-black flex items-center justify-center shadow-md transition-transform hover:scale-125 ${pin.pinColor} ${pulseCls}">
+                    ${pin.id}
+                </button>
+                `;
+            }).join('');
+
+            let previewBannerHtml = `
+                <div class="text-xs text-stone-600">
+                    <span class="font-bold text-indigo-900"><i class="fa-solid fa-hand-pointer mr-1 text-maple-600"></i>點擊上方 USJ 地圖編號 #1～#9</span> 查看對應設施身高限制與親子攻略
+                </div>
+            `;
+            if (selectedUsjPinId) {
+                const activePin = usjPins.find(p => p.id === selectedUsjPinId);
+                if (activePin) {
+                    previewBannerHtml = `
+                    <div class="space-y-0.5">
+                        <div class="flex flex-wrap items-center gap-1.5">
+                            <span class="bg-maple-600 text-white text-[11px] font-black px-2 py-0.5 rounded-full">#${activePin.id}</span>
+                            <span class="text-xs sm:text-sm font-black text-indigo-900">${activePin.name}</span>
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${activePin.badgeClass}">${activePin.badge}</span>
+                        </div>
+                        <p class="text-[11px] text-stone-600 leading-relaxed">${activePin.note}</p>
+                    </div>
+                    <button onclick="scrollToUsjBlock(${activePin.blockIdx})" class="shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-900 text-white hover:bg-indigo-850">
+                        跳至時段
+                    </button>
+                    `;
+                }
+            }
+
+            const blocksHtml = usjTimeBlocks.map(block => {
+                const isBlockActive = selectedUsjPinId && block.pinIds.includes(selectedUsjPinId);
+                const activeBorder = isBlockActive ? 'ring-2 ring-maple-600/40 border-maple-600' : block.borderClass;
+                const introHtml = block.intro ? `<p class="text-xs text-stone-600 font-medium">${block.intro}</p>` : '';
+                const pinTagsHtml = block.pinIds.map(pid => `
+                    <button onclick="locateUsjPinOnMap(${pid})" class="text-[11px] font-bold text-indigo-900 bg-white hover:bg-indigo-900 hover:text-white border border-indigo-900/20 px-2 py-0.5 rounded-md transition-colors">
+                        📍 地圖 #${pid}
+                    </button>
+                `).join('');
+                const bulletsHtml = block.bullets.map(b => `
+                    <li class="flex items-start space-x-2 text-xs text-stone-700 leading-relaxed">
+                        <span class="text-maple-600 font-bold mt-0.5">•</span>
+                        <span>${b}</span>
+                    </li>
+                `).join('');
+
+                return `
+                <div id="usj-block-${block.idx}" class="rounded-2xl p-3.5 sm:p-4 border transition-all space-y-2 scroll-mt-20 ${activeBorder}">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <div class="flex flex-wrap items-center gap-1.5">
+                            <span class="text-xs font-black px-2.5 py-0.5 rounded-lg ${block.colorClass}">
+                                ${block.time}
+                            </span>
+                            <span class="text-[11px] font-bold text-stone-600 bg-white/80 px-2 py-0.5 rounded-full border border-stone-200/80">
+                                ${block.badge}
+                            </span>
+                        </div>
+                        <div class="flex items-center space-x-1">
+                            ${pinTagsHtml}
+                        </div>
+                    </div>
+                    <h4 class="text-sm sm:text-base font-black text-indigo-900">${block.title}</h4>
+                    ${introHtml}
+                    <ul class="space-y-1.5 pt-1">
+                        ${bulletsHtml}
+                    </ul>
+                </div>
+                `;
+            }).join('');
+
+            return `
+            <div class="mt-4 pt-4 border-t border-stone-200/80 space-y-4">
+                <!-- USJ 園區順遊地圖總覽 -->
+                <div class="rounded-2xl p-3.5 sm:p-4 bg-washi border border-stone-200/90 space-y-2.5">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <div>
+                            <h3 class="text-sm sm:text-base font-black text-indigo-900 flex items-center">
+                                <i class="fa-solid fa-map-location-dot text-maple-600 mr-1.5"></i>USJ 園區順遊地圖總覽
+                            </h3>
+                            <p class="text-[11px] text-stone-500">點擊地圖圓點 #1～#9 或下方時段「📍 地圖」即可雙向定位</p>
+                        </div>
+                        <span class="text-[11px] font-bold text-maple-600 bg-maple-100/70 px-2.5 py-0.5 rounded-full">
+                            順時針路線 ① → ⑤
+                        </span>
+                    </div>
+
+                    <div id="usj-map-box" class="relative w-full h-[320px] sm:h-[370px] rounded-2xl bg-[#EEF5F0] border border-stone-200 overflow-hidden select-none">
+                        <svg viewBox="0 0 420 400" class="w-full h-full object-cover" preserveAspectRatio="none">
+                            <rect x="0" y="0" width="420" height="400" fill="#EDF4EF"/>
+
+                            <!-- 水世界 -->
+                            <rect x="292" y="14" width="116" height="54" rx="12" fill="#E0F2FE" stroke="#0284C7" stroke-width="1.5"/>
+                            <text x="350" y="32" text-anchor="middle" font-size="9.5" font-weight="900" fill="#0369A1">🌊 水世界 WaterWorld</text>
+                            <text x="350" y="45" text-anchor="middle" font-size="7.5" font-weight="700" fill="#0284C7">③ 下午水上特技秀</text>
+
+                            <!-- 超級任天堂世界 -->
+                            <rect x="235" y="78" width="170" height="72" rx="14" fill="#FFEDD5" stroke="#EA580C" stroke-width="1.6"/>
+                            <text x="320" y="96" text-anchor="middle" font-size="10" font-weight="900" fill="#C2410C">🍄 超級任天堂世界</text>
+                            <text x="320" y="109" text-anchor="middle" font-size="7.5" font-weight="700" fill="#EA580C">① 09:00 開園首衝</text>
+
+                            <!-- 哈利波特魔法世界 -->
+                            <rect x="14" y="20" width="146" height="86" rx="14" fill="#F3E8FF" stroke="#7E22CE" stroke-width="1.5"/>
+                            <text x="87" y="38" text-anchor="middle" font-size="9.5" font-weight="900" fill="#581C87">⚡ 哈利波特魔法世界</text>
+                            <text x="87" y="50" text-anchor="middle" font-size="7.5" font-weight="700" fill="#7E22CE">② 11:30 鷹馬・三根掃帚</text>
+
+                            <!-- 侏羅紀公園 -->
+                            <rect x="255" y="168" width="150" height="94" rx="15" fill="#DCFCE7" stroke="#15803D" stroke-width="1.8"/>
+                            <text x="330" y="186" text-anchor="middle" font-size="10" font-weight="900" fill="#166534">🦖 侏羅紀公園</text>
+                            <text x="330" y="199" text-anchor="middle" font-size="7.5" font-weight="700" fill="#15803D">③ 13:30 恐龍邂逅・下午茶</text>
+
+                            <!-- 中央瀉湖 -->
+                            <ellipse cx="182" cy="196" rx="52" ry="45" fill="#BAE6FD" stroke="#38BDF8" stroke-width="1.8"/>
+                            <text x="182" y="195" text-anchor="middle" font-size="9" font-weight="900" fill="#0369A1">💧 中央瀉湖</text>
+                            <text x="182" y="207" text-anchor="middle" font-size="7.5" font-weight="700" fill="#0284C7">環湖動線</text>
+
+                            <!-- 小小兵樂園 -->
+                            <rect x="16" y="226" width="136" height="84" rx="15" fill="#FEF9C3" stroke="#CA8A04" stroke-width="1.6"/>
+                            <text x="84" y="244" text-anchor="middle" font-size="10" font-weight="900" fill="#854D0E">🍌 小小兵樂園</text>
+                            <text x="84" y="257" text-anchor="middle" font-size="7.5" font-weight="700" fill="#A16207">④ 15:45 瘋狂乘車遊</text>
+
+                            <!-- 親善村＆好萊塢區 -->
+                            <rect x="165" y="272" width="238" height="66" rx="14" fill="#E2E8F0" stroke="#475569" stroke-width="1.5"/>
+                            <text x="284" y="290" text-anchor="middle" font-size="9.5" font-weight="900" fill="#172033">🦈 親善村大白鯊 ＆ 🎬 好萊塢大道</text>
+                            <text x="284" y="303" text-anchor="middle" font-size="7.5" font-weight="700" fill="#334155">⑤ 17:30 大白鯊・紀念品採買</text>
+
+                            <!-- ① -> ② -> ③ -> ④ -> ⑤ 順遊路線 -->
+                            <path d="M 210 356 L 210 120 L 245 115" fill="none" stroke="#EA580C" stroke-width="2.2" stroke-dasharray="5 4"/>
+                            <path d="M 245 92 Q 195 62, 156 62" fill="none" stroke="#7E22CE" stroke-width="2.2" stroke-dasharray="5 4"/>
+                            <path d="M 156 96 Q 210 140, 260 185" fill="none" stroke="#15803D" stroke-width="2.2" stroke-dasharray="5 4"/>
+                            <path d="M 255 235 Q 190 258, 148 268" fill="none" stroke="#CA8A04" stroke-width="2.2" stroke-dasharray="5 4"/>
+                            <path d="M 148 302 L 200 356" fill="none" stroke="#172033" stroke-width="2.2" stroke-dasharray="5 4"/>
+
+                            <!-- 大門入口 -->
+                            <g transform="translate(148, 356)">
+                                <rect x="0" y="0" width="124" height="28" rx="8" fill="#172033"/>
+                                <text x="62" y="13" text-anchor="middle" font-size="8.5" font-weight="900" fill="#FBBF24">🌐 園區大門 ＆ 出口</text>
+                                <text x="62" y="23" text-anchor="middle" font-size="7" font-weight="700" fill="#FFFFFF">19:00 閉園前離場</text>
+                            </g>
+                        </svg>
+
+                        <div id="usj-map-pins-layer" class="absolute inset-0">
+                            ${pinsHtml}
+                        </div>
+                    </div>
+
+                    <!-- USJ 地圖選中預覽列 -->
+                    <div id="usj-map-preview" class="bg-white border border-stone-200 rounded-xl p-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        ${previewBannerHtml}
+                    </div>
+                </div>
+
+                <!-- 五大時段詳細建議路線 -->
+                <div class="space-y-3">
+                    <h3 class="text-sm sm:text-base font-black text-indigo-900 flex items-center">
+                        <i class="fa-solid fa-route text-maple-600 mr-1.5"></i>11/20 (五) USJ 親子建議順遊時間表
+                    </h3>
+                    ${blocksHtml}
+                </div>
+            </div>
+            `;
+        }
+
+        function selectUsjPin(pinId, shouldScrollBlock) {
+            selectedUsjPinId = pinId;
+            const activeFilter = ['all', '1', '2', '3', '4', '5'].find(d => {
+                const btn = document.getElementById('day-btn-' + d);
+                return btn && btn.classList.contains('day-pill-active');
+            }) || 'all';
+            renderItinerary(activeFilter);
+
+            if (shouldScrollBlock) {
+                const pin = usjPins.find(p => p.id === pinId);
+                if (pin) {
+                    setTimeout(() => scrollToUsjBlock(pin.blockIdx), 40);
+                }
+            }
+        }
+
+        function scrollToUsjBlock(blockIdx) {
+            const el = document.getElementById('usj-block-' + blockIdx);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        function locateUsjPinOnMap(pinId) {
+            selectUsjPin(pinId, false);
+            setTimeout(() => {
+                const mapBox = document.getElementById('usj-map-box');
+                if (mapBox) {
+                    mapBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }, 40);
+        }
+
         function renderItinerary(dayFilter) {
             if (!dayFilter) dayFilter = 'all';
             const container = document.getElementById('itinerary-cards-container');
@@ -1311,26 +1708,7 @@
                     </div>
                 ` : '';
 
-                const usjGuideHtml = dayObj.isUsjDay ? `
-                    <div class="mt-4 p-4 rounded-2xl bg-indigo-900/5 border border-indigo-900/15 space-y-2.5 text-xs">
-                        <div class="font-black text-indigo-900 flex items-center text-sm">
-                            <i class="fa-solid fa-wand-magic-sparkles text-maple-600 mr-1.5"></i>USJ 順玩路線攻略
-                        </div>
-                        <div class="text-stone-700 leading-relaxed">
-                            <span class="font-bold text-maple-600">推薦路線：</span>
-                            1. 哈利波特 <i class="fa-solid fa-arrow-right text-[10px] mx-0.5"></i>
-                            2. 任天堂 (咚奇剛瘋狂礦山車) <i class="fa-solid fa-arrow-right text-[10px] mx-0.5"></i>
-                            3. 飛天翼龍 &amp; 侏羅紀乘船遊 <i class="fa-solid fa-arrow-right text-[10px] mx-0.5"></i>
-                            4. 好萊塢 (美夢乘車遊/逆轉) <i class="fa-solid fa-arrow-right text-[10px] mx-0.5"></i>
-                            5. 小小兵 <i class="fa-solid fa-arrow-right text-[10px] mx-0.5"></i>
-                            6. 大白鯊 <i class="fa-solid fa-arrow-right text-[10px] mx-0.5"></i>
-                            7. 柯南 4D
-                        </div>
-                        <div class="text-stone-600 leading-relaxed">
-                            <span class="font-bold text-indigo-900">必帶物品：</span>100日圓硬幣（置物櫃）、護照（門口退稅）、一次性雨衣、行動電源、水杯（園內直飲水）、好走運動鞋。
-                        </div>
-                    </div>
-                ` : '';
+                const usjGuideHtml = dayObj.isUsjDay ? buildDay4UsjSectionHtml() : '';
 
                 const hotelLinksHtml = mapsHotelUrl ? `
                     <div class="flex flex-wrap items-center gap-2">
@@ -1583,10 +1961,10 @@
             if (!container) return;
 
             const filterTabs = [
-                { key: 'all', label: '全部機能' },
-                { key: 'cvs', label: '🏪 超商 (7-11/Lawson)' },
+                { key: 'all', label: '全部' },
+                { key: 'cvs', label: '🏪 超商' },
                 { key: 'drug', label: '💊 藥妝' },
-                { key: 'mall', label: '🏬 百貨商場' },
+                { key: 'mall', label: '🏬 百貨超市' },
                 { key: 'baby', label: '👶 嬰幼用品' }
             ];
 
@@ -1773,11 +2151,11 @@
         function openJpModal(idx) {
             const item = japanesePhrases[idx];
             if (!item) return;
-            document.getElementById('modal-jp-cat').textContent = item.catLabel;
-            document.getElementById('modal-jp-zh').textContent = item.zh;
+            document.getElementById('modal-cat-badge').textContent = item.catLabel;
+            document.getElementById('modal-zh-text').textContent = item.zh;
             document.getElementById('modal-jp-text').textContent = item.jp;
-            document.getElementById('modal-jp-romaji').textContent = item.romaji;
-            document.getElementById('modal-jp-speak-btn').onclick = function() { speakJapanese(item.jp); };
+            document.getElementById('modal-romaji-text').textContent = item.romaji;
+            document.getElementById('modal-audio-btn').onclick = function() { speakJapanese(item.jp); };
             document.getElementById('jp-modal').classList.remove('hidden');
         }
 
@@ -1786,7 +2164,7 @@
         }
 
         // ==================== 檢查清單管理 (localStorage) ====================
-        const STORAGE_KEY = 'kansai_2026_checklist_v2';
+        const STORAGE_KEY = 'kansai_2026_checklist_v3';
 
         function loadChecklist() {
             try {
