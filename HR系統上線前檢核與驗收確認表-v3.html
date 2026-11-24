@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HR系統上線前檢核與驗收確認表</title>
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 11mm 14mm;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", sans-serif;
+      font-size: 11.5px;
+      line-height: 1.4;
+      color: #1f2937;
+      background-color: #f3f4f6;
+      padding: 20px;
+    }
+    .toolbar {
+      max-width: 210mm;
+      margin: 0 auto 12px auto;
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+    .btn {
+      background-color: #1e3a8a;
+      color: #ffffff;
+      border: none;
+      padding: 7px 14px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #1d4ed8;
+    }
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 13mm 15mm;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+    .doc-header {
+      border-bottom: 2px solid #1e3a8a;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .doc-title {
+      font-size: 19px;
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: 0.5px;
+    }
+    .doc-subtitle {
+      font-size: 11px;
+      color: #4b5563;
+    }
+    .meta-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 11px;
+      table-layout: fixed;
+    }
+    .meta-table th,
+    .meta-table td {
+      border: 1px solid #9ca3af;
+      padding: 5px 8px;
+      font-size: 11.5px;
+      vertical-align: middle;
+    }
+    .meta-table th {
+      background-color: #f1f5f9;
+      color: #1e293b;
+      font-weight: 600;
+      text-align: left;
+      width: 15%;
+    }
+    .meta-table td {
+      width: 35%;
+    }
+    .editable-input {
+      width: 100%;
+      border: none;
+      border-bottom: 1px dashed #cbd5e1;
+      font-family: inherit;
+      font-size: 11.5px;
+      color: #111827;
+      background: transparent;
+      padding: 1px 2px;
+    }
+    .editable-input:focus {
+      outline: none;
+      border-bottom-color: #1e3a8a;
+    }
+    .checklist-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 11px;
+      table-layout: fixed;
+    }
+    .checklist-table th,
+    .checklist-table td {
+      border: 1px solid #9ca3af;
+      padding: 4.5px 7px;
+      vertical-align: middle;
+      word-wrap: break-word;
+    }
+    .checklist-table thead th {
+      background-color: #1e3a8a;
+      color: #ffffff;
+      font-weight: 600;
+      text-align: center;
+      font-size: 11.5px;
+    }
+    .category-row td {
+      background-color: #e2e8f0;
+      font-weight: 700;
+      color: #0f172a;
+      padding: 4px 8px;
+      font-size: 11.5px;
+    }
+    .col-no {
+      width: 5%;
+      text-align: center;
+    }
+    .col-item {
+      width: 47%;
+    }
+    .col-status {
+      width: 16%;
+      text-align: center;
+    }
+    .col-owner {
+      width: 13%;
+      text-align: center;
+    }
+    .col-date {
+      width: 19%;
+      text-align: center;
+    }
+    .item-title {
+      font-weight: 700;
+      color: #111827;
+      display: block;
+    }
+    .item-desc {
+      font-size: 10.5px;
+      color: #4b5563;
+      display: block;
+      margin-top: 1px;
+    }
+    .status-group {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+    }
+    .status-group label {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      cursor: pointer;
+    }
+    .result-box {
+      border: 1px solid #9ca3af;
+      padding: 7px 10px;
+      margin-bottom: 11px;
+      background-color: #f8fafc;
+    }
+    .result-title {
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+    .result-options {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 6px;
+      font-size: 11.5px;
+    }
+    .result-options label {
+      display: inline-flex;
+      align-items: flex-start;
+      gap: 5px;
+      cursor: pointer;
+      flex: 1;
+    }
+    .result-options label input[type="checkbox"] {
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    .result-option-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.35;
+    }
+    .result-option-main {
+      white-space: nowrap;
+      font-weight: 700;
+      color: #111827;
+    }
+    .result-option-sub {
+      font-size: 10.5px;
+      color: #4b5563;
+      margin-top: 1px;
+    }
+    .sign-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+    .sign-table th,
+    .sign-table td {
+      border: 1px solid #9ca3af;
+      padding: 5px 8px;
+      text-align: center;
+    }
+    .sign-table th {
+      background-color: #f1f5f9;
+      font-weight: 700;
+      color: #1e293b;
+      width: 25%;
+    }
+    .sign-area {
+      height: 54px;
+      vertical-align: bottom !important;
+      text-align: left !important;
+      font-size: 11px;
+      color: #6b7280;
+    }
+    @media print {
+      body {
+        background: none;
+        padding: 0;
+      }
+      .toolbar {
+        display: none;
+      }
+      .page {
+        width: 100%;
+        min-height: auto;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+      }
+      .editable-input {
+        border-bottom: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <button class="btn" onclick="window.print()">列印 / 匯出 PDF</button>
+  </div>
+
+  <div class="page">
+    <div class="doc-header">
+      <div class="doc-title">HR 系統上線前檢核與驗收確認表</div>
+      <div class="doc-subtitle">文件編號：HRM-GOLIVE-CHK</div>
+    </div>
+
+    <table class="meta-table">
+      <tr>
+        <th>客戶名稱</th>
+        <td><input type="text" class="editable-input" placeholder="請輸入客戶公司全銜" /></td>
+        <th>確認日期</th>
+        <td><input type="text" class="editable-input" placeholder="2026 /     /     " /></td>
+      </tr>
+      <tr>
+        <th>導入模組</th>
+        <td><input type="text" class="editable-input" value="HRM / ESS / ERP 拋轉" /></td>
+        <th>預計正式上線日</th>
+        <td><input type="text" class="editable-input" placeholder="2026 /     /     " /></td>
+      </tr>
+    </table>
+
+    <table class="checklist-table">
+      <thead>
+        <tr>
+          <th class="col-no">項次</th>
+          <th class="col-item">檢核項目與驗收標準</th>
+          <th class="col-status">確認狀態</th>
+          <th class="col-owner">負責人</th>
+          <th class="col-date">完成日期</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="category-row">
+          <td colspan="5">一、基礎資料與組織權限</td>
+        </tr>
+        <tr>
+          <td class="col-no">1</td>
+          <td class="col-item">
+            <span class="item-title">組織架構與部門層級確認</span>
+            <span class="item-desc">核對最新部門代碼、隸屬關係、部門主管與成本中心（影響簽核與財務切傳票）</span>
+          </td>
+          <td class="col-status">
+            <div class="status-group">
+              <label><input type="checkbox" /> 通過</label>
+              <label><input type="checkbox" /> 免測</label>
+            </div>
+          </td>
+          <td class="col-owner"><input type="text" class="editable-input" style="text-align:center;" /></td>
+          <td class="col-date"><input type="text" class="editable-input" style="text-align:center;" placeholder="MM/DD" /></td>
+        </tr>
+        <tr>
+          <td class="col-no">2</td>
+          <td class="col-item">
+            <span class="item-title">在職人員主檔與特休年資匯入</span>
+            <span class="item-desc">驗證到職日、年資起算日、特休可休時數/遞延結轉餘額及歷史離職紀錄</span>
+          </td>
+          <td class="col-status">
+            <div class="status-group">
+              <label><input type="checkbox" /> 通過</label>
+              <label><input type="checkbox" /> 免測</label>
+            </div>
+          </td>
+          <td class="col-owner"><input type="text" class="editable-input" style="text-align:center;" /></td>
+          <td class="col-date"><input type="text" class="editable-input" style="text-align:center;" placeholder="MM/DD" /></td>
+        </tr>
+        <tr>
+          <td class="col-no">3</td>
+          <td class="col-item">
+            <span class="item-title">系統角色權限與個資控管</span>
+            <span class="item-desc">確認 HR 經辦、部門主管、一般員工的機能權限及薪資敏感欄位遮罩設定</span>
+          </td>
+          <td class="col-status">
+            <div class="status-group">
+              <label><input type="checkbox" /> 通過</label>
+              <label><input type="checkbox" /> 免測</label>
+            </div>
+          </td>
+          <td class="col-owner"><input type="text" class="editable-input" style="text-align:center;" /></td>
+          <td class="col-date"><input type="text" class="editable-input" style="text-align:center;" placeholder="MM/DD" /></td>
+        </tr>
+
+        <tr class="category-row">
+          <td colspan="5">二、考勤與排班規則</td>
+        </tr>
+        <tr>
+          <td class="col-no">4</td>
+          <td class="col-item">
+            <span class="item-title">行事曆與班別代碼設定</span>
+            <span class="item-desc">確認年度國定假日、休息日、例假日，以及固定班、彈性班、輪班工時與休息扣除規則</span>
+          </td>
+          <td class="col-status">
+            <div class="status-group">
+              <label><input type="checkbox" /> 通過</label>
+              <label><input type="checkbox" /> 免測</label>
+            </div>
+          </td>
+          <td class="col-owner"><input type="text" class="editable-input" style="text-align:center;" /></td>
+          <td class="col-date"><input type="text" class="editable-input" style="text-align:center;" placeholder="MM/DD" /></td>
+        </tr>
+        <tr>
+          <td class="col-no">5</td>
+          <td class="col-item">
+            <span class="item-title">假別與加班規則驗證</span>
+            <span class="item-desc">測試請假最小單位、給薪比例、扣薪邏輯，以及平日/休息日/國定假日加班費率與補休轉換</span>
+          </td>
+          <td class="col-status">
+            <div class="status-group">
+              <label><input type="checkbox" /> 通過</label>
+              <label><input type="checkbox" /> 免測</label>
+            </div>
+          </td>
+          <td class="col-owner"><input type="text" class="editable-input" style="text-align:center;" /></td>
+          <td class="col-date"><input type="text" class="editable-input" style="text-align:center;" placeholder="MM/DD" /></td>
+        </tr>
+        <tr>
+          <td class="col-no">6</td>
+          <td class="col-item">
+            <span class="item-title">卡鐘資料介接與排程測試</span>
+            <span class="item-desc">確認門禁/卡鐘檔案匯入格式、刷卡歸屬邏輯及每日自動轉檔排程正常執行</span>
+          </td>
+          <td class="col-status">
+            <div class="status-group">
+              <label><input type="checkbox" /> 通過</label>
+              <label><input type="checkbox" /> 免測</label>
+            </div>
+          </td>
+          <td class="col-owner"><input type="text" class="editable-input" style="text-align:center;" /></td>
+          <td class="col-date"><input type="text" class="editable-input" style="text-align:center;" placeholder="MM/DD" /></td>
+        </tr>
+
+        <tr class="category-row">
+          <td colspan="5">三、薪資與投保計費</td>
+        </tr>
+        <tr>
+          <td class="col-no">7</td>
+          <td class="col-item">
+            <span class="item-title">薪資項目與公式邏輯核對</span>
+            <span class="item-desc">確認應稅/免稅別、是否納入健保投保級距、是否計入加班費基數及勞退提繳工資</span>
+          </td>
+          <td class="col-status">
+            <div class="status-group">
+              <label><input type="checkbox" /> 通過</label>
+              <label><input type="checkbox" /> 免測</label>
+            </div>
+          </td>
+          <td class="col-owner"><input type="text" class="editable-input" style="text-align:center;" /></td>
+          <td class="col-date"><input type="text" class="editable-input" style="text-align:center;" placeholder="MM/DD" /></td>
+        </tr>
+        <tr>
+          <td class="col-no">8</td>
+          <td class="col-item">
+            <span class="item-title">勞健保與二代健保級距更新</span>
+            <span class="item-desc">確認最新勞保、健保、勞退級距表已匯入，員工投保金額、眷屬加保與自提比例無誤</span>
+          </td>
+          <td class="col-status">
+            <div class="status-group">
+              <label><input type="checkbox" /> 通過</label>
+              <label><input type="checkbox" /> 免測</label>
+            </div>
+          </td>
+          <td class="col-owner"><input type="text" class="editable-input" style="text-align:center;" /></td>
+          <td class="col-date"><input type="text" class="editable-input" style="text-align:center;" placeholder="MM/DD" /></td>
+        </tr>
+        <tr>
+          <td class="col-no">9</td>
+          <td class="col-item">
+            <span class="item-title">銀行薪轉媒體檔格式測試</span>
+            <span class="item-desc">產出薪轉文字檔並交由往來銀行進行格式預檢，確認帳號、統編與金額欄位無誤</span>
+          </td>
+          <td class="col-status">
+            <div class="status-group">
+              <label><input type="checkbox" /> 通過</label>
+              <label><input type="checkbox" /> 免測</label>
+            </div>
+          </td>
+          <td class="col-owner"><input type="text" class="editable-input" style="text-align:center;" /></td>
+          <td class="col-date"><input type="text" class="editable-input" style="text-align:center;" placeholder="MM/DD" /></td>
+        </tr>
+        <tr>
+          <td class="col-no">10</td>
+          <td class="col-item">
+            <span class="item-title">測試薪資條列印或發送電子薪資條</span>
+            <span class="item-desc">驗證薪資明細報表格式、所得稅/勞健保代扣項目顯示完整，及電子薪資條寄送與密碼加密開啟正常</span>
+          </td>
+          <td class="col-status">
+            <div class="status-group">
+              <label><input type="checkbox" /> 通過</label>
+              <label><input type="checkbox" /> 免測</label>
+            </div>
+          </td>
+          <td class="col-owner"><input type="text" class="editable-input" style="text-align:center;" /></td>
+          <td class="col-date"><input type="text" class="editable-input" style="text-align:center;" placeholder="MM/DD" /></td>
+        </tr>
+
+        <tr class="category-row">
+          <td colspan="5">四、ESS 自助表單與簽核流程</td>
+        </tr>
+        <tr>
+          <td class="col-no">11</td>
+          <td class="col-item">
+            <span class="item-title">ESS 核心表單欄位與必填檢核</span>
+            <span class="item-desc">逐一測試請假單(ESSF05)、加班單(ESSF06)、忘刷單(ESSF07)、出差單(ESSF21)、排班/調班單(ESSF51/69)等前端防呆</span>
+          </td>
+          <td class="col-status">
+            <div class="status-group">
+              <label><input type="checkbox" /> 通過</label>
+              <label><input type="checkbox" /> 免測</label>
+            </div>
+          </td>
+          <td class="col-owner"><input type="text" class="editable-input" style="text-align:center;" /></td>
+          <td class="col-date"><input type="text" class="editable-input" style="text-align:center;" placeholder="MM/DD" /></td>
+        </tr>
+        <tr>
+          <td class="col-no">12</td>
+          <td class="col-item">
+            <span class="item-title">BPM 表單發送與簽核關卡確認</span>
+            <span class="item-desc">驗證 ESS 表單拋送 BPM 流程觸發、跨部門會簽關卡、逾時通知及行動裝置/Web 端簽核連線</span>
+          </td>
+          <td class="col-status">
+            <div class="status-group">
+              <label><input type="checkbox" /> 通過</label>
+              <label><input type="checkbox" /> 免測</label>
+            </div>
+          </td>
+          <td class="col-owner"><input type="text" class="editable-input" style="text-align:center;" /></td>
+          <td class="col-date"><input type="text" class="editable-input" style="text-align:center;" placeholder="MM/DD" /></td>
+        </tr>
+
+        <tr class="category-row">
+          <td colspan="5">五、ERP 拋轉與周邊介面</td>
+        </tr>
+        <tr>
+          <td class="col-no">13</td>
+          <td class="col-item">
+            <span class="item-title">ERP 薪資切傳票拋轉測試</span>
+            <span class="item-desc">核對各部門成本中心對應之會計科目（薪資費用、代扣款、應付薪資），確認借貸平衡並成功拋轉 ERP</span>
+          </td>
+          <td class="col-status">
+            <div class="status-group">
+              <label><input type="checkbox" /> 通過</label>
+              <label><input type="checkbox" /> 免測</label>
+            </div>
+          </td>
+          <td class="col-owner"><input type="text" class="editable-input" style="text-align:center;" /></td>
+          <td class="col-date"><input type="text" class="editable-input" style="text-align:center;" placeholder="MM/DD" /></td>
+        </tr>
+        <tr>
+          <td class="col-no">14</td>
+          <td class="col-item">
+            <span class="item-title">補充保費 &amp; 各類所得上線前期初值導入</span>
+            <span class="item-desc">確認當年度已發放之獎金累計、已扣繳二代健保補充保費及各類所得期初累積金額已正確匯入系統</span>
+          </td>
+          <td class="col-status">
+            <div class="status-group">
+              <label><input type="checkbox" /> 通過</label>
+              <label><input type="checkbox" /> 免測</label>
+            </div>
+          </td>
+          <td class="col-owner"><input type="text" class="editable-input" style="text-align:center;" /></td>
+          <td class="col-date"><input type="text" class="editable-input" style="text-align:center;" placeholder="MM/DD" /></td>
+        </tr>
+
+        <tr class="category-row">
+          <td colspan="5">六、平行測試與上線切換</td>
+        </tr>
+        <tr>
+          <td class="col-no">15</td>
+          <td class="col-item">
+            <span class="item-title">平行測試（薪資雙軌比對）</span>
+            <span class="item-desc">抽取至少 1 個完整計薪週期進行新舊系統薪資比對，確認差異原因皆已釐清並簽核確認</span>
+          </td>
+          <td class="col-status">
+            <div class="status-group">
+              <label><input type="checkbox" /> 通過</label>
+              <label><input type="checkbox" /> 免測</label>
+            </div>
+          </td>
+          <td class="col-owner"><input type="text" class="editable-input" style="text-align:center;" /></td>
+          <td class="col-date"><input type="text" class="editable-input" style="text-align:center;" placeholder="MM/DD" /></td>
+        </tr>
+        <tr>
+          <td class="col-no">16</td>
+          <td class="col-item">
+            <span class="item-title">正式環境資料備份與切換計畫</span>
+            <span class="item-desc">完成上線前資料庫完整備份，公告舊系統停用與新系統開放時間點、教育訓練手冊及緊急聯絡窗口</span>
+          </td>
+          <td class="col-status">
+            <div class="status-group">
+              <label><input type="checkbox" /> 通過</label>
+              <label><input type="checkbox" /> 免測</label>
+            </div>
+          </td>
+          <td class="col-owner"><input type="text" class="editable-input" style="text-align:center;" /></td>
+          <td class="col-date"><input type="text" class="editable-input" style="text-align:center;" placeholder="MM/DD" /></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="result-box">
+      <div class="result-title">整體上線驗收結論：</div>
+      <div class="result-options">
+        <label>
+          <input type="checkbox" />
+          <span class="result-option-text">
+            <span class="result-option-main">同意正式上線</span>
+            <span class="result-option-sub">（上述檢核項目皆已驗證無誤）</span>
+          </span>
+        </label>
+        <label>
+          <input type="checkbox" />
+          <span class="result-option-text">
+            <span class="result-option-main">有條件上線</span>
+            <span class="result-option-sub">（限期改善事項如下，不影響正式切換）</span>
+          </span>
+        </label>
+        <label>
+          <input type="checkbox" />
+          <span class="result-option-text">
+            <span class="result-option-main">暫緩上線</span>
+            <span class="result-option-sub">（需修正重大異常後複驗）</span>
+          </span>
+        </label>
+      </div>
+      <div>
+        <input type="text" class="editable-input" placeholder="備註 / 待追蹤改善事項與預計完成日：" />
+      </div>
+    </div>
+
+    <table class="sign-table">
+      <thead>
+        <tr>
+          <th>客戶端專案負責人</th>
+          <th>客戶端部門主管 / 核准</th>
+          <th>鼎新導入顧問</th>
+          <th>鼎新專案經理</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="sign-area">簽章：<br /><br />日期：</td>
+          <td class="sign-area">簽章：<br /><br />日期：</td>
+          <td class="sign-area">簽章：<br /><br />日期：</td>
+          <td class="sign-area">簽章：<br /><br />日期：</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
