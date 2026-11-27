@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HR 系統操作模擬線上測驗</title>
+  <!-- 載入 Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 載入 Google Fonts: Plus Jakarta Sans & Noto Sans TC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <!-- 載入 Canvas Confetti 用於通過測驗時的慶祝彩帶效果 -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '"Noto Sans TC"', 'sans-serif'],
+          },
+          animation: {
+            'float': 'float 4s ease-in-out infinite',
+            'pop': 'pop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+            'slide-up': 'slideUp 0.35s ease-out forwards',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-6px)' },
+            },
+            pop: {
+              '0%': { transform: 'scale(0.96)' },
+              '60%': { transform: 'scale(1.02)' },
+              '100%': { transform: 'scale(1)' },
+            },
+            slideUp: {
+              '0%': { opacity: '0', transform: 'translateY(14px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* 柔和活潑的網格與光暈背景 */
+    .client-bg {
+      background-color: #f8fafc;
+      background-image:
+        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.14) 0px, transparent 50%),
+        radial-gradient(at 100% 10%, rgba(251, 146, 60, 0.14) 0px, transparent 48%),
+        radial-gradient(at 50% 100%, rgba(16, 185, 129, 0.12) 0px, transparent 55%);
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+  </style>
+</head>
+<body class="client-bg text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-indigo-100 selection:text-indigo-900">
+
+  <!-- 全域友善提示氣泡 -->
+  <div id="toastContainer" class="fixed top-5 right-5 z-50 flex flex-col gap-2.5 max-w-sm w-full pointer-events-none px-4 sm:px-0"></div>
+
+  <!-- 純淨客戶作答畫面 -->
+  <div id="clientView" class="flex-1 flex flex-col">
+
+    <!-- 頂部品牌導覽列 -->
+    <header class="bg-white/80 backdrop-blur-md border-b border-slate-200/70 sticky top-0 z-30">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white text-xl shadow-md shadow-indigo-200">
+            ✨
+          </div>
+          <div>
+            <h1 class="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">HR 系統上線實戰演練</h1>
+            <p class="text-xs text-slate-500 hidden sm:block">人事 • 考勤 • 薪資三大模組模擬檢核</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>分科即時批改</span>
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <!-- 客戶端主容器 -->
+    <main class="flex-1 max-w-3xl w-full mx-auto px-4 sm:px-6 py-8 sm:py-12">
+
+      <!-- 載入雲端題庫時的親切過場提示 -->
+      <div id="loadingQuizOverlay" class="bg-white rounded-3xl shadow-xl shadow-indigo-100/50 border border-slate-100 p-10 text-center animate-slide-up">
+        <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-indigo-50 flex items-center justify-center text-3xl animate-bounce">
+          📚
+        </div>
+        <h2 class="text-xl font-extrabold text-slate-800 mb-2">正在從 Google 表單同步最新題庫...</h2>
+        <p class="text-sm text-slate-500">請稍候片刻，馬上就可以選擇測驗模組囉！</p>
+      </div>
+
+      <!-- 雲端題庫讀取失敗或無題目時的提示畫面 -->
+      <div id="errorQuizOverlay" class="hidden bg-white rounded-3xl shadow-xl shadow-rose-100/50 border border-rose-100 p-10 text-center animate-slide-up">
+        <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-rose-50 flex items-center justify-center text-3xl">
+          ⚠️
+        </div>
+        <h2 class="text-xl font-extrabold text-slate-800 mb-2">無法取得測驗題庫</h2>
+        <p id="errorQuizMessage" class="text-sm text-slate-500 mb-6">目前無法從 Google 表單讀取題目，請確認網路連線或稍後再試。</p>
+        <button type="button" onclick="fetchQuestionsFromGoogleForm()" class="px-6 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-sm shadow-md shadow-indigo-200 transition cursor-pointer">
+          🔄 重新載入題庫
+        </button>
+      </div>
+
+      <!-- 步驟 1：歡迎報到與題庫勾選頁 -->
+      <section id="stepLogin" class="hidden animate-slide-up">
+        <div class="bg-white rounded-3xl shadow-xl shadow-indigo-100/60 border border-white overflow-hidden">
+          <!-- 活潑漸層歡迎橫幅 -->
+          <div class="relative bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600 px-6 sm:px-10 py-9 text-white overflow-hidden">
+            <div class="absolute -right-8 -top-8 w-40 h-40 rounded-full bg-white/10 blur-xl pointer-events-none"></div>
+            <div class="absolute right-10 bottom-3 text-5xl sm:text-6xl opacity-90 animate-float select-none pointer-events-none">
+              🎯
+            </div>
+
+            <div class="relative z-10 max-w-xl">
+              <span class="inline-block px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-xs text-white text-xs font-bold tracking-wide mb-3">
+                👋 歡迎參加 HR 系統操作模擬檢核
+              </span>
+              <h2 class="text-2xl sm:text-3xl font-black tracking-tight mb-2.5 leading-snug">
+                準備好測試您的 HR 系統操作功力了嗎？
+              </h2>
+              <p class="text-indigo-100 text-sm sm:text-base leading-relaxed">
+                請填寫基本資料並勾選本次要測驗的模組題庫，交卷後將為您<strong>分科獨立計算 100 分制成績</strong>與系統操作小撇步！
+              </p>
+            </div>
+          </div>
+
+          <!-- 考生報到與多選題庫表單 -->
+          <div class="p-6 sm:p-10">
+            <form id="candidateForm" onsubmit="handleStartQuiz(event)" class="space-y-7">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <!-- 公司抬頭 -->
+                <div>
+                  <label for="companyName" class="block text-sm font-bold text-slate-700 mb-2">
+                    🏢 公司抬頭 <span class="text-rose-500">*</span>
+                  </label>
+                  <input type="text" id="companyName" required placeholder="請輸入貴公司名稱"
+                    class="w-full px-4 py-3.5 rounded-2xl bg-slate-50 border-2 border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none transition text-slate-800 font-medium placeholder:text-slate-400" />
+                </div>
+
+                <!-- 應試人員姓名 -->
+                <div>
+                  <label for="candidateName" class="block text-sm font-bold text-slate-700 mb-2">
+                    🙋 應試人員姓名 <span class="text-rose-500">*</span>
+                  </label>
+                  <input type="text" id="candidateName" required placeholder="請輸入您的姓名"
+                    class="w-full px-4 py-3.5 rounded-2xl bg-slate-50 border-2 border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none transition text-slate-800 font-medium placeholder:text-slate-400" />
+                </div>
+              </div>
+
+              <!-- 三大題庫多選勾選卡片 -->
+              <div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                  <label class="text-sm font-extrabold text-slate-800 flex items-center gap-1.5">
+                    <span>📚 請勾選本次要測驗的題庫模組（可複選，各科獨立滿分 100 分）</span>
+                    <span class="text-rose-500">*</span>
+                  </label>
+                  <button type="button" onclick="toggleSelectAllCategories()" id="btnToggleAllCats"
+                    class="text-xs font-bold text-indigo-600 hover:text-indigo-800 bg-indigo-50 hover:bg-indigo-100 px-3 py-1 rounded-full transition cursor-pointer">
+                    取消全選
+                  </button>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5" id="categorySelectorGrid">
+                  <!-- 人事管理題庫 -->
+                  <div onclick="toggleCategoryCard('人事')" id="catCard_人事"
+                    class="group relative p-4 rounded-2xl border-2 border-indigo-500 bg-indigo-50/70 shadow-sm cursor-pointer transition-all select-none">
+                    <div class="flex items-start justify-between mb-2.5">
+                      <span class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center text-xl">👥</span>
+                      <span id="catCheck_人事" class="w-6 h-6 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-xs font-black shadow-xs transition">✓</span>
+                    </div>
+                    <div class="font-extrabold text-slate-900 text-base mb-1">人事管理題庫</div>
+                    <p class="text-xs text-slate-600 leading-relaxed mb-2.5">員工資料、到離職異動、部門職稱、勞健保級距</p>
+                    <span id="catCount_人事" class="inline-block px-2.5 py-0.5 rounded-full bg-white text-indigo-700 text-[11px] font-extrabold border border-indigo-200/80">
+                      共 0 題
+                    </span>
+                  </div>
+
+                  <!-- 考勤管理題庫 -->
+                  <div onclick="toggleCategoryCard('考勤')" id="catCard_考勤"
+                    class="group relative p-4 rounded-2xl border-2 border-orange-500 bg-orange-50/70 shadow-sm cursor-pointer transition-all select-none">
+                    <div class="flex items-start justify-between mb-2.5">
+                      <span class="w-10 h-10 rounded-xl bg-orange-100 text-orange-700 flex items-center justify-center text-xl">⏰</span>
+                      <span id="catCheck_考勤" class="w-6 h-6 rounded-lg bg-orange-500 text-white flex items-center justify-center text-xs font-black shadow-xs transition">✓</span>
+                    </div>
+                    <div class="font-extrabold text-slate-900 text-base mb-1">考勤管理題庫</div>
+                    <p class="text-xs text-slate-600 leading-relaxed mb-2.5">班別排班、請假特休、加班補休、異常刷卡結算</p>
+                    <span id="catCount_考勤" class="inline-block px-2.5 py-0.5 rounded-full bg-white text-orange-700 text-[11px] font-extrabold border border-orange-200/80">
+                      共 0 題
+                    </span>
+                  </div>
+
+                  <!-- 薪資作業題庫 -->
+                  <div onclick="toggleCategoryCard('薪資')" id="catCard_薪資"
+                    class="group relative p-4 rounded-2xl border-2 border-emerald-500 bg-emerald-50/70 shadow-sm cursor-pointer transition-all select-none">
+                    <div class="flex items-start justify-between mb-2.5">
+                      <span class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-xl">💰</span>
+                      <span id="catCheck_薪資" class="w-6 h-6 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-xs font-black shadow-xs transition">✓</span>
+                    </div>
+                    <div class="font-extrabold text-slate-900 text-base mb-1">薪資作業題庫</div>
+                    <p class="text-xs text-slate-600 leading-relaxed mb-2.5">薪資項目、考勤拋轉、二代健保代扣、結算關帳</p>
+                    <span id="catCount_薪資" class="inline-block px-2.5 py-0.5 rounded-full bg-white text-emerald-700 text-[11px] font-extrabold border border-emerald-200/80">
+                      共 0 題
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 動態已選題數摘要提示 -->
+              <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm">
+                <div class="font-bold text-slate-700" id="selectedSummaryText">
+                  載入題目統計中...
+                </div>
+                <div class="text-slate-500 font-medium">交卷立即顯示各科獨立成績</div>
+              </div>
+
+              <div>
+                <button type="submit" id="btnStartQuiz" class="w-full bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 active:scale-[0.99] text-white font-extrabold text-base sm:text-lg py-4 px-8 rounded-2xl shadow-lg shadow-indigo-200 transition flex items-center justify-center gap-2.5 cursor-pointer">
+                  <span id="startBtnText">🚀 開始挑戰</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- 步驟 2：互動答題頁 -->
+      <section id="stepQuiz" class="hidden animate-slide-up space-y-5">
+        <!-- 頂部考生資訊與動態進度條 -->
+        <div class="bg-white rounded-3xl shadow-md shadow-slate-200/50 border border-slate-100 p-5 sm:p-6">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-bold" id="quizCompanyBadge">公司名稱</span>
+              <span class="px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-xs font-bold" id="quizNameBadge">考生姓名</span>
+              <span class="px-3 py-1 rounded-full bg-orange-100 text-orange-700 text-xs font-extrabold" id="quizAttemptBadge">🔥 第 1 次挑戰</span>
+            </div>
+            <div class="text-xs sm:text-sm font-bold text-slate-600">
+              已完成 <span id="answeredNum" class="text-indigo-600 text-base font-black">0</span> / <span id="totalNum">0</span> 題
+            </div>
+          </div>
+
+          <!-- 平滑漸層進度條 -->
+          <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden p-0.5">
+            <div id="progressBarFill" class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 h-2 rounded-full transition-all duration-500 ease-out" style="width: 0%"></div>
+          </div>
+
+          <!-- 圓潤題號快速切換列 -->
+          <div id="questionPills" class="mt-4 flex flex-wrap gap-2">
+            <!-- JS 動態生成 -->
+          </div>
+        </div>
+
+        <!-- 題目主卡片 -->
+        <div class="bg-white rounded-3xl shadow-xl shadow-indigo-100/40 border border-slate-100 p-6 sm:p-8">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+            <div class="flex flex-wrap items-center gap-2">
+              <span id="qNumberTag" class="px-3.5 py-1 rounded-full bg-slate-900 text-white text-xs font-black tracking-wide">第 1 題</span>
+              <span id="qCategoryTag" class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-800 text-xs font-extrabold">👥 人事</span>
+              <span id="qSubTopicTag" class="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold">實務操作</span>
+              <span id="qTypeTag" class="px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold">單選題</span>
+            </div>
+          </div>
+
+          <!-- 題目文字 -->
+          <h3 id="qTitleText" class="text-lg sm:text-xl font-extrabold text-slate-900 leading-relaxed mb-6">
+            題目載入中...
+          </h3>
+
+          <!-- 選項列表 -->
+          <div id="optionsList" class="space-y-3.5">
+            <!-- JS 動態生成 -->
+          </div>
+
+          <!-- 底部導覽按鈕 -->
+          <div class="mt-8 pt-6 border-t border-slate-100 flex items-center justify-between gap-3">
+            <button id="btnPrev" onclick="moveQuestion(-1)" class="px-5 py-3 rounded-2xl border-2 border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-slate-300 font-bold text-sm transition disabled:opacity-35 disabled:pointer-events-none cursor-pointer">
+              ← 上一題
+            </button>
+
+            <div class="flex items-center gap-3">
+              <button id="btnNext" onclick="moveQuestion(1)" class="px-6 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm shadow-md transition cursor-pointer">
+                下一題 →
+              </button>
+              <button id="btnSubmit" onclick="submitQuiz()" class="hidden px-7 py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-extrabold text-sm shadow-lg shadow-emerald-200 transition flex items-center gap-2 cursor-pointer">
+                <span>🎉 交卷看各科成績</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 步驟 3：即時分科成績與詳解頁 -->
+      <section id="stepResult" class="hidden animate-slide-up space-y-6">
+        <!-- 活潑成績揭曉卡片 -->
+        <div class="bg-white rounded-3xl shadow-xl shadow-indigo-100/50 border border-slate-100 overflow-hidden">
+          <div id="resultHeroBanner" class="p-7 sm:p-9 text-white bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 relative overflow-hidden">
+            <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+              <div>
+                <div id="resultRankBadge" class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/25 backdrop-blur-xs text-white text-xs sm:text-sm font-black mb-3 shadow-xs">
+                  🏆 HR 系統全能認證達標
+                </div>
+                <h2 id="resultUserHeading" class="text-2xl sm:text-3xl font-black tracking-tight mb-1.5">
+                  公司名稱 － 考生姓名
