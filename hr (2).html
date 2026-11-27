@@ -1,0 +1,1835 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HR 系統操作模擬線上測驗</title>
+  <!-- 載入 Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 載入 Google Fonts: Plus Jakarta Sans & Noto Sans TC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <!-- 載入 Canvas Confetti 用於通過測驗時的慶祝彩帶效果 -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '"Noto Sans TC"', 'sans-serif'],
+          },
+          animation: {
+            'float': 'float 4s ease-in-out infinite',
+            'pop': 'pop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+            'slide-up': 'slideUp 0.35s ease-out forwards',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-6px)' },
+            },
+            pop: {
+              '0%': { transform: 'scale(0.96)' },
+              '60%': { transform: 'scale(1.02)' },
+              '100%': { transform: 'scale(1)' },
+            },
+            slideUp: {
+              '0%': { opacity: '0', transform: 'translateY(14px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* 柔和活潑的網格與光暈背景 */
+    .client-bg {
+      background-color: #f8fafc;
+      background-image:
+        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.14) 0px, transparent 50%),
+        radial-gradient(at 100% 10%, rgba(251, 146, 60, 0.14) 0px, transparent 48%),
+        radial-gradient(at 50% 100%, rgba(16, 185, 129, 0.12) 0px, transparent 55%);
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+  </style>
+</head>
+<body class="client-bg text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-indigo-100 selection:text-indigo-900">
+
+  <!-- =========================================================================
+       使用說明（給顧問）：
+       1. 客戶預設開啟網址時，會直接進入【純淨客戶測驗畫面】，無任何後台按鈕。
+       2. 若您要設定 Google 表單題庫與 Notion 回寫，請在網址列後方加上 #admin
+          例如：https://您的網址/index.html#admin 即可開啟顧問專屬設定中心！
+       ========================================================================= -->
+
+  <!-- 全域友善提示氣泡 (取代 alert) -->
+  <div id="toastContainer" class="fixed top-5 right-5 z-50 flex flex-col gap-2.5 max-w-sm w-full pointer-events-none px-4 sm:px-0"></div>
+
+  <!-- =========================================================================
+       視圖一：純淨客戶作答畫面（活潑、親切、零後台干擾）
+       ========================================================================= -->
+  <div id="clientView" class="flex-1 flex flex-col">
+
+    <!-- 頂部品牌導覽列（極簡純淨，無任何設定按鈕） -->
+    <header class="bg-white/80 backdrop-blur-md border-b border-slate-200/70 sticky top-0 z-30">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white text-xl shadow-md shadow-indigo-200">
+            ✨
+          </div>
+          <div>
+            <h1 class="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">HR 系統上線實戰演練</h1>
+            <p class="text-xs text-slate-500 hidden sm:block">人事 • 考勤 • 薪資三大模組模擬檢核</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>分科即時批改</span>
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <!-- 客戶端主容器 -->
+    <main class="flex-1 max-w-3xl w-full mx-auto px-4 sm:px-6 py-8 sm:py-12">
+
+      <!-- 載入雲端題庫時的親切過場提示 -->
+      <div id="loadingQuizOverlay" class="hidden bg-white rounded-3xl shadow-xl shadow-indigo-100/50 border border-slate-100 p-10 text-center animate-slide-up">
+        <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-indigo-50 flex items-center justify-center text-3xl animate-bounce">
+          📚
+        </div>
+        <h2 class="text-xl font-extrabold text-slate-800 mb-2">正在為您同步最新題庫...</h2>
+        <p class="text-sm text-slate-500">請稍候片刻，馬上就可以選擇測驗模組囉！</p>
+      </div>
+
+      <!-- 步驟 1：歡迎報到與題庫勾選頁 -->
+      <section id="stepLogin" class="animate-slide-up">
+        <div class="bg-white rounded-3xl shadow-xl shadow-indigo-100/60 border border-white overflow-hidden">
+          <!-- 活潑漸層歡迎橫幅 -->
+          <div class="relative bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600 px-6 sm:px-10 py-9 text-white overflow-hidden">
+            <div class="absolute -right-8 -top-8 w-40 h-40 rounded-full bg-white/10 blur-xl pointer-events-none"></div>
+            <div class="absolute right-10 bottom-3 text-5xl sm:text-6xl opacity-90 animate-float select-none pointer-events-none">
+              🎯
+            </div>
+
+            <div class="relative z-10 max-w-xl">
+              <span class="inline-block px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-xs text-white text-xs font-bold tracking-wide mb-3">
+                👋 歡迎參加 HR 系統操作模擬檢核
+              </span>
+              <h2 class="text-2xl sm:text-3xl font-black tracking-tight mb-2.5 leading-snug">
+                準備好測試您的 HR 系統操作功力了嗎？
+              </h2>
+              <p class="text-indigo-100 text-sm sm:text-base leading-relaxed">
+                請填寫基本資料並勾選本次要測驗的模組題庫，交卷後將為您<strong>分科獨立計算 100 分制成績</strong>與系統操作小撇步！
+              </p>
+            </div>
+          </div>
+
+          <!-- 考生報到與多選題庫表單 -->
+          <div class="p-6 sm:p-10">
+            <form id="candidateForm" onsubmit="handleStartQuiz(event)" class="space-y-7">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <!-- 公司抬頭 -->
+                <div>
+                  <label for="companyName" class="block text-sm font-bold text-slate-700 mb-2">
+                    🏢 公司抬頭 <span class="text-rose-500">*</span>
+                  </label>
+                  <input type="text" id="companyName" required placeholder="請輸入貴公司名稱"
+                    class="w-full px-4 py-3.5 rounded-2xl bg-slate-50 border-2 border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none transition text-slate-800 font-medium placeholder:text-slate-400" />
+                </div>
+
+                <!-- 應試人員姓名 -->
+                <div>
+                  <label for="candidateName" class="block text-sm font-bold text-slate-700 mb-2">
+                    🙋 應試人員姓名 <span class="text-rose-500">*</span>
+                  </label>
+                  <input type="text" id="candidateName" required placeholder="請輸入您的姓名"
+                    class="w-full px-4 py-3.5 rounded-2xl bg-slate-50 border-2 border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none transition text-slate-800 font-medium placeholder:text-slate-400" />
+                </div>
+              </div>
+
+              <!-- 三大題庫多選勾選卡片 -->
+              <div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                  <label class="text-sm font-extrabold text-slate-800 flex items-center gap-1.5">
+                    <span>📚 請勾選本次要測驗的題庫模組（可複選，各科獨立滿分 100 分）</span>
+                    <span class="text-rose-500">*</span>
+                  </label>
+                  <button type="button" onclick="toggleSelectAllCategories()" id="btnToggleAllCats"
+                    class="text-xs font-bold text-indigo-600 hover:text-indigo-800 bg-indigo-50 hover:bg-indigo-100 px-3 py-1 rounded-full transition cursor-pointer">
+                    取消全選
+                  </button>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5" id="categorySelectorGrid">
+                  <!-- 人事管理題庫 -->
+                  <div onclick="toggleCategoryCard('人事')" id="catCard_人事"
+                    class="group relative p-4 rounded-2xl border-2 border-indigo-500 bg-indigo-50/70 shadow-sm cursor-pointer transition-all select-none">
+                    <div class="flex items-start justify-between mb-2.5">
+                      <span class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center text-xl">👥</span>
+                      <span id="catCheck_人事" class="w-6 h-6 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-xs font-black shadow-xs transition">✓</span>
+                    </div>
+                    <div class="font-extrabold text-slate-900 text-base mb-1">人事管理題庫</div>
+                    <p class="text-xs text-slate-600 leading-relaxed mb-2.5">員工資料、到離職異動、部門職稱、勞健保級距</p>
+                    <span id="catCount_人事" class="inline-block px-2.5 py-0.5 rounded-full bg-white text-indigo-700 text-[11px] font-extrabold border border-indigo-200/80">
+                      共 4 題
+                    </span>
+                  </div>
+
+                  <!-- 考勤管理題庫 -->
+                  <div onclick="toggleCategoryCard('考勤')" id="catCard_考勤"
+                    class="group relative p-4 rounded-2xl border-2 border-orange-500 bg-orange-50/70 shadow-sm cursor-pointer transition-all select-none">
+                    <div class="flex items-start justify-between mb-2.5">
+                      <span class="w-10 h-10 rounded-xl bg-orange-100 text-orange-700 flex items-center justify-center text-xl">⏰</span>
+                      <span id="catCheck_考勤" class="w-6 h-6 rounded-lg bg-orange-500 text-white flex items-center justify-center text-xs font-black shadow-xs transition">✓</span>
+                    </div>
+                    <div class="font-extrabold text-slate-900 text-base mb-1">考勤管理題庫</div>
+                    <p class="text-xs text-slate-600 leading-relaxed mb-2.5">班別排班、請假特休、加班補休、異常刷卡結算</p>
+                    <span id="catCount_考勤" class="inline-block px-2.5 py-0.5 rounded-full bg-white text-orange-700 text-[11px] font-extrabold border border-orange-200/80">
+                      共 4 題
+                    </span>
+                  </div>
+
+                  <!-- 薪資作業題庫 -->
+                  <div onclick="toggleCategoryCard('薪資')" id="catCard_薪資"
+                    class="group relative p-4 rounded-2xl border-2 border-emerald-500 bg-emerald-50/70 shadow-sm cursor-pointer transition-all select-none">
+                    <div class="flex items-start justify-between mb-2.5">
+                      <span class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-xl">💰</span>
+                      <span id="catCheck_薪資" class="w-6 h-6 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-xs font-black shadow-xs transition">✓</span>
+                    </div>
+                    <div class="font-extrabold text-slate-900 text-base mb-1">薪資作業題庫</div>
+                    <p class="text-xs text-slate-600 leading-relaxed mb-2.5">薪資項目、考勤拋轉、二代健保代扣、結算關帳</p>
+                    <span id="catCount_薪資" class="inline-block px-2.5 py-0.5 rounded-full bg-white text-emerald-700 text-[11px] font-extrabold border border-emerald-200/80">
+                      共 4 題
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 動態已選題數摘要提示 -->
+              <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm">
+                <div class="font-bold text-slate-700" id="selectedSummaryText">
+                  已選擇：<span class="text-indigo-600">人事</span>、<span class="text-orange-600">考勤</span>、<span class="text-emerald-600">薪資</span>（合計 12 題）
+                </div>
+                <div class="text-slate-500 font-medium">交卷立即顯示各科獨立成績</div>
+              </div>
+
+              <div>
+                <button type="submit" class="w-full bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 active:scale-[0.99] text-white font-extrabold text-base sm:text-lg py-4 px-8 rounded-2xl shadow-lg shadow-indigo-200 transition flex items-center justify-center gap-2.5 cursor-pointer">
+                  <span id="startBtnText">🚀 開始挑戰（共 12 題）</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- 步驟 2：互動答題頁 -->
+      <section id="stepQuiz" class="hidden animate-slide-up space-y-5">
+        <!-- 頂部考生資訊與動態進度條 -->
+        <div class="bg-white rounded-3xl shadow-md shadow-slate-200/50 border border-slate-100 p-5 sm:p-6">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-bold" id="quizCompanyBadge">公司名稱</span>
+              <span class="px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-xs font-bold" id="quizNameBadge">考生姓名</span>
+              <span class="px-3 py-1 rounded-full bg-orange-100 text-orange-700 text-xs font-extrabold" id="quizAttemptBadge">🔥 第 1 次挑戰</span>
+            </div>
+            <div class="text-xs sm:text-sm font-bold text-slate-600">
+              已完成 <span id="answeredNum" class="text-indigo-600 text-base font-black">0</span> / <span id="totalNum">12</span> 題
+            </div>
+          </div>
+
+          <!-- 平滑漸層進度條 -->
+          <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden p-0.5">
+            <div id="progressBarFill" class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 h-2 rounded-full transition-all duration-500 ease-out" style="width: 0%"></div>
+          </div>
+
+          <!-- 圓潤題號快速切換列 -->
+          <div id="questionPills" class="mt-4 flex flex-wrap gap-2">
+            <!-- JS 動態生成 -->
+          </div>
+        </div>
+
+        <!-- 題目主卡片 -->
+        <div class="bg-white rounded-3xl shadow-xl shadow-indigo-100/40 border border-slate-100 p-6 sm:p-8">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+            <div class="flex flex-wrap items-center gap-2">
+              <span id="qNumberTag" class="px-3.5 py-1 rounded-full bg-slate-900 text-white text-xs font-black tracking-wide">第 1 題</span>
+              <span id="qCategoryTag" class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-800 text-xs font-extrabold">👥 人事</span>
+              <span id="qSubTopicTag" class="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold">員工基本資料</span>
+              <span id="qTypeTag" class="px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold">單選題</span>
+            </div>
+          </div>
+
+          <!-- 題目文字 -->
+          <h3 id="qTitleText" class="text-lg sm:text-xl font-extrabold text-slate-900 leading-relaxed mb-6">
+            題目載入中...
+          </h3>
+
+          <!-- 選項列表 -->
+          <div id="optionsList" class="space-y-3.5">
+            <!-- JS 動態生成 -->
+          </div>
+
+          <!-- 底部導覽按鈕 -->
+          <div class="mt-8 pt-6 border-t border-slate-100 flex items-center justify-between gap-3">
+            <button id="btnPrev" onclick="moveQuestion(-1)" class="px-5 py-3 rounded-2xl border-2 border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-slate-300 font-bold text-sm transition disabled:opacity-35 disabled:pointer-events-none cursor-pointer">
+              ← 上一題
+            </button>
+
+            <div class="flex items-center gap-3">
+              <button id="btnNext" onclick="moveQuestion(1)" class="px-6 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm shadow-md transition cursor-pointer">
+                下一題 →
+              </button>
+              <button id="btnSubmit" onclick="submitQuiz()" class="hidden px-7 py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-extrabold text-sm shadow-lg shadow-emerald-200 transition flex items-center gap-2 cursor-pointer">
+                <span>🎉 交卷看各科成績</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 步驟 3：即時分科成績與詳解頁 -->
+      <section id="stepResult" class="hidden animate-slide-up space-y-6">
+        <!-- 活潑成績揭曉卡片 -->
+        <div class="bg-white rounded-3xl shadow-xl shadow-indigo-100/50 border border-slate-100 overflow-hidden">
+          <div id="resultHeroBanner" class="p-7 sm:p-9 text-white bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 relative overflow-hidden">
+            <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+              <div>
+                <div id="resultRankBadge" class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/25 backdrop-blur-xs text-white text-xs sm:text-sm font-black mb-3 shadow-xs">
+                  🏆 HR 系統全能認證達標
+                </div>
+                <h2 id="resultUserHeading" class="text-2xl sm:text-3xl font-black tracking-tight mb-1.5">
+                  公司名稱 － 考生姓名
+                </h2>
+                <p id="resultSubHeading" class="text-white/90 text-xs sm:text-sm font-medium">
+                  第 1 次挑戰 ｜ 選考模組：人事、考勤、薪資
+                </p>
+              </div>
+
+              <!-- 總平均分數圓徽章 -->
+              <div class="bg-white/20 backdrop-blur-md border border-white/30 rounded-3xl px-7 py-5 text-center self-start sm:self-auto shrink-0">
+                <div class="text-xs font-bold uppercase tracking-wider text-white/90 mb-0.5">選考平均分</div>
+                <div class="text-5xl font-black tracking-tight leading-none mb-2" id="resultOverallScore">100</div>
+                <div class="text-xs font-bold text-white/95 bg-black/15 px-3 py-1 rounded-full" id="resultStatsPill">
+                  總答對 12 / 12 題
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 分科獨立計分卡片區（人事 / 考勤 / 薪資） -->
+          <div class="p-6 sm:p-8 bg-white border-b border-slate-100">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-base font-extrabold text-slate-800 flex items-center gap-2">
+                <span>📊 各模組分科成績單（各科滿分 100 分）</span>
+              </h3>
+              <span class="text-xs font-semibold text-slate-400" id="passThresholdHint">及格標準：80 分</span>
+            </div>
+
+            <div id="categoryScoreCardsGrid" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <!-- JS 動態生成各科獨立分數卡片 -->
+            </div>
+          </div>
+
+          <!-- 成績同步提示與重考操作列 -->
+          <div class="p-5 sm:p-6 bg-slate-50/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-600" id="recordSaveStatus">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+              <span>分科測驗紀錄已自動完成登錄！</span>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-3">
+              <button onclick="retakeQuiz()" class="px-5 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] text-white font-extrabold text-sm shadow-md shadow-indigo-200 transition flex items-center gap-2 cursor-pointer">
+                <span>🔄 保留資料與科目，再挑戰一次</span>
+              </button>
+              <button onclick="resetToLogin()" class="px-4 py-3 rounded-2xl bg-white hover:bg-slate-100 text-slate-600 border border-slate-200 font-bold text-sm transition cursor-pointer">
+                重選題庫 / 更換考生
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 逐題對錯與系統操作小撇步（支援依科目或錯題篩選） -->
+        <div class="space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-3 px-1">
+            <h3 class="text-lg font-extrabold text-slate-800 flex items-center gap-2">
+              <span>💡 逐題批改與 HR 系統操作小撇步</span>
+            </h3>
+            <div id="resultFilterButtons" class="flex flex-wrap items-center gap-1.5 text-xs">
+              <!-- JS 動態生成篩選膠囊（全部 / 只看錯題 / 人事 / 考勤 / 薪資） -->
+            </div>
+          </div>
+
+          <div id="resultCardsContainer" class="space-y-4">
+            <!-- JS 動態生成解析卡片 -->
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- 客戶端極簡頁尾 -->
+    <footer class="py-6 text-center text-xs text-slate-400">
+      HR 系統輔導團隊 ｜ 客戶上線前人事・考勤・薪資模擬檢核平台
+    </footer>
+  </div>
+
+
+  <!-- =========================================================================
+       視圖二：顧問專屬串接設定中心（網址加上 #admin 時獨立顯示）
+       ========================================================================= -->
+  <div id="adminView" class="hidden min-h-screen bg-slate-900 text-slate-100 flex flex-col">
+    <!-- 顧問後台頂部列 -->
+    <header class="bg-slate-950 border-b border-slate-800 sticky top-0 z-30">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <span class="px-2.5 py-1 rounded-lg bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-extrabold">ADMIN</span>
+          <h1 class="text-base sm:text-lg font-bold text-white">HR 測驗系統｜顧問專屬串接設定中心</h1>
+        </div>
+        <button onclick="switchToClientPreview()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-bold shadow-sm transition flex items-center gap-1.5 cursor-pointer">
+          <span>👀 預覽純淨客戶測驗畫面</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-8 space-y-8">
+
+      <!-- 1. 完整資料流架構圖解 -->
+      <section class="bg-slate-800/70 border border-slate-700 rounded-3xl p-6 sm:p-8">
+        <h2 class="text-lg font-extrabold text-white mb-4 flex items-center gap-2">
+          <span>🔄 三科分流測驗與 Notion 回寫資料架構</span>
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
+          <div class="p-4 rounded-2xl bg-slate-900 border border-slate-700">
+            <div class="text-2xl mb-2">📋</div>
+            <div class="text-sm font-bold text-amber-400 mb-1">1. Google 表單分科出題</div>
+            <p class="text-xs text-slate-400 leading-relaxed">題目標題加上 <code class="text-amber-300">[人事]</code>、<code class="text-amber-300">[考勤]</code>、<code class="text-amber-300">[薪資]</code> 標籤，自動歸類題庫</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-slate-900 border border-slate-700">
+            <div class="text-2xl mb-2">⚡</div>
+            <div class="text-sm font-bold text-indigo-400 mb-1">2. GAS API 動態抓題</div>
+            <p class="text-xs text-slate-400 leading-relaxed">客戶開啟網頁時自動讀取最新 Google 表單題目與各科題數</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-slate-900 border border-slate-700">
+            <div class="text-2xl mb-2">🎯</div>
+            <div class="text-sm font-bold text-emerald-400 mb-1">3. 客戶自由勾選作答</div>
+            <p class="text-xs text-slate-400 leading-relaxed">客戶勾選要考的模組，交卷後分別計算各科 100 分制成績</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-slate-900 border border-slate-700">
+            <div class="text-2xl mb-2">🗂️</div>
+            <div class="text-sm font-bold text-pink-400 mb-1">4. Notion 分科欄位寫入</div>
+            <p class="text-xs text-slate-400 leading-relaxed">將「人事分數、考勤分數、薪資分數」分別填入 Notion（未考科目留空）</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. 專屬客戶測驗連結產生器與連線測試 -->
+      <section class="bg-slate-800/70 border border-slate-700 rounded-3xl p-6 sm:p-8 space-y-5">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h2 class="text-lg font-extrabold text-white mb-1">🔗 步驟一：設定 GAS 網址並產生「給客戶的純淨測驗連結」</h2>
+            <p class="text-xs text-slate-400">貼入部署好的 Google Apps Script 網址，可點擊「測試連線」驗證是否成功抓到 Google 表單題目。</p>
+          </div>
+          <button onclick="testGasConnectionInAdmin()" id="btnTestGasConn" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-extrabold transition cursor-pointer">
+            ⚡ 測試讀取 Google 表單題庫
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="md:col-span-2">
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">Google Apps Script 網頁應用程式網址 (Web App URL)</label>
+            <input type="url" id="adminGasUrlInput" oninput="updateGeneratedClientUrl()" placeholder="https://script.google.com/macros/s/AKfycbx.../exec"
+              class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 focus:border-indigo-500 outline-none text-xs font-mono text-emerald-300" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">各科及格分數門檻</label>
+            <input type="number" id="adminPassScoreInput" oninput="updateGeneratedClientUrl()" value="80" min="1" max="100"
+              class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 focus:border-indigo-500 outline-none text-sm font-bold text-white" />
+          </div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-slate-950 border border-slate-700 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-indigo-400">✨ 給客戶的專屬純淨測驗網址（已自動隱藏 #admin 後台）：</span>
+            <button onclick="copyClientShareLink()" class="px-4 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition cursor-pointer">
+              📋 一鍵複製客戶連結
+            </button>
+          </div>
+          <input type="text" id="generatedClientUrlOutput" readonly
+            class="w-full bg-slate-900 text-slate-200 px-3 py-2.5 rounded-lg text-xs font-mono border border-slate-800 select-all" />
+        </div>
+      </section>
+
+      <!-- 3. Google 表單分科出題規範 & Notion 資料庫欄位對照 -->
+      <section class="bg-slate-800/70 border border-slate-700 rounded-3xl p-6 sm:p-8 space-y-5">
+        <h2 class="text-lg font-extrabold text-white">📋 步驟二：Google 表單出題格式 & Notion 資料庫欄位設定</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <!-- Google 表單寫法 -->
+          <div class="p-4 rounded-2xl bg-slate-900 border border-slate-700 space-y-2.5">
+            <div class="font-extrabold text-amber-400 text-sm">1. Google 表單題目標題分類寫法</div>
+            <p class="text-slate-300 leading-relaxed">
+              請在 Google 表單題目標題最前方加上中括號分類標籤（支援雙層標籤）：
+            </p>
+            <ul class="space-y-1.5 text-slate-300 font-mono bg-slate-950 p-3 rounded-xl border border-slate-800">
+              <li><span class="text-indigo-400">[人事]</span> 新進員工報到時，系統加保順序為何？</li>
+              <li><span class="text-orange-400">[考勤][排班設定]</span> 變形工時班表如何設定？</li>
+              <li><span class="text-emerald-400">[薪資][二代健保]</span> 年終獎金超過 4 倍投保金額...</li>
+            </ul>
+            <p class="text-slate-400">
+              ※ 系統會自動識別第一組 <code class="text-white">[人事]</code>、<code class="text-white">[考勤]</code>、<code class="text-white">[薪資]</code> 歸入對應題庫；第二組中括號則作為小單元標籤。
+            </p>
+          </div>
+
+          <!-- Notion 欄位結構 -->
+          <div class="p-4 rounded-2xl bg-slate-900 border border-slate-700 space-y-2.5">
+            <div class="font-extrabold text-pink-400 text-sm">2. Notion 資料庫建議建立之欄位（名稱需完全一致）</div>
+            <div class="grid grid-cols-2 gap-2 text-slate-300 bg-slate-950 p-3 rounded-xl border border-slate-800">
+              <div><strong class="text-white">公司抬頭</strong> (Title)</div>
+              <div><strong class="text-white">應試人員</strong> (Text)</div>
+              <div><strong class="text-white">測驗次數</strong> (Number)</div>
+              <div><strong class="text-white">選考科目</strong> (Multi-select)</div>
+              <div><strong class="text-indigo-300">人事分數</strong> (Number)</div>
+              <div><strong class="text-orange-300">考勤分數</strong> (Number)</div>
+              <div><strong class="text-emerald-300">薪資分數</strong> (Number)</div>
+              <div><strong class="text-white">總平均分</strong> (Number)</div>
+              <div><strong class="text-white">作答明細</strong> (Text)</div>
+              <div><strong class="text-white">測驗時間</strong> (Date)</div>
+            </div>
+            <p class="text-slate-400">
+              ※ 未選考的科目會自動傳送 <code class="text-white">null</code>（留空），不會誤填為 0 分！
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. 一體化 Google Apps Script 程式碼 (doGet 分科抓題 + doPost 分科寫回 Notion) -->
+      <section class="bg-slate-800/70 border border-slate-700 rounded-3xl p-6 sm:p-8 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h2 class="text-lg font-extrabold text-white">💻 步驟三：Google Apps Script 一體化串接程式碼（支援分科計分）</h2>
+            <p class="text-xs text-slate-400">自動解析 Google 表單的 [人事]/[考勤]/[薪資] 題目，並將各科獨立分數寫回 Notion 資料庫</p>
+          </div>
+          <button onclick="copyGasFullCode()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition cursor-pointer">
+            📋 一鍵複製完整 GAS 程式碼
+          </button>
+        </div>
+
+        <pre class="p-4 rounded-2xl bg-slate-950 border border-slate-800 text-emerald-300 font-mono text-xs overflow-x-auto max-h-96 leading-relaxed"><code id="fullGasCodeBlock">/**
+ * HR 系統輔導測驗平台 - Google Apps Script 一體化後端 (支援人事/考勤/薪資分科計分)
+ * 功能 1 (doGet)：讀取 Google 表單題目，自動識別 [人事]、[考勤]、[薪資] 分類並回傳 JSON
+ * 功能 2 (doPost)：接收客戶交卷結果，將各科獨立分數寫入 Notion 資料庫（未考科目自動留空）
+ */
+
+// ====== 請填入以下三個設定值 ======
+var GOOGLE_FORM_ID = "請填入您的Google表單ID"; // 表單網址 /d/ 與 /edit 之間的那串英數字
+var NOTION_TOKEN   = "secret_請填入您的Notion整合金鑰";
+var NOTION_DB_ID   = "請填入您的Notion資料庫ID";
+
+// 1. 客戶開啟網頁時，自動抓取 Google 表單題目與科別分類
+function doGet(e) {
+  try {
+    var form = FormApp.openById(GOOGLE_FORM_ID);
+    var items = form.getItems();
+    var optionLetters = ["A", "B", "C", "D", "E", "F"];
+    var questions = [];
+
+    items.forEach(function(item) {
+      var type = item.getType();
+      if (type !== FormApp.ItemType.MULTIPLE_CHOICE && type !== FormApp.ItemType.CHECKBOX) {
+        return;
+      }
+
+      var rawTitle = item.getTitle() || "";
+      var category = "薪資"; // 預設歸類
+      var subTopic = "實務操作";
+      var cleanTitle = rawTitle;
+
+      // 解析 [科別][小單元] 題目內容，例如：[人事][到離職異動] 新進員工...
+      var tagMatch = rawTitle.match(/^\[(人事|考勤|薪資)\](?:\[(.+?)\])?\s*(.*)$/);
+      if (tagMatch) {
+        category = tagMatch[1];
+        if (tagMatch[2]) subTopic = tagMatch[2];
+        cleanTitle = tagMatch[3];
+      }
+
+      var choices = [];
+      var feedback = null;
+
+      if (type === FormApp.ItemType.MULTIPLE_CHOICE) {
+        var mcItem = item.asMultipleChoiceItem();
+        choices = mcItem.getChoices();
+        feedback = mcItem.getFeedbackForCorrect();
+      } else if (type === FormApp.ItemType.CHECKBOX) {
+        var cbItem = item.asCheckboxItem();
+        choices = cbItem.getChoices();
+        feedback = cbItem.getFeedbackForCorrect();
+      }
+
+      var optionsMap = {};
+      var correctAnswers = [];
+
+      choices.forEach(function(choice, idx) {
+        if (idx < optionLetters.length) {
+          var letter = optionLetters[idx];
+          optionsMap[letter] = choice.getValue();
+          if (choice.isCorrectAnswer()) {
+            correctAnswers.push(letter);
+          }
+        }
+      });
+
+      if (correctAnswers.length === 0) correctAnswers = ["A"];
+
+      questions.push({
+        id: questions.length + 1,
+        category: category,
+        subTopic: subTopic,
+        type: (type === FormApp.ItemType.CHECKBOX || correctAnswers.length > 1) ? "multiple" : "single",
+        question: cleanTitle,
+        options: optionsMap,
+        answer: correctAnswers,
+        explanation: feedback ? feedback.getText() : "請參考 HR 系統標準作業手冊之相關設定說明。"
+      });
+    });
+
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "success",
+      questions: questions
+    })).setMimeType(ContentService.MimeType.JSON);
+
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "error",
+      message: err.toString()
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+// 2. 客戶交卷送出後，將各科獨立成績寫回 Notion 資料庫
+function doPost(e) {
+  try {
+    var data = JSON.parse(e.postData.contents);
+    var scores = data.scoresByCategory || {};
+    var selectedCats = (data.selectedCategories || []).map(function(cat) {
+      return { name: cat };
+    });
+
+    var url = "https://api.notion.com/v1/pages";
+
+    // 未選考的科目為 null，寫入 Notion Number 欄位時設為 null 即可保持空白不填 0
+    var payload = {
+      parent: { database_id: NOTION_DB_ID },
+      properties: {
+        "公司抬頭": { title: [{ text: { content: data.company || "未填寫" } }] },
+        "應試人員": { rich_text: [{ text: { content: data.name || "" } }] },
+        "測驗次數": { number: Number(data.attempt || 1) },
+        "選考科目": { multi_select: selectedCats },
+        "人事分數": { number: (scores["人事"] !== null && scores["人事"] !== undefined) ? Number(scores["人事"]) : null },
+        "考勤分數": { number: (scores["考勤"] !== null && scores["考勤"] !== undefined) ? Number(scores["考勤"]) : null },
+        "薪資分數": { number: (scores["薪資"] !== null && scores["薪資"] !== undefined) ? Number(scores["薪資"]) : null },
+        "總平均分": { number: Number(data.overallScore || 0) },
+        "作答明細": { rich_text: [{ text: { content: (data.details || "").substring(0, 1900) } }] },
+        "測驗時間": { date: { start: new Date().toISOString() } }
+      }
+    };
+
+    var res = UrlFetchApp.fetch(url, {
+      method: "post",
+      contentType: "application/json",
+      headers: {
+        "Authorization": "Bearer " + NOTION_TOKEN,
+        "Notion-Version": "2022-06-28"
+      },
+      payload: JSON.stringify(payload),
+      muteHttpExceptions: true
+    });
+
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "success",
+      notionResponse: res.getContentText()
+    })).setMimeType(ContentService.MimeType.JSON);
+
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "error",
+      message: err.toString()
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+}</code></pre>
+
+        <div class="p-4 rounded-2xl bg-amber-500/10 border border-amber-400/20 text-xs text-amber-200 leading-relaxed">
+          <strong>🚀 部署提醒：</strong> 修改或貼上 GAS 程式碼後，請務必點擊右上角「<strong>部署 ➔ 管理部署作業 ➔ 編輯（鉛筆圖示） ➔ 版本選『建立新版本』 ➔ 部署</strong>」，新的分科解析與寫入邏輯才會正式生效！
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+
+  <!-- =========================================================================
+       核心 JavaScript 邏輯
+       ========================================================================= -->
+  <script>
+    /**
+     * 三大科目視覺主題設定
+     */
+    const CATEGORY_META = {
+      "人事": {
+        icon: "👥",
+        label: "人事管理",
+        badgeClass: "bg-indigo-100 text-indigo-800",
+        cardActiveClass: "border-indigo-500 bg-indigo-50/70 shadow-sm",
+        checkActiveClass: "bg-indigo-600 text-white",
+        textColor: "text-indigo-600",
+        barGradient: "from-indigo-500 to-violet-500"
+      },
+      "考勤": {
+        icon: "⏰",
+        label: "考勤管理",
+        badgeClass: "bg-orange-100 text-orange-800",
+        cardActiveClass: "border-orange-500 bg-orange-50/70 shadow-sm",
+        checkActiveClass: "bg-orange-500 text-white",
+        textColor: "text-orange-600",
+        barGradient: "from-orange-500 to-amber-500"
+      },
+      "薪資": {
+        icon: "💰",
+        label: "薪資作業",
+        badgeClass: "bg-emerald-100 text-emerald-800",
+        cardActiveClass: "border-emerald-500 bg-emerald-50/70 shadow-sm",
+        checkActiveClass: "bg-emerald-600 text-white",
+        textColor: "text-emerald-600",
+        barGradient: "from-emerald-500 to-teal-500"
+      }
+    };
+
+    const ALL_CATEGORIES = ["人事", "考勤", "薪資"];
+
+    /**
+     * 內建三大模組完整實務範例題庫（人事 4 題、考勤 4 題、薪資 4 題，共 12 題）
+     */
+    const BUILTIN_QUESTIONS = [
+      // ==================== 【人事管理題庫】4 題 ====================
+      {
+        id: 1,
+        category: "人事",
+        subTopic: "員工基本資料建立",
+        type: "single",
+        question: "新進員工於報到日建立 HR 系統「員工基本資料」時，哪一個欄位的設定會直接影響系統自動計算「特休天數」與「資遣費年資」？",
+        options: {
+          A: "緊急聯絡人電話",
+          B: "到職日期（年資起算日）",
+          C: "員工個人 Gmail 信箱",
+          D: "制服尺寸與血型"
+        },
+        answer: ["B"],
+        explanation: "系統的「特別休假週年制/曆年制自動給假引擎」是依據員工基本資料中的「到職日期（年資起算日）」推算滿半年、滿一年等里程碑，建立新進人員時務必核對正確。"
+      },
+      {
+        id: 2,
+        category: "人事",
+        subTopic: "到離職異動管理",
+        type: "single",
+        question: "當同仁提出離職申請並確定「最後在職日為 10 月 31 日」時，HR 人員在系統登錄「離職異動單」時，生效日（離職日）應填寫哪一天才不會導致 10 月 31 日當天無法刷卡或少算一天薪資？",
+        options: {
+          A: "10 月 30 日",
+          B: "10 月 31 日（當日仍為在職狀態，系統將於 10/31 下班後轉為離職）",
+          C: "11 月 15 日",
+          D: "9 月 30 日"
+        },
+        answer: ["B"],
+        explanation: "在標準 HR 系統邏輯中，「離職日」代表最後在職服務日（10/31 當天仍需出勤並計薪），系統會在該日結束後自動停用帳號並停止次日起之勞健保計費。"
+      },
+      {
+        id: 3,
+        category: "人事",
+        subTopic: "部門職稱與簽核設定",
+        type: "single",
+        question: "公司新成立「數位轉型部」並指派張經理擔任主管，為了讓該部門同仁送出的請假單與加班單能自動送給張經理簽核，除了建立部門代碼外還需完成哪項設定？",
+        options: {
+          A: "在部門組織架構中設定「部門主管」為張經理，並確認簽核流程設為「依部門主管層級」",
+          B: "只要修改張經理的個人密碼即可",
+          C: "將全公司員工都移入數位轉型部",
+          D: "不需任何設定，系統會隨機指派簽核人"
+        },
+        answer: ["A"],
+        explanation: "電子表單簽核引擎是透過「組織樹（部門主管欄位）」自動抓取對應簽核人。新增部門時同步維護部門主管，所有請假、加班單就能自動精準派送！"
+      },
+      {
+        id: 4,
+        category: "人事",
+        subTopic: "勞健保加退保級距",
+        type: "multiple",
+        question: "【多選題】關於在 HR 系統維護員工「勞保、健保與勞退投保級距」的操作原則，下列哪些敘述正確？（請選出所有正確選項）",
+        options: {
+          A: "員工經常性薪資總額（本薪＋伙食津貼＋全勤獎金等）變動時，應依投保薪資分級表調整級距",
+          B: "員工眷屬若需依附投保健保，可在「眷屬加保資料」新增，系統會自動按人數累計健保費",
+          C: "員工自願提繳退休金（勞退自提 1%~6%）可在系統個人勞退設定中維護，計薪時自動從應稅所得中扣除",
+          D: "勞保與健保的投保級距金額在任何情況下都必須完全一模一樣"
+        },
+        answer: ["A", "B", "C"],
+        explanation: "勞保最高級距（目前為 45,800 元）與健保最高級距不同，因此高薪員工的勞保與健保級距並不相同；而眷屬加保與勞退自提設定均會直接連動薪資單扣款與所得稅計算，A、B、C 皆正確。"
+      },
+
+      // ==================== 【考勤管理題庫】4 題 ====================
+      {
+        id: 5,
+        category: "考勤",
+        subTopic: "班別與行事曆排班",
+        type: "single",
+        question: "當公司有「早班（08:00-17:00）」與「晚班（13:00-22:00）」輪班人員時，若未在考勤系統事先維護該員工的「個人班表（排班表）」，會發生什麼狀況？",
+        options: {
+          A: "系統會自動幫員工加薪 2,000 元",
+          B: "晚班員工 13:00 刷卡上班時，會被系統以預設日班（09:00）判定為「嚴重遲到 4 小時」",
+          C: "系統會自動幫員工申請特休假",
+          D: "完全不會有任何影響，刷卡紀錄會自動消失"
+        },
+        answer: ["B"],
+        explanation: "考勤比對引擎是將「實際刷卡時間」與「當日排定班別」進行比對。輪班制人員務必先完成排班作業，刷卡異常檢核才會準確。"
+      },
+      {
+        id: 6,
+        category: "考勤",
+        subTopic: "請假單簽核與特休計算",
+        type: "single",
+        question: "員工在 HR 系統送出「特別休假」申請單，但主管尚未點擊「核准」，此時執行考勤異常檢核或薪資試算，系統會如何判定該時段？",
+        options: {
+          A: "直接視為已核准的特休，不扣薪也不扣特休時數",
+          B: "因假單仍處於「簽核中」尚未生效，系統會暫時判定為「缺勤 / 曠職異常」",
+          C: "自動幫主管按下核准按鈕",
+          D: "自動轉換為加班時數"
+        },
+        answer: ["B"],
+        explanation: "只有狀態為「已核准（結案）」的假單才會沖銷缺勤紀錄並扣減特休餘額。因此每月結算前提醒主管清空「待簽核表單」非常重要！"
+      },
+      {
+        id: 7,
+        category: "考勤",
+        subTopic: "加班申請與補休換算",
+        type: "single",
+        question: "員工平日加班 2 小時並選擇「轉為補休（1:1 換算補休時數）」，在 HR 系統中這 2 小時補休時數的控管方式為何？",
+        options: {
+          A: "補休時數永久有效，離職也不需處理",
+          B: "系統會將 2 小時存入該員工的「補休假別額度」並記錄到期日；若屆期未休畢，系統會自動提示或依設定轉發加班費",
+          C: "轉補休後仍會同時發放 2 小時加班費",
+          D: "補休時數只能用來折抵遲到分鐘數，不能請整天假"
+        },
+        answer: ["B"],
+        explanation: "依勞基法第 32-1 條規定，加班換補休應約定補休期限，屆期未休畢者雇主仍應依原加班當日之工資計算標準發給加班費，HR 系統會自動追蹤每筆補休的到期期限。"
+      },
+      {
+        id: 8,
+        category: "考勤",
+        subTopic: "異常刷卡補登結算",
+        type: "multiple",
+        question: "【多選題】每月進行「考勤月結」前，人資發現考勤異常清單中出現「下班漏刷卡」與「外出公出未刷卡」紀錄，正確的系統處理流程包含哪些？（請選出所有正確選項）",
+        options: {
+          A: "通知員工在系統送出「補刷卡申請單」或「公出單」，經主管簽核後系統自動消除該筆異常",
+          B: "人資可在確認主管同意後，使用「考勤異常批次確認 / 人工補登」功能修正刷卡紀錄",
+          C: "確認所有異常均已排除且無待簽核單據後，執行「考勤關帳（鎖定考勤月份）」再拋轉薪資",
+          D: "直接忽略所有異常紅字，讓系統把有漏刷卡的員工全部當作曠職扣全月薪水"
+        },
+        answer: ["A", "B", "C"],
+        explanation: "透過補刷卡/公出單簽核或人資人工補登消除異常紅字後，執行「考勤關帳」即可確保考勤數據穩定無誤地拋轉至薪資模組，A、B、C 皆正確。"
+      },
+
+      // ==================== 【薪資作業題庫】4 題 ====================
+      {
+        id: 9,
+        category: "薪資",
+        subTopic: "薪資項目與固定津貼設定",
+        type: "single",
+        question: "在 HR 系統新增「職務加給」或「全勤獎金」等固定薪資項目時，若希望該項目自動納入「平日加班費時薪計算基礎」，設定時應勾選哪個屬性？",
+        options: {
+          A: "勾選「屬於經常性給與（計入加班費計算基礎）」",
+          B: "勾選「免稅所得項目」",
+          C: "勾選「代扣款項目」",
+          D: "勾選「僅限離職時發放」"
+        },
+        answer: ["A"],
+        explanation: "凡屬勞務對價且每月固定發放之經常性給與（如本薪、職務加給、全勤獎金），在系統設定薪資項目時勾選「計入加班費基礎」，系統就會自動加總後除以 240 算出精準平日每小時工資額。"
+      },
+      {
+        id: 10,
+        category: "薪資",
+        subTopic: "考勤扣款與加班費拋轉",
+        type: "single",
+        question: "月薪制員工（月薪 36,000 元，平日每小時工資額 150 元）本月請了「普通傷病假 8 小時」與「事假 4 小時」，系統自動拋轉考勤結果後的請假扣款總額應為多少？",
+        options: {
+          A: "1,800 元",
+          B: "1,200 元",
+          C: "900 元",
+          D: "600 元"
+        },
+        answer: ["B"],
+        explanation: "普通傷病假一年內未超過 30 日部分工資折半發給（扣半薪：8小時 × 150元 × 0.5 = 600元）；事假不給工資（扣全薪：4小時 × 150元 = 600元）。兩者合計系統會自動扣款 1,200 元。"
+      },
+      {
+        id: 11,
+        category: "薪資",
+        subTopic: "二代健保與所得稅代扣",
+        type: "single",
+        question: "公司發放「年終獎金」或「三節獎金」時，HR 系統自動判斷是否代扣「二代健保補充保費（2.11%）」的法定條件為何？",
+        options: {
+          A: "單次發放獎金超過 20,000 元即全額扣繳",
+          B: "當年度累計發放獎金超過該員工當月健保投保金額「4 倍」的超過部分，自動代扣 2.11%",
+          C: "只要有發放獎金，不論金額大小一律扣繳 2.11%",
+          D: "正職員工發放獎金完全免扣二代健保"
+        },
+        answer: ["B"],
+        explanation: "系統會自動累計員工「當年度已領取獎金總額」，只要超過當月健保投保金額的「4 倍」，超過的部分就會自動計算並代扣 2.11% 補充保費。"
+      },
+      {
+        id: 12,
+        category: "薪資",
+        subTopic: "薪資結算封帳與薪資條發放",
+        type: "single",
+        question: "完成當月薪資覆核、產出銀行轉帳媒體檔並發送電子薪資條後，HR 主管執行「薪資關帳（封帳）」最主要的目的為何？",
+        options: {
+          A: "防止後續異動員工資料或補登假單時，意外覆蓋已發放的歷史薪資紀錄",
+          B: "清除系統內所有的歷史薪資報表以釋放空間",
+          C: "讓一般員工可以自行修改薪資條數字",
+          D: "自動發送下個月的薪資轉帳給銀行"
+        },
+        answer: ["A"],
+        explanation: "執行「薪資關帳」後，該月份的薪資帳務即受到保護，後續進行調薪、級距調整或補登考勤時，都不會誤改已發放的歷史薪資與年度扣繳憑單數據。"
+      }
+    ];
+
+    /**
+     * 全域應用程式狀態
+     */
+    const appState = {
+      gasUrl: "",                               // 透過網址參數 ?gasUrl=... 或 localStorage 載入
+      passScore: 80,                            // 各科及格分數門檻
+      allQuestions: [...BUILTIN_QUESTIONS],     // 完整三科題庫池
+      selectedCategories: ["人事", "考勤", "薪資"], // 客戶勾選的測驗科目
+      activeQuestions: [],                      // 依勾選科目篩選出的本次作答題目
+      candidate: {
+        companyName: "",
+        candidateName: "",
+        attemptCount: 0
+      },
+      quiz: {
+        currentIndex: 0,
+        userAnswers: {},
+        lastResult: null
+      }
+    };
+
+    // ==================== 頁面啟動與路由判斷 ====================
+    window.addEventListener("DOMContentLoaded", async () => {
+      initParamsAndConfig();
+      handleRouting();
+      window.addEventListener("hashchange", handleRouting);
+
+      // 開網頁時若有設定 Google 表單 GAS 端點，自動靜默抓取最新題目
+      if (appState.gasUrl) {
+        await fetchQuestionsFromGoogleForm();
+      } else {
+        refreshCategoryCardsUI();
+      }
+    });
+
+    /**
+     * 讀取網址參數 (?gasUrl=...&pass=80) 或本機儲存設定
+     */
+    function initParamsAndConfig() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const savedGas = localStorage.getItem("hr_quiz_gas_url") || "";
+      const savedPass = Number(localStorage.getItem("hr_quiz_pass_score")) || 80;
+
+      appState.gasUrl = (urlParams.get("gasUrl") || urlParams.get("sheetUrl") || savedGas).trim();
+      appState.passScore = Number(urlParams.get("pass")) || savedPass;
+
+      const adminGasInput = document.getElementById("adminGasUrlInput");
+      const adminPassInput = document.getElementById("adminPassScoreInput");
+      if (adminGasInput) adminGasInput.value = appState.gasUrl;
+      if (adminPassInput) adminPassInput.value = appState.passScore;
+      updateGeneratedClientUrl();
+    }
+
+    /**
+     * 根據網址 Hash (#admin) 決定顯示【顧問設定中心】或【純淨客戶測驗畫面】
+     */
+    function handleRouting() {
+      const isAdmin = window.location.hash.toLowerCase() === "#admin";
+      document.getElementById("clientView").classList.toggle("hidden", isAdmin);
+      document.getElementById("adminView").classList.toggle("hidden", !isAdmin);
+    }
+
+    /**
+     * 開網頁時自動從 Google 表單 GAS 端點抓取最新題目（含人事/考勤/薪資分類）
+     */
+    async function fetchQuestionsFromGoogleForm() {
+      const loginSec = document.getElementById("stepLogin");
+      const loadingSec = document.getElementById("loadingQuizOverlay");
+
+      loginSec.classList.add("hidden");
+      loadingSec.classList.remove("hidden");
+
+      try {
+        const fetchEndpoint = appState.gasUrl + (appState.gasUrl.includes("?") ? "&" : "?") + "_t=" + Date.now();
+        const response = await fetch(fetchEndpoint);
+        const data = await response.json();
+
+        if (data && data.status === "success" && Array.isArray(data.questions) && data.questions.length > 0) {
+          // 正規化分類名稱為「人事」、「考勤」、「薪資」
+          appState.allQuestions = data.questions.map((q, idx) => {
+            let cat = (q.category || "薪資").trim();
+            if (cat.includes("人事")) cat = "人事";
+            else if (cat.includes("考勤")) cat = "考勤";
+            else cat = "薪資";
+
+            return {
+              ...q,
+              id: q.id || idx + 1,
+              category: cat,
+              subTopic: q.subTopic || "實務操作"
+            };
+          });
+        }
+      } catch (err) {
+        console.warn("雲端題庫讀取異常，自動使用內建三科標準題庫:", err);
+      } finally {
+        refreshCategoryCardsUI();
+        loadingSec.classList.add("hidden");
+        loginSec.classList.remove("hidden");
+      }
+    }
+
+    // ==================== 報到頁多選題庫卡片互動 ====================
+
+    /**
+     * 點擊切換單一題庫勾選狀態（人事 / 考勤 / 薪資）
+     */
+    function toggleCategoryCard(catName) {
+      const idx = appState.selectedCategories.indexOf(catName);
+      if (idx > -1) {
+        appState.selectedCategories.splice(idx, 1);
+      } else {
+        // 維持固定顯示順序：人事 -> 考勤 -> 薪資
+        const nextSet = new Set([...appState.selectedCategories, catName]);
+        appState.selectedCategories = ALL_CATEGORIES.filter(c => nextSet.has(c));
+      }
+      refreshCategoryCardsUI();
+    }
+
+    /**
+     * 一鍵全選 / 取消全選
+     */
+    function toggleSelectAllCategories() {
+      if (appState.selectedCategories.length === ALL_CATEGORIES.length) {
+        appState.selectedCategories = [];
+      } else {
+        appState.selectedCategories = [...ALL_CATEGORIES];
+      }
+      refreshCategoryCardsUI();
+    }
+
+    /**
+     * 更新報到頁三張題庫卡片的勾選樣式與合計題數
+     */
+    function refreshCategoryCardsUI() {
+      let totalSelectedCount = 0;
+
+      ALL_CATEGORIES.forEach(cat => {
+        const isSelected = appState.selectedCategories.includes(cat);
+        const meta = CATEGORY_META[cat];
+        const catQuestions = appState.allQuestions.filter(q => q.category === cat);
+        if (isSelected) totalSelectedCount += catQuestions.length;
+
+        const cardEl = document.getElementById(`catCard_${cat}`);
+        const checkEl = document.getElementById(`catCheck_${cat}`);
+        const countEl = document.getElementById(`catCount_${cat}`);
+
+        if (countEl) {
+          countEl.textContent = `共 ${catQuestions.length} 題`;
+        }
+
+        if (cardEl && checkEl) {
+          if (isSelected) {
+            cardEl.className = `group relative p-4 rounded-2xl border-2 ${meta.cardActiveClass} cursor-pointer transition-all select-none animate-pop`;
+            checkEl.className = `w-6 h-6 rounded-lg ${meta.checkActiveClass} flex items-center justify-center text-xs font-black shadow-xs transition`;
+            checkEl.textContent = "✓";
+          } else {
+            cardEl.className = "group relative p-4 rounded-2xl border-2 border-slate-200 bg-slate-50/60 opacity-75 hover:opacity-100 hover:border-slate-300 cursor-pointer transition-all select-none";
+            checkEl.className = "w-6 h-6 rounded-lg bg-white border-2 border-slate-300 text-transparent flex items-center justify-center text-xs font-black transition";
+            checkEl.textContent = "";
+          }
+        }
+      });
+
+      // 更新全選按鈕文字
+      const toggleBtn = document.getElementById("btnToggleAllCats");
+      if (toggleBtn) {
+        toggleBtn.textContent = appState.selectedCategories.length === ALL_CATEGORIES.length ? "取消全選" : "一鍵全選";
+      }
+
+      // 更新摘要文字與開始按鈕
+      const summaryEl = document.getElementById("selectedSummaryText");
+      const startBtnText = document.getElementById("startBtnText");
+
+      if (appState.selectedCategories.length === 0) {
+        summaryEl.innerHTML = `<span class="text-rose-600">⚠️ 請至少勾選 1 個測驗題庫模組</span>`;
+        startBtnText.textContent = "🚀 請先勾選測驗題庫";
+      } else {
+        const coloredNames = appState.selectedCategories.map(c => {
+          const meta = CATEGORY_META[c];
+          return `<span class="${meta.textColor}">${c}</span>`;
+        }).join("、");
+        summaryEl.innerHTML = `已選擇：${coloredNames}（合計 ${totalSelectedCount} 題）`;
+        startBtnText.textContent = `🚀 開始挑戰（共 ${totalSelectedCount} 題）`;
+      }
+    }
+
+    // ==================== 客戶測驗互動邏輯 ====================
+
+    /**
+     * 步驟 1 -> 步驟 2：客戶點擊「開始挑戰」
+     */
+    function handleStartQuiz(event) {
+      event.preventDefault();
+      const company = document.getElementById("companyName").value.trim();
+      const name = document.getElementById("candidateName").value.trim();
+
+      if (!company || !name) {
+        showToast("請輸入「公司抬頭」與「應試人員姓名」喔！", "warning");
+        return;
+      }
+
+      if (appState.selectedCategories.length === 0) {
+        showToast("請至少勾選 1 個要測驗的題庫（人事、考勤或薪資）！", "warning");
+        return;
+      }
+
+      // 依勾選順序組合題目（人事 -> 考勤 -> 薪資）
+      const filtered = [];
+      appState.selectedCategories.forEach(cat => {
+        const items = appState.allQuestions.filter(q => q.category === cat);
+        filtered.push(...items);
+      });
+
+      if (filtered.length === 0) {
+        showToast("目前勾選的題庫尚無題目，請勾選其他題庫試試看！", "warning");
+        return;
+      }
+
+      appState.activeQuestions = filtered;
+
+      if (appState.candidate.companyName === company && appState.candidate.candidateName === name) {
+        appState.candidate.attemptCount += 1;
+      } else {
+        appState.candidate = {
+          companyName: company,
+          candidateName: name,
+          attemptCount: 1
+        };
+      }
+
+      startNewAttempt();
+    }
+
+    /**
+     * 初始化作答畫面
+     */
+    function startNewAttempt() {
+      appState.quiz = {
+        currentIndex: 0,
+        userAnswers: {},
+        lastResult: null
+      };
+
+      document.getElementById("quizCompanyBadge").textContent = `🏢 ${appState.candidate.companyName}`;
+      document.getElementById("quizNameBadge").textContent = `🙋 ${appState.candidate.candidateName}`;
+      document.getElementById("quizAttemptBadge").textContent = `🔥 第 ${appState.candidate.attemptCount} 次挑戰`;
+      document.getElementById("totalNum").textContent = appState.activeQuestions.length;
+
+      showClientStep("stepQuiz");
+      renderQuestionPills();
+      renderQuestionCard();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    /**
+     * 渲染題號膠囊與動態進度條
+     */
+    function renderQuestionPills() {
+      const container = document.getElementById("questionPills");
+      container.innerHTML = "";
+
+      let answeredTotal = 0;
+      appState.activeQuestions.forEach((_, idx) => {
+        const picked = appState.quiz.userAnswers[idx];
+        const hasAns = Array.isArray(picked) && picked.length > 0;
+        if (hasAns) answeredTotal++;
+
+        const isCurrent = idx === appState.quiz.currentIndex;
+        const pill = document.createElement("button");
+        pill.type = "button";
+        pill.textContent = idx + 1;
+        pill.onclick = () => {
+          appState.quiz.currentIndex = idx;
+          renderQuestionPills();
+          renderQuestionCard();
+        };
+
+        let cls = "w-9 h-9 rounded-full text-xs font-extrabold transition flex items-center justify-center cursor-pointer ";
+        if (isCurrent) {
+          cls += "bg-indigo-600 text-white shadow-md shadow-indigo-200 scale-105";
+        } else if (hasAns) {
+          cls += "bg-emerald-100 text-emerald-800 border border-emerald-200 hover:bg-emerald-200";
+        } else {
+          cls += "bg-slate-100 text-slate-500 hover:bg-slate-200";
+        }
+        pill.className = cls;
+        container.appendChild(pill);
+      });
+
+      document.getElementById("answeredNum").textContent = answeredTotal;
+      const percent = Math.round((answeredTotal / appState.activeQuestions.length) * 100);
+      document.getElementById("progressBarFill").style.width = `${percent}%`;
+    }
+
+    /**
+     * 渲染當前題目卡片與選項（包含科別徽章與生動彈跳回饋）
+     */
+    function renderQuestionCard() {
+      const idx = appState.quiz.currentIndex;
+      const q = appState.activeQuestions[idx];
+      const total = appState.activeQuestions.length;
+      const catMeta = CATEGORY_META[q.category] || CATEGORY_META["薪資"];
+
+      document.getElementById("qNumberTag").textContent = `第 ${idx + 1} 題 / 共 ${total} 題`;
+
+      const catTag = document.getElementById("qCategoryTag");
+      catTag.textContent = `${catMeta.icon} ${q.category}題庫`;
+      catTag.className = `px-3 py-1 rounded-full ${catMeta.badgeClass} text-xs font-extrabold`;
+
+      document.getElementById("qSubTopicTag").textContent = q.subTopic || "實務操作";
+
+      const typeTag = document.getElementById("qTypeTag");
+      if (q.type === "multiple") {
+        typeTag.textContent = "✨ 多選題（可複選多個答案）";
+        typeTag.className = "px-3 py-1 rounded-full bg-fuchsia-100 text-fuchsia-800 text-xs font-bold";
+      } else {
+        typeTag.textContent = "單選題";
+        typeTag.className = "px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold";
+      }
+
+      document.getElementById("qTitleText").textContent = q.question;
+
+      const listEl = document.getElementById("optionsList");
+      listEl.innerHTML = "";
+      const selected = appState.quiz.userAnswers[idx] || [];
+
+      Object.entries(q.options).forEach(([key, text]) => {
+        const isPicked = selected.includes(key);
+        const card = document.createElement("div");
+        card.onclick = () => selectOption(key);
+
+        card.className = `p-4 sm:p-5 rounded-2xl border-2 transition-all cursor-pointer flex items-start gap-3.5 select-none ${
+          isPicked
+            ? "border-indigo-500 bg-indigo-50/70 shadow-sm animate-pop"
+            : "border-slate-200 bg-white hover:border-indigo-300 hover:bg-slate-50/80"
+        }`;
+
+        const shape = q.type === "multiple" ? "rounded-xl" : "rounded-full";
+        card.innerHTML = `
+          <div class="w-8 h-8 ${shape} flex items-center justify-center text-xs font-black shrink-0 mt-0.5 transition ${
+            isPicked ? "bg-indigo-600 text-white shadow-xs" : "bg-slate-100 text-slate-600"
+          }">
+            ${isPicked ? "✓" : key}
+          </div>
+          <div class="text-sm sm:text-base text-slate-800 font-semibold leading-relaxed pt-0.5">
+            ${escapeHtml(text)}
+          </div>
+        `;
+        listEl.appendChild(card);
+      });
+
+      // 控制上下題與交卷按鈕
+      document.getElementById("btnPrev").disabled = idx === 0;
+      const isLast = idx === total - 1;
+      document.getElementById("btnNext").classList.toggle("hidden", isLast);
+      document.getElementById("btnSubmit").classList.toggle("hidden", !isLast);
+    }
+
+    /**
+     * 點擊選項邏輯
+     */
+    function selectOption(optionKey) {
+      const idx = appState.quiz.currentIndex;
+      const q = appState.activeQuestions[idx];
+      let current = appState.quiz.userAnswers[idx] || [];
+
+      if (q.type === "single") {
+        current = [optionKey];
+      } else {
+        if (current.includes(optionKey)) {
+          current = current.filter(k => k !== optionKey);
+        } else {
+          current = [...current, optionKey].sort();
+        }
+      }
+
+      appState.quiz.userAnswers[idx] = current;
+      renderQuestionPills();
+      renderQuestionCard();
+    }
+
+    /**
+     * 切換上下題
+     */
+    function moveQuestion(step) {
+      const next = appState.quiz.currentIndex + step;
+      if (next >= 0 && next < appState.activeQuestions.length) {
+        appState.quiz.currentIndex = next;
+        renderQuestionPills();
+        renderQuestionCard();
+      }
+    }
+
+    /**
+     * 交卷批改：分別獨立計算各勾選科目的 100 分制成績、放慶祝彩帶並寫回 Notion
+     */
+    async function submitQuiz() {
+      const missing = [];
+      appState.activeQuestions.forEach((_, idx) => {
+        const ans = appState.quiz.userAnswers[idx];
+        if (!ans || ans.length === 0) missing.push(idx + 1);
+      });
+
+      if (missing.length > 0) {
+        appState.quiz.currentIndex = missing[0] - 1;
+        renderQuestionPills();
+        renderQuestionCard();
+        showToast(`還有第 ${missing.join("、")} 題尚未作答，已幫您跳轉過去囉！`, "warning");
+        return;
+      }
+
+      let totalCorrect = 0;
+      const reviewItems = appState.activeQuestions.map((q, idx) => {
+        const userAns = (appState.quiz.userAnswers[idx] || []).slice().sort();
+        const rightAns = q.answer.slice().sort();
+        const isCorrect =
+          userAns.length === rightAns.length &&
+          userAns.every((v, i) => v === rightAns[i]);
+
+        if (isCorrect) totalCorrect++;
+
+        return {
+          index: idx + 1,
+          question: q,
+          userAns,
+          rightAns,
+          isCorrect
+        };
+      });
+
+      // 分別計算「人事」、「考勤」、「薪資」三科的獨立分數（未考科目為 null）
+      const scoresByCategory = { "人事": null, "考勤": null, "薪資": null };
+      const categoryBreakdown = {};
+      const selectedScoresList = [];
+
+      ALL_CATEGORIES.forEach(cat => {
+        if (!appState.selectedCategories.includes(cat)) {
+          categoryBreakdown[cat] = { selected: false, score: null, correct: 0, total: 0, passed: null };
+          return;
+        }
+
+        const catItems = reviewItems.filter(item => item.question.category === cat);
+        const catTotal = catItems.length;
+        const catCorrect = catItems.filter(item => item.isCorrect).length;
+        const catScore = catTotal > 0 ? Math.round((catCorrect / catTotal) * 100) : 0;
+        const catPassed = catScore >= appState.passScore;
+
+        scoresByCategory[cat] = catScore;
+        selectedScoresList.push(catScore);
+        categoryBreakdown[cat] = {
+          selected: true,
+          score: catScore,
+          correct: catCorrect,
+          total: catTotal,
+          passed: catPassed
+        };
+      });
+
+      // 計算選考科目的總平均分數
+      const overallScore = selectedScoresList.length > 0
+        ? Math.round(selectedScoresList.reduce((acc, v) => acc + v, 0) / selectedScoresList.length)
+        : 0;
+
+      const allSelectedPassed = selectedScoresList.every(s => s >= appState.passScore);
+      const submitTime = new Date().toLocaleString("zh-TW", { hour12: false });
+
+      appState.quiz.lastResult = {
+        overallScore,
+        totalCorrect,
+        totalCount: appState.activeQuestions.length,
+        allSelectedPassed,
+        scoresByCategory,
+        categoryBreakdown,
+        submitTime,
+        reviewItems
+      };
+
+      renderResultView();
+      showClientStep("stepResult");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      // 若總平均或全科達標，施放慶祝彩帶動畫！
+      if ((allSelectedPassed || overallScore >= appState.passScore) && typeof confetti === "function") {
+        confetti({
+          particleCount: 95,
+          spread: 75,
+          origin: { y: 0.6 }
+        });
+      }
+
+      // 背景靜默將分科成績與明細寫回 Notion
+      await sendResultToNotionInBackground();
+    }
+
+    /**
+     * 渲染成績揭曉、分科獨立計分卡片與篩選按鈕
+     */
+    function renderResultView() {
+      const res = appState.quiz.lastResult;
+      const cand = appState.candidate;
+
+      const banner = document.getElementById("resultHeroBanner");
+      const badge = document.getElementById("resultRankBadge");
+
+      if (res.allSelectedPassed) {
+        banner.className = "p-7 sm:p-9 text-white bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 relative overflow-hidden";
+        badge.textContent = res.overallScore === 100
+          ? "👑 全科滿分神人！HR 系統操作大師"
+          : "🏆 恭喜！所選模組全數通過認證標準";
+      } else if (res.overallScore >= appState.passScore) {
+        banner.className = "p-7 sm:p-9 text-white bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 relative overflow-hidden";
+        badge.textContent = "✨ 表現優秀！可針對未達標模組再加強練習";
+      } else {
+        banner.className = "p-7 sm:p-9 text-white bg-gradient-to-r from-orange-500 via-amber-500 to-rose-500 relative overflow-hidden";
+        badge.textContent = `💪 再接再厲！建議檢視下方各科錯題小撇步`;
+      }
+
+      document.getElementById("resultUserHeading").textContent = `${cand.companyName} － ${cand.candidateName}`;
+      document.getElementById("resultSubHeading").textContent = `第 ${cand.attemptCount} 次挑戰 ｜ 選考模組：${appState.selectedCategories.join("、")} ｜ ${res.submitTime}`;
+      document.getElementById("resultOverallScore").textContent = res.overallScore;
+      document.getElementById("resultStatsPill").textContent = `總答對 ${res.totalCorrect} 題 / 共 ${res.totalCount} 題`;
+      document.getElementById("passThresholdHint").textContent = `各科及格標準：${appState.passScore} 分`;
+
+      // 渲染三張分科計分卡片（人事 / 考勤 / 薪資）
+      renderCategoryScoreCards();
+
+      // 渲染逐題詳解篩選按鈕列
+      renderResultFilterBar("all");
+      renderResultCards("all");
+    }
+
+    /**
+     * 渲染人事、考勤、薪資三科獨立計分卡片
+     */
+    function renderCategoryScoreCards() {
+      const grid = document.getElementById("categoryScoreCardsGrid");
+      grid.innerHTML = "";
+      const breakdown = appState.quiz.lastResult.categoryBreakdown;
+
+      ALL_CATEGORIES.forEach(cat => {
+        const meta = CATEGORY_META[cat];
+        const info = breakdown[cat];
+        const card = document.createElement("div");
+
+        if (!info || !info.selected) {
+          // 未勾選的科目顯示柔和的「未選考」狀態
+          card.className = "p-5 rounded-2xl border border-dashed border-slate-200 bg-slate-50/70 flex flex-col justify-between opacity-75";
+          card.innerHTML = `
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2 font-extrabold text-slate-500 text-sm">
+                <span>${meta.icon}</span>
+                <span>${meta.label}</span>
+              </div>
+              <span class="px-2.5 py-0.5 rounded-full bg-slate-200/80 text-slate-500 text-[11px] font-bold">本次未選考</span>
+            </div>
+            <div class="text-2xl font-black text-slate-300 my-1">— 分</div>
+            <div class="text-xs text-slate-400">未納入本次計分</div>
+          `;
+        } else {
+          const isPass = info.passed;
+          card.className = `p-5 rounded-2xl border-2 ${
+            isPass ? "border-emerald-200 bg-emerald-50/35" : "border-rose-200 bg-rose-50/35"
+          } flex flex-col justify-between transition`;
+
+          card.innerHTML = `
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2 font-extrabold text-slate-800 text-sm">
+                  <span>${meta.icon}</span>
+                  <span>${meta.label}</span>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold ${
+                  isPass ? "bg-emerald-100 text-emerald-800" : "bg-rose-100 text-rose-800"
+                }">
+                  ${isPass ? "✅ 達標" : "📌 待加強"}
+                </span>
+              </div>
+
+              <div class="flex items-baseline gap-1.5 my-1">
+                <span class="text-4xl font-black ${isPass ? "text-emerald-600" : "text-rose-600"}">${info.score}</span>
+                <span class="text-sm font-bold text-slate-500">分</span>
+              </div>
+            </div>
+
+            <div class="mt-3 space-y-1.5">
+              <div class="w-full bg-slate-200/70 rounded-full h-2 overflow-hidden">
+                <div class="bg-gradient-to-r ${meta.barGradient} h-2 rounded-full transition-all duration-700" style="width: ${info.score}%"></div>
+              </div>
+              <div class="flex items-center justify-between text-xs font-semibold text-slate-500">
+                <span>答對 ${info.correct} / ${info.total} 題</span>
+                <span>滿分 100</span>
+              </div>
+            </div>
+          `;
+        }
+
+        grid.appendChild(card);
+      });
+    }
+
+    /**
+     * 渲染詳解篩選膠囊列（全部 / 只看錯題 / 各選考科目）
+     */
+    function renderResultFilterBar(activeFilter) {
+      const bar = document.getElementById("resultFilterButtons");
+      bar.innerHTML = "";
+
+      const filters = [
+        { key: "all", label: "全部題目" },
+        { key: "wrong", label: "只看答錯" },
+        ...appState.selectedCategories.map(cat => ({
+          key: `cat_${cat}`,
+          label: `${CATEGORY_META[cat].icon} ${cat}`
+        }))
+      ];
+
+      filters.forEach(f => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.textContent = f.label;
+        const isActive = activeFilter === f.key;
+
+        btn.className = isActive
+          ? "px-3.5 py-1.5 rounded-full bg-slate-800 text-white font-bold shadow-xs cursor-pointer transition"
+          : "px-3.5 py-1.5 rounded-full bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 font-bold cursor-pointer transition";
+
+        btn.onclick = () => {
+          renderResultFilterBar(f.key);
+          renderResultCards(f.key);
+        };
+        bar.appendChild(btn);
+      });
+    }
+
+    /**
+     * 渲染逐題批改詳解卡片
+     */
+    function renderResultCards(filterMode) {
+      const container = document.getElementById("resultCardsContainer");
+      container.innerHTML = "";
+
+      const list = appState.quiz.lastResult.reviewItems.filter(item => {
+        if (filterMode === "wrong") return !item.isCorrect;
+        if (filterMode.startsWith("cat_")) {
+          const targetCat = filterMode.replace("cat_", "");
+          return item.question.category === targetCat;
+        }
+        return true;
+      });
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div class="bg-white rounded-3xl border border-slate-100 p-10 text-center">
+            <div class="text-4xl mb-2">🎉</div>
+            <div class="text-base font-extrabold text-slate-800">太棒了！此篩選條件下沒有任何錯題！</div>
+          </div>
+        `;
+        return;
+      }
+
+      list.forEach(item => {
+        const q = item.question;
+        const catMeta = CATEGORY_META[q.category] || CATEGORY_META["薪資"];
+        const card = document.createElement("div");
+        card.className = `bg-white rounded-3xl border-2 p-6 shadow-xs ${
+          item.isCorrect ? "border-emerald-200/80" : "border-rose-200/80"
+        }`;
+
+        const optionsHtml = Object.entries(q.options).map(([key, text]) => {
+          const isUser = item.userAns.includes(key);
+          const isRight = item.rightAns.includes(key);
+
+          let style = "border-slate-100 bg-slate-50/70 text-slate-600";
+          let badge = "";
+
+          if (isUser && isRight) {
+            style = "border-emerald-400 bg-emerald-50 text-emerald-950 font-bold";
+            badge = `<span class="text-xs font-extrabold text-emerald-700 bg-emerald-200/80 px-2.5 py-0.5 rounded-full">您的答案・正確</span>`;
+          } else if (isRight) {
+            style = "border-emerald-300 bg-emerald-50/60 text-emerald-900 font-bold";
+            badge = `<span class="text-xs font-extrabold text-emerald-700 bg-emerald-100 px-2.5 py-0.5 rounded-full">正確答案</span>`;
+          } else if (isUser) {
+            style = "border-rose-300 bg-rose-50 text-rose-900 font-bold";
+            badge = `<span class="text-xs font-extrabold text-rose-700 bg-rose-200/80 px-2.5 py-0.5 rounded-full">您的選擇</span>`;
+          }
+
+          return `
+            <div class="p-3.5 rounded-2xl border ${style} flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-sm">
+              <div class="flex items-start gap-2.5">
+                <span class="font-black shrink-0">${key}.</span>
+                <span>${escapeHtml(text)}</span>
+              </div>
+              ${badge}
+            </div>
+          `;
+        }).join("");
+
+        card.innerHTML = `
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="px-3 py-1 rounded-full text-xs font-black ${
+                item.isCorrect ? "bg-emerald-100 text-emerald-800" : "bg-rose-100 text-rose-800"
+              }">
+                ${item.isCorrect ? "✅ 答對囉" : "❌ 再確認一下"}
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold ${catMeta.badgeClass}">
+                ${catMeta.icon} ${q.category}
+              </span>
+              <span class="text-xs font-bold text-slate-400">第 ${item.index} 題</span>
+            </div>
+            <div class="text-xs font-semibold text-slate-500">
+              您的作答：<span class="font-extrabold ${item.isCorrect ? 'text-emerald-600' : 'text-rose-600'}">${item.userAns.join(", ")}</span> ｜
+              正解：<span class="font-extrabold text-emerald-600">${item.rightAns.join(", ")}</span>
+            </div>
+          </div>
+
+          <h4 class="font-extrabold text-slate-900 text-base mb-4 leading-relaxed">${escapeHtml(q.question)}</h4>
+
+          <div class="space-y-2 mb-4">${optionsHtml}</div>
+
+          <div class="p-4 rounded-2xl bg-indigo-50/70 border border-indigo-100 text-sm text-slate-700 leading-relaxed">
+            <div class="font-extrabold text-indigo-900 text-xs mb-1">💡 系統操作小撇步</div>
+            <div>${escapeHtml(q.explanation)}</div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    /**
+     * 在背景靜默將分科成績與明細回寫至 Notion（透過設定的 GAS Webhook）
+     */
+    async function sendResultToNotionInBackground() {
+      const statusBox = document.getElementById("recordSaveStatus");
+      const res = appState.quiz.lastResult;
+      const cand = appState.candidate;
+
+      const details = res.reviewItems
+        .map(item => `[${item.question.category}]Q${item.index}:${item.isCorrect ? "對" : "錯"}(選${item.userAns.join("")}/答${item.rightAns.join("")})`)
+        .join(" | ");
+
+      // 符合規格之分科成績 JSON Payload
+      const payload = {
+        company: cand.companyName,
+        name: cand.candidateName,
+        attempt: cand.attemptCount,
+        selectedCategories: [...appState.selectedCategories],
+        scoresByCategory: res.scoresByCategory, // 例如 { "人事": 100, "考勤": 80, "薪資": 50 }，未考為 null
+        overallScore: res.overallScore,
+        submitTime: res.submitTime,
+        details
+      };
+
+      if (!appState.gasUrl) {
+        statusBox.innerHTML = `
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+          <span>本次各科測驗成績已完整記錄！</span>
+        `;
+        return;
+      }
+
+      statusBox.innerHTML = `
+        <span class="w-3.5 h-3.5 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin"></span>
+        <span>正在為您登錄各科學習紀錄...</span>
+      `;
+
+      try {
+        await fetch(appState.gasUrl, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payload)
+        });
+
+        statusBox.innerHTML = `
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+          <span class="text-emerald-700">各科測驗成績已成功登錄完成！</span>
+        `;
+      } catch (err) {
+        statusBox.innerHTML = `
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+          <span>本次分科批改已完成！</span>
+        `;
+      }
+    }
+
+    /**
+     * 一鍵重考（保留公司抬頭、應試人員姓名與勾選的題庫科目，自動累計測驗次數）
+     */
+    function retakeQuiz() {
+      appState.candidate.attemptCount += 1;
+      showToast(`第 ${appState.candidate.attemptCount} 次挑戰開始（保留原勾選科目：${appState.selectedCategories.join("、")}）！`, "info");
+      startNewAttempt();
+    }
+
+    /**
+     * 重選題庫或更換考生返回報到頁
+     */
+    function resetToLogin() {
+      showClientStep("stepLogin");
+      refreshCategoryCardsUI();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function showClientStep(stepId) {
+      ["stepLogin", "stepQuiz", "stepResult"].forEach(id => {
+        document.getElementById(id).classList.toggle("hidden", id !== stepId);
+      });
+    }
+
+    // ==================== 顧問專屬設定中心 (#admin) 功能 ====================
+
+    function updateGeneratedClientUrl() {
+      const gasVal = (document.getElementById("adminGasUrlInput")?.value || "").trim();
+      const passVal = (document.getElementById("adminPassScoreInput")?.value || "80").trim();
+
+      if (gasVal) localStorage.setItem("hr_quiz_gas_url", gasVal);
+      if (passVal) localStorage.setItem("hr_quiz_pass_score", passVal);
+
+      appState.gasUrl = gasVal;
+      appState.passScore = Number(passVal) || 80;
+
+      const baseUrl = window.location.href.split("#")[0].split("?")[0];
+      const urlObj = new URL(baseUrl);
+      if (gasVal) urlObj.searchParams.set("gasUrl", gasVal);
+      if (passVal && passVal !== "80") urlObj.searchParams.set("pass", passVal);
+
+      const outputEl = document.getElementById("generatedClientUrlOutput");
+      if (outputEl) outputEl.value = urlObj.toString();
+    }
+
+    async function testGasConnectionInAdmin() {
+      const gasVal = (document.getElementById("adminGasUrlInput")?.value || "").trim();
+      if (!gasVal) {
+        showToast("請先在下方貼上 Google Apps Script 網址再測試連線！", "warning");
+        return;
+      }
+
+      const btn = document.getElementById("btnTestGasConn");
+      const origText = btn.textContent;
+      btn.textContent = "⏳ 連線讀取中...";
+      btn.disabled = true;
+
+      try {
+        const res = await fetch(gasVal + (gasVal.includes("?") ? "&" : "?") + "_t=" + Date.now());
+        const data = await res.json();
+        if (data && data.status === "success" && Array.isArray(data.questions)) {
+          const hrCount = data.questions.filter(q => (q.category || "").includes("人事")).length;
+          const attCount = data.questions.filter(q => (q.category || "").includes("考勤")).length;
+          const payCount = data.questions.filter(q => (q.category || "").includes("薪資")).length;
+          showToast(`連線成功！共讀取 ${data.questions.length} 題（人事 ${hrCount} 題 / 考勤 ${attCount} 題 / 薪資 ${payCount} 題）`, "success");
+        } else {
+          showToast("連線有回應，但未讀取到有效題目，請檢查 Google 表單 ID 與權限設定。", "warning");
+        }
+      } catch (err) {
+        showToast("無法連線至該網址，請確認 GAS 部署權限是否設為「所有人」。", "warning");
+      } finally {
+        btn.textContent = origText;
+        btn.disabled = false;
+      }
+    }
+
+    function copyClientShareLink() {
+      const urlText = document.getElementById("generatedClientUrlOutput").value;
+      copyRawToClipboard(urlText, "已複製給客戶的純淨測驗連結（不含後台設定）！");
+    }
+
+    function copyGasFullCode() {
+      const codeText = document.getElementById("fullGasCodeBlock").textContent;
+      copyRawToClipboard(codeText, "已複製支援分科計分的完整 GAS 程式碼！");
+    }
+
+    function switchToClientPreview() {
+      window.location.hash = "";
+      if (appState.gasUrl) {
+        fetchQuestionsFromGoogleForm();
+      } else {
+        refreshCategoryCardsUI();
+      }
+    }
+
+    // ==================== 通用工具函式 ====================
+
+    function copyRawToClipboard(text, msg) {
+      const el = document.createElement("textarea");
+      el.value = text;
+      document.body.appendChild(el);
+      el.select();
+      try {
+        document.execCommand("copy");
+        showToast(msg, "success");
+      } catch (e) {
+        showToast("複製失敗，請手動全選複製", "warning");
+      }
+      document.body.removeChild(el);
+    }
+
+    function showToast(message, type = "info") {
+      const container = document.getElementById("toastContainer");
+      const toast = document.createElement("div");
+      const bgMap = {
+        success: "bg-emerald-600 text-white",
+        warning: "bg-amber-500 text-white",
+        info: "bg-indigo-600 text-white"
+      };
+      toast.className = `${bgMap[type] || bgMap.info} px-4 py-3 rounded-2xl shadow-lg text-xs sm:text-sm font-bold pointer-events-auto animate-slide-up`;
+      toast.textContent = message;
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.opacity = "0";
+        toast.style.transition = "opacity 0.3s ease";
+        setTimeout(() => toast.remove(), 300);
+      }, 3200);
+    }
+
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return "";
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+  </script>
+</body>
+</html>
