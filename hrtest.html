@@ -44,7 +44,6 @@
     }
   </script>
   <style>
-    /* 柔和活潑的網格與光暈背景 */
     .client-bg {
       background-color: #f8fafc;
       background-image:
@@ -129,7 +128,7 @@
                 準備好測試您的 HR 系統操作功力了嗎？
               </h2>
               <p class="text-indigo-100 text-sm sm:text-base leading-relaxed">
-                請填寫基本資料並勾選本次要測驗的模組題庫，交卷後將為您<strong>分科獨立計算 100 分制成績</strong>與系統操作小撇步！
+                請填寫基本資料並勾選本次要測驗的模組題庫，交卷後將為您<strong>分科獨立計算 100 分制成績</strong>與錯題操作教學！
               </p>
             </div>
           </div>
@@ -259,13 +258,12 @@
           </div>
         </div>
 
-        <!-- 題目主卡片 -->
+        <!-- 題目主卡片（已移除「實務操作」標籤） -->
         <div class="bg-white rounded-3xl shadow-xl shadow-indigo-100/40 border border-slate-100 p-6 sm:p-8">
           <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
             <div class="flex flex-wrap items-center gap-2">
               <span id="qNumberTag" class="px-3.5 py-1 rounded-full bg-slate-900 text-white text-xs font-black tracking-wide">第 1 題</span>
               <span id="qCategoryTag" class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-800 text-xs font-extrabold">👥 人事</span>
-              <span id="qSubTopicTag" class="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold">實務操作</span>
               <span id="qTypeTag" class="px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold">單選題</span>
             </div>
           </div>
@@ -298,7 +296,7 @@
         </div>
       </section>
 
-      <!-- 步驟 3：即時分科成績與詳解頁 -->
+      <!-- 步驟 3：即時分科成績與錯題教學頁 -->
       <section id="stepResult" class="hidden animate-slide-up space-y-6">
         <!-- 活潑成績揭曉卡片 -->
         <div class="bg-white rounded-3xl shadow-xl shadow-indigo-100/50 border border-slate-100 overflow-hidden">
@@ -359,14 +357,14 @@
           </div>
         </div>
 
-        <!-- 逐題對錯與系統操作小撇步（支援依科目或錯題篩選） -->
+        <!-- 逐題對錯與錯誤題教學影片 -->
         <div class="space-y-4">
           <div class="flex flex-wrap items-center justify-between gap-3 px-1">
             <h3 class="text-lg font-extrabold text-slate-800 flex items-center gap-2">
-              <span>💡 逐題批改與 HR 系統操作小撇步</span>
+              <span>📋 逐題批改與錯題操作教學</span>
             </h3>
             <div id="resultFilterButtons" class="flex flex-wrap items-center gap-1.5 text-xs">
-              <!-- JS 動態生成篩選膠囊（全部 / 只看錯題 / 人事 / 考勤 / 薪資） -->
+              <!-- JS 動態生成篩選膠囊 -->
             </div>
           </div>
 
@@ -386,7 +384,7 @@
 
 
   <!-- =========================================================================
-       核心 JavaScript 邏輯（全數讀取 Google 表單題庫，無內建預設題目）
+       核心 JavaScript 邏輯
        ========================================================================= -->
   <script>
     // ====== 請在此貼上您的 Google Apps Script 網頁應用程式網址 ======
@@ -429,7 +427,7 @@
     const ALL_CATEGORIES = ["人事", "考勤", "薪資"];
 
     /**
-     * 全域應用程式狀態（allQuestions 初始為空陣列，完全由 Google 表單載入）
+     * 全域應用程式狀態（完全由 Google 表單載入題庫）
      */
     const appState = {
       gasUrl: DEFAULT_GAS_URL,
@@ -465,7 +463,7 @@
     }
 
     /**
-     * 開網頁時自動從 Google 表單 GAS 端點抓取最新題目（含人事/考勤/薪資分類）
+     * 開網頁時自動從 Google 表單 GAS 端點抓取最新題目與錯誤回饋影片
      */
     async function fetchQuestionsFromGoogleForm() {
       const loginSec = document.getElementById("stepLogin");
@@ -500,11 +498,11 @@
               ...q,
               id: q.id || idx + 1,
               category: cat,
-              subTopic: q.subTopic || "實務操作"
+              explanation: q.explanation || "",
+              videoUrls: Array.isArray(q.videoUrls) ? q.videoUrls : []
             };
           });
 
-          // 預設自動勾選目前 Google 表單有題目的科目
           const availableCats = ALL_CATEGORIES.filter(cat =>
             appState.allQuestions.some(q => q.category === cat)
           );
@@ -727,8 +725,6 @@
       catTag.textContent = `${catMeta.icon} ${q.category}題庫`;
       catTag.className = `px-3 py-1 rounded-full ${catMeta.badgeClass} text-xs font-extrabold`;
 
-      document.getElementById("qSubTopicTag").textContent = q.subTopic || "實務操作";
-
       const typeTag = document.getElementById("qTypeTag");
       if (q.type === "multiple") {
         typeTag.textContent = "✨ 多選題（可複選多個答案）";
@@ -915,7 +911,7 @@
         badge.textContent = "✨ 表現優秀！可針對未達標模組再加強練習";
       } else {
         banner.className = "p-7 sm:p-9 text-white bg-gradient-to-r from-orange-500 via-amber-500 to-rose-500 relative overflow-hidden";
-        badge.textContent = `💪 再接再厲！建議檢視下方各科錯題小撇步`;
+        badge.textContent = `💪 再接再厲！建議觀看下方錯題教學影片`;
       }
 
       document.getElementById("resultUserHeading").textContent = `${cand.companyName} － ${cand.candidateName}`;
@@ -1025,6 +1021,11 @@
       });
     }
 
+    /**
+     * 渲染逐題批改卡片：
+     * - 答對：不顯示任何意見回饋區塊
+     * - 答錯：顯示 Google 表單「錯誤答案的意見回饋」中的影片與文字說明
+     */
     function renderResultCards(filterMode) {
       const container = document.getElementById("resultCardsContainer");
       container.innerHTML = "";
@@ -1085,6 +1086,30 @@
           `;
         }).join("");
 
+        // 僅在「答錯」時，呈現 Google 表單設定的錯誤意見（教學影片 + 文字說明）
+        let incorrectFeedbackHtml = "";
+        if (!item.isCorrect) {
+          const hasText = Boolean(q.explanation && q.explanation.trim());
+          const videos = Array.isArray(q.videoUrls) ? q.videoUrls.filter(Boolean) : [];
+
+          if (hasText || videos.length > 0) {
+            const videoPlayersHtml = videos.map(rawUrl => buildVideoEmbedHtml(rawUrl)).join("");
+            const textHtml = hasText
+              ? `<div class="text-sm text-slate-700 leading-relaxed whitespace-pre-line">${escapeHtml(q.explanation)}</div>`
+              : "";
+
+            incorrectFeedbackHtml = `
+              <div class="mt-4 p-4 sm:p-5 rounded-2xl bg-rose-50/75 border border-rose-200/80 space-y-3">
+                <div class="font-extrabold text-rose-900 text-xs sm:text-sm flex items-center gap-1.5">
+                  <span>🎬 操作教學與錯誤解析</span>
+                </div>
+                ${textHtml}
+                ${videoPlayersHtml}
+              </div>
+            `;
+          }
+        }
+
         card.innerHTML = `
           <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
             <div class="flex flex-wrap items-center gap-2">
@@ -1106,15 +1131,56 @@
 
           <h4 class="font-extrabold text-slate-900 text-base mb-4 leading-relaxed">${escapeHtml(q.question)}</h4>
 
-          <div class="space-y-2 mb-4">${optionsHtml}</div>
+          <div class="space-y-2">${optionsHtml}</div>
 
-          <div class="p-4 rounded-2xl bg-indigo-50/70 border border-indigo-100 text-sm text-slate-700 leading-relaxed">
-            <div class="font-extrabold text-indigo-900 text-xs mb-1">💡 系統操作小撇步</div>
-            <div>${escapeHtml(q.explanation)}</div>
-          </div>
+          ${incorrectFeedbackHtml}
         `;
         container.appendChild(card);
       });
+    }
+
+    /**
+     * 將 Google 表單回傳的 YouTube 影片網址轉換為可直接在網頁內嵌播放的播放器
+     */
+    function buildVideoEmbedHtml(rawUrl) {
+      const urlStr = String(rawUrl || "").trim();
+      if (!urlStr) return "";
+
+      let ytId = "";
+      const ytMatch = urlStr.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+      if (ytMatch && ytMatch[1]) {
+        ytId = ytMatch[1];
+      }
+
+      if (ytId) {
+        return `
+          <div class="space-y-2">
+            <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-slate-900 border border-slate-200 shadow-xs">
+              <iframe
+                src="https://www.youtube.com/embed/${ytId}"
+                title="HR 系統操作教學影片"
+                class="absolute inset-0 w-full h-full"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+              </iframe>
+            </div>
+            <div class="text-right">
+              <a href="${escapeHtml(urlStr)}" target="_blank" rel="noopener noreferrer"
+                class="inline-flex items-center gap-1 text-xs font-bold text-indigo-600 hover:text-indigo-800">
+                <span>🔗 在 YouTube 新分頁開啟影片</span>
+              </a>
+            </div>
+          </div>
+        `;
+      }
+
+      return `
+        <a href="${escapeHtml(urlStr)}" target="_blank" rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-rose-200 text-rose-700 hover:bg-rose-100/60 text-xs font-extrabold transition">
+          <span>▶️ 點擊觀看操作教學影片</span>
+        </a>
+      `;
     }
 
     async function sendResultToNotionInBackground() {
