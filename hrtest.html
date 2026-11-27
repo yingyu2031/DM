@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HR 系統操作模擬線上測驗</title>
+  <title>鼎新 HR 線上模擬測驗</title>
   <!-- 載入 Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- 載入 Google Fonts: Plus Jakarta Sans & Noto Sans TC -->
@@ -72,7 +72,7 @@
             ✨
           </div>
           <div>
-            <h1 class="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">HR 系統上線實戰演練</h1>
+            <h1 class="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">鼎新 HR 線上模擬測驗</h1>
             <p class="text-xs text-slate-500 hidden sm:block">人事 • 考勤 • 薪資三大模組模擬檢核</p>
           </div>
         </div>
@@ -122,13 +122,13 @@
 
             <div class="relative z-10 max-w-xl">
               <span class="inline-block px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-xs text-white text-xs font-bold tracking-wide mb-3">
-                👋 歡迎參加 HR 系統操作模擬檢核
+                👋 歡迎參加鼎新 HR 模擬測驗
               </span>
               <h2 class="text-2xl sm:text-3xl font-black tracking-tight mb-2.5 leading-snug">
-                準備好測試您的 HR 系統操作功力了嗎？
+                準備好了嗎？
               </h2>
               <p class="text-indigo-100 text-sm sm:text-base leading-relaxed">
-                請填寫基本資料並勾選本次要測驗的模組題庫，交卷後將為您<strong>分科獨立計算 100 分制成績</strong>與錯題操作教學！
+                請填寫基本資料並勾選本次要測驗的模組題庫，交卷後將為您計算成績與錯題操作教學！
               </p>
             </div>
           </div>
@@ -160,7 +160,7 @@
               <div>
                 <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
                   <label class="text-sm font-extrabold text-slate-800 flex items-center gap-1.5">
-                    <span>📚 請勾選本次要測驗的題庫模組（可複選，各科獨立滿分 100 分）</span>
+                    <span>📚 請勾選本次要測驗的題庫模組（可複選）</span>
                     <span class="text-rose-500">*</span>
                   </label>
                   <button type="button" onclick="toggleSelectAllCategories()" id="btnToggleAllCats"
@@ -192,7 +192,7 @@
                       <span id="catCheck_考勤" class="w-6 h-6 rounded-lg bg-orange-500 text-white flex items-center justify-center text-xs font-black shadow-xs transition">✓</span>
                     </div>
                     <div class="font-extrabold text-slate-900 text-base mb-1">考勤管理題庫</div>
-                    <p class="text-xs text-slate-600 leading-relaxed mb-2.5">班別排班、請假特休、加班補休、異常刷卡結算</p>
+                    <p class="text-xs text-slate-600 leading-relaxed mb-2.5">班別排班、請假特休、加班補休、異常考勤處理</p>
                     <span id="catCount_考勤" class="inline-block px-2.5 py-0.5 rounded-full bg-white text-orange-700 text-[11px] font-extrabold border border-orange-200/80">
                       共 0 題
                     </span>
@@ -206,7 +206,7 @@
                       <span id="catCheck_薪資" class="w-6 h-6 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-xs font-black shadow-xs transition">✓</span>
                     </div>
                     <div class="font-extrabold text-slate-900 text-base mb-1">薪資作業題庫</div>
-                    <p class="text-xs text-slate-600 leading-relaxed mb-2.5">薪資項目、考勤拋轉、二代健保代扣、結算關帳</p>
+                    <p class="text-xs text-slate-600 leading-relaxed mb-2.5">薪資項目、薪酬計算、勞健保、補充保費</p>
                     <span id="catCount_薪資" class="inline-block px-2.5 py-0.5 rounded-full bg-white text-emerald-700 text-[11px] font-extrabold border border-emerald-200/80">
                       共 0 題
                     </span>
@@ -219,7 +219,7 @@
                 <div class="font-bold text-slate-700" id="selectedSummaryText">
                   已選擇：<span class="text-indigo-600">人事</span>、<span class="text-orange-600">考勤</span>、<span class="text-emerald-600">薪資</span>（合計 0 題）
                 </div>
-                <div class="text-slate-500 font-medium">交卷立即顯示各科獨立成績</div>
+                <div class="text-slate-500 font-medium">交卷立即顯示成績</div>
               </div>
 
               <div>
@@ -329,7 +329,7 @@
           <div class="p-6 sm:p-8 bg-white border-b border-slate-100">
             <div class="flex items-center justify-between mb-4">
               <h3 class="text-base font-extrabold text-slate-800 flex items-center gap-2">
-                <span>📊 各模組分科成績單（各科滿分 100 分）</span>
+                <span>📊 各模組成績單（滿分 100 分）</span>
               </h3>
               <span class="text-xs font-semibold text-slate-400" id="passThresholdHint">及格標準：80 分</span>
             </div>
@@ -343,7 +343,7 @@
           <div class="p-5 sm:p-6 bg-slate-50/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div class="flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-600" id="recordSaveStatus">
               <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-              <span>分科測驗紀錄已自動完成登錄！</span>
+              <span>測驗紀錄已自動完成登錄！</span>
             </div>
 
             <div class="flex flex-wrap items-center gap-3">
@@ -378,7 +378,7 @@
 
     <!-- 客戶端極簡頁尾 -->
     <footer class="py-6 text-center text-xs text-slate-400">
-      HR 系統輔導團隊 ｜ 客戶上線前人事・考勤・薪資模擬檢核平台
+     鼎新 HR 輔導團隊 ｜ 客戶上線前人事・考勤・薪資模擬測驗平台
     </footer>
   </div>
 
